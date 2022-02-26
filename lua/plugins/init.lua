@@ -48,6 +48,26 @@ local plugins = {
 		},
 	},
 	{
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+		config = conf("treesitter"),
+		requires = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			"RRethy/nvim-treesitter-textsubjects",
+			"romgrk/nvim-treesitter-context",
+			"theHamsta/nvim-treesitter-pairs",
+			"windwp/nvim-ts-autotag",
+			{
+				"JoosepAlviste/nvim-ts-context-commentstring",
+				requires = {
+					"tpope/vim-commentary",
+				},
+			},
+			"p00f/nvim-ts-rainbow",
+			"lewis6991/spellsitter.nvim",
+		},
+	},
+	{
 		"windwp/nvim-autopairs",
 		config = conf("autopairs"),
 	},

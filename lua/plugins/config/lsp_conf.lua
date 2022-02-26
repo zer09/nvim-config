@@ -13,7 +13,7 @@ local on_attach = function(_, bufnr)
 
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	bmap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
+	-- bmap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 	bmap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 	bmap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
 	bmap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")

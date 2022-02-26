@@ -33,3 +33,6 @@ map("n", "<Leader>fS", ":wa<CR>")
 map("n", "<Leader>fy", ":let @+ = expand('%:p')<CR>", { silent = true })
 -- show pwd
 map("n", "<Leader>fyy", ":echo expand('%:p:h')<CR>", { silent = true })
+
+-- Move forward on insert mode
+map("i", "<C-f>", "<Right>")
