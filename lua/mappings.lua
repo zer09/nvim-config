@@ -17,7 +17,7 @@ map("n", "<Leader>sc", ":noh<CR>")
 
 -- Windows and Buffers
 map("n", "<Leader>wv", ":vsplit<CR>")
-map("n", "<Leader>wh", ":split<CR>")
+map("n", "<Leader>ws", ":split<CR>")
 
 -- Close the windown but keep the buffer
 map("n", "<Leader>wd", "<C-w>c")

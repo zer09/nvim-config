@@ -17,6 +17,9 @@ set.softtabstop = 2
 set.shiftwidth = 2
 set.smartindent = true
 set.wrap = false
+set.splitbelow = true
+set.splitright = true
+set.inccommand = "split"
 
 -- Keep 7 lines visible above and below cursor when scrolling
 set.scrolloff = 7
