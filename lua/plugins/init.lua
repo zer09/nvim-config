@@ -31,6 +31,10 @@ local plugins = {
 			"hrsh7th/cmp-nvim-lsp",
 		},
 	},
+	{
+		"windwp/nvim-autopairs",
+		config = conf("autopairs"),
+	},
 }
 
 local packer = require("packer")
