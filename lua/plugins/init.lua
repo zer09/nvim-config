@@ -71,6 +71,10 @@ local plugins = {
 		"windwp/nvim-autopairs",
 		config = conf("autopairs"),
 	},
+	{
+		"t9md/vim-choosewin",
+		config = conf("choosewin"),
+	},
 }
 
 local packer = require("packer")
