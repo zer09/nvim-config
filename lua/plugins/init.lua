@@ -8,6 +8,10 @@ local plugins = {
 		"nathom/filetype.nvim",
 	},
 	{
+		"folke/tokyonight.nvim",
+		config = conf("tokyonight"),
+	},
+	{
 		"nvim-lualine/lualine.nvim",
 		config = conf("lualine"),
 	},

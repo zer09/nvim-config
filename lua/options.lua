@@ -22,4 +22,10 @@ set.wrap = false
 set.scrolloff = 7
 
 -- Prevent add new comment when creating new line
-vim.cmd("autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o")
+vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
+-- highlight on yank
+vim.cmd([[au TextYankPost * lua vim.highlight.on_yank {}]])
+vim.cmd([[
+  autocmd InsertLeave,WinEnter * set cursorline
+  autocmd InsertEnter,WinLeave * set nocursorline
+]])
