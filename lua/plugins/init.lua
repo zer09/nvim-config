@@ -7,6 +7,7 @@ local plugins = {
 		"lewis6991/impatient.nvim",
 		"nathom/filetype.nvim",
 		"ggandor/lightspeed.nvim",
+		"kyazdani42/nvim-web-devicons",
 	},
 	{
 		"folke/tokyonight.nvim",
@@ -81,6 +82,10 @@ local plugins = {
 	{
 		"t9md/vim-choosewin",
 		config = conf("choosewin"),
+	},
+	{
+		"kyazdani42/nvim-tree.lua",
+		config = conf("tree"),
 	},
 }
 
