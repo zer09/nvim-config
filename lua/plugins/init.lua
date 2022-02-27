@@ -17,6 +17,12 @@ local plugins = {
 		config = conf("lualine"),
 	},
 	{
+		"j-hui/fidget.nvim",
+		config = function()
+			require("fidget")
+		end,
+	},
+	{
 		"neovim/nvim-lspconfig",
 		config = conf("lsp"),
 		requires = {
