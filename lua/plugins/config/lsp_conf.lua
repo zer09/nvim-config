@@ -47,6 +47,13 @@ local servers = {
 			},
 		},
 	},
+	jsonls = {
+		settings = {
+			json = {
+				schemas = require("schemastore").json.schemas(),
+			},
+		},
+	},
 }
 
 for name, _ in pairs(servers) do

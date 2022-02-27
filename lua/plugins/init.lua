@@ -8,6 +8,7 @@ local plugins = {
 		"nathom/filetype.nvim",
 		"ggandor/lightspeed.nvim",
 		"kyazdani42/nvim-web-devicons",
+		"b0o/schemastore.nvim",
 	},
 	{
 		"folke/tokyonight.nvim",
