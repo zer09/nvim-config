@@ -19,7 +19,7 @@ local plugins = {
 	{
 		"j-hui/fidget.nvim",
 		config = function()
-			require("fidget")
+			require("fidget").setup()
 		end,
 	},
 	{
