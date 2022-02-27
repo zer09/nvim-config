@@ -88,6 +88,11 @@ local plugins = {
 		"kyazdani42/nvim-tree.lua",
 		config = conf("tree"),
 	},
+	{
+		"TimUntersberger/neogit",
+		config = conf("neogit"),
+		requires = { "nvim-lua/plenary.nvim" },
+	},
 }
 
 local packer = require("packer")
