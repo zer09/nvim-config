@@ -6,7 +6,9 @@
 -- https://oroques.dev/notes/neovim-init/
 
 require("impatient")
-require("plugins.config.filetype_conf")
+-- Do not source the default filetype.vim
+vim.g.did_load_filetypes = 1
+
 require("mappings")
 require("options")
 require("plugins")
