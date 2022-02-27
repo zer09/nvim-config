@@ -6,6 +6,7 @@ local plugins = {
 	{
 		"lewis6991/impatient.nvim",
 		"nathom/filetype.nvim",
+		"ggandor/lightspeed.nvim",
 	},
 	{
 		"folke/tokyonight.nvim",
