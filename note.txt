@@ -1,4 +1,4 @@
-install stylua-bin selene python virtualenv
+install stylua-bin selene python virtualenv fd
 
 search and replace -- not installed spectre
 ray-x/navigator.lua

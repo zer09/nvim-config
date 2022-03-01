@@ -93,6 +93,18 @@ local plugins = {
 		config = conf("neogit"),
 		requires = { "nvim-lua/plenary.nvim" },
 	},
+	{
+		"nvim-telescope/telescope.nvim",
+		config = require("plugins.config.telescope_conf"),
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-file-browser.nvim",
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				run = "make",
+			},
+		},
+	},
 }
 
 local packer = require("packer")

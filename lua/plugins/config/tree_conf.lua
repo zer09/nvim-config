@@ -40,7 +40,7 @@ local vsplit_preview = function()
 	view.focus()
 end
 
-require("helper").map("n", "<Leader>ff", ":NvimTreeToggle<CR>")
+-- require("helper").map("n", "<Leader>fft", ":NvimTreeToggle<CR>")
 
 require("nvim-tree").setup({
 	auto_close = true,
