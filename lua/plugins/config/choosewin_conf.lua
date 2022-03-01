@@ -8,4 +8,4 @@ vim.g.choosewin_return_on_single_win = 1
 vim.g.choosewin_blink_on_land = 0
 
 -- Keymap to activate the choosewin.
-vim.cmd([[nmap - <Plug>(choosewin)]])
+-- vim.cmd([[nmap - <Plug>(choosewin)]])

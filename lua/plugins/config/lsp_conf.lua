@@ -1,5 +1,3 @@
-local on_attach = require("mappings").lsp_on_attach
-
 local lsp_installer = require("nvim-lsp-installer")
 local servers = {
 	sumneko_lua = {
@@ -40,6 +38,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
+local on_attach = require("mappings").lsp_on_attach
 lsp_installer.on_server_ready(function(server)
 	local config = servers[server.name] or {}
 	config.capabilities = capabilities
