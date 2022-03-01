@@ -1,7 +1,3 @@
-local function conf(name)
-	return require(string.format("plugins.config.%s_conf", name))
-end
-
 local plugins = {
 	{
 		"lewis6991/impatient.nvim",
@@ -12,35 +8,24 @@ local plugins = {
 	},
 	{
 		"folke/tokyonight.nvim",
-		config = conf("tokyonight"),
 	},
 	{
 		"nvim-lualine/lualine.nvim",
-		config = conf("lualine"),
-	},
-	{
-		"j-hui/fidget.nvim",
-		config = function()
-			require("fidget").setup()
-		end,
 	},
 	{
 		"neovim/nvim-lspconfig",
-		config = conf("lsp"),
 		requires = {
 			"williamboman/nvim-lsp-installer",
 		},
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		config = conf("null_ls"),
 		requires = {
 			"nvim-lua/plenary.nvim",
 		},
 	},
 	{
 		"hrsh7th/nvim-cmp",
-		config = conf("cmp"),
 		requires = {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-nvim-lsp",
@@ -59,7 +44,6 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
-		config = conf("treesitter"),
 		requires = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
 			"RRethy/nvim-treesitter-textsubjects",
@@ -78,20 +62,16 @@ local plugins = {
 	},
 	{
 		"windwp/nvim-autopairs",
-		config = conf("autopairs"),
 	},
 	{
 		"t9md/vim-choosewin",
-		config = conf("choosewin"),
 	},
 	{
 		"TimUntersberger/neogit",
-		config = conf("neogit"),
 		requires = { "nvim-lua/plenary.nvim" },
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		config = require("plugins.config.telescope_conf"),
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-file-browser.nvim",
@@ -107,7 +87,7 @@ local packer = require("packer")
 
 packer.init({
 	-- Move to lua dir so impatient.nvim can cache it
-	compile_path = vim.fn.stdpath("config") .. "/plugin/packer_compiled.lua",
+	-- compile_path = vim.fn.stdpath("config") .. "/plugin/packer_compiled.lua",
 	display = {
 		open_fn = function()
 			return require("packer.util").float({ border = "rounded" })

@@ -11,12 +11,12 @@ vim.g.did_load_filetypes = 1
 
 require("cmds")
 require("options")
-
-local mappings = require("mappings")
-mappings.standard()
+require("plugins")
 
 -- comment this if packer is not installed
-require("plugins")
+require("plugins.options")
+local mappings = require("mappings")
+mappings.standard()
 mappings.telescope()
 mappings.neogit()
 mappings.choosewin()
