@@ -1,6 +1,6 @@
 local M = {}
 
-local map = function(mode, key, cmd, opts, defaults)
+local function map(mode, key, cmd, opts, defaults)
 	opts = vim.tbl_deep_extend("force", { silent = true }, defaults or {}, opts or {})
 
 	if opts.buffer ~= nil then

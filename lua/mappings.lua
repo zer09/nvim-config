@@ -7,7 +7,7 @@ vim.g.mapleader = " "
 
 local M = {}
 
-M.standard = function()
+function M.standard()
 	-- escape sequence
 	inoremap(",.", "<Esc>")
 
@@ -45,28 +45,28 @@ M.standard = function()
 	inoremap("<C-f>", "<Right>")
 end
 
-M.telescope = function()
+function M.telescope()
 	-- Telescope mappings
 	nnoremap("<Leader>tp", ":Telescope fd<CR>")
 	nnoremap("<Leader>tt", ":Telescope file_browser<CR>")
 	nnoremap("<Leader>bb", ":Telescope buffers<CR>")
-	nnoremap("<Leader>fg", ":Telescope live_grep<CR>")
-	nnoremap("<Leader>fh", ":Telescope help_tags<CR>")
-	nnoremap("<Leader>fm", ":Telescope keymaps<CR>")
+	nnoremap("<Leader>ts", ":Telescope live_grep<CR>")
+	nnoremap("<Leader>th", ":Telescope help_tags<CR>")
+	nnoremap("<Leader>tm", ":Telescope keymaps<CR>")
 end
 
-M.neogit = function()
+function M.neogit()
 	-- neogit mappings
 	nnoremap("<Leader>gg", ":Neogit<CR>")
 end
 
-M.choosewin = function()
+function M.choosewin()
 	-- Keymap to activate the choosewin.
 	nmap("-", "<Plug>(choosewin)")
 end
 
 -- will be used for lsp lsp_on_attach
-M.lsp_on_attach = function(_, bufnr)
+function M.lsp_on_attach(_, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -115,10 +115,9 @@ M.treesitter = {
 	},
 }
 
-local telescope_actions = require("telescope.actions")
 M.telescope_edfault_mappings = {
 	i = {
-		["<esc>"] = telescope_actions.close,
+		["<esc>"] = require("telescope.actions").close,
 		["<C-u>"] = false,
 	},
 }
