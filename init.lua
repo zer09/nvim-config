@@ -5,15 +5,17 @@
 -- https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/
 -- https://oroques.dev/notes/neovim-init/
 
-require("impatient")
+require("impatient") -- comment this during install
 -- Do not source the default filetype.vim
 vim.g.did_load_filetypes = 1
 
-local mappings = require("mappings")
-mappings.activateMappings()
-
 require("cmds")
 require("options")
-require("plugins")
 
-mappings.activatePluginMappigs()
+local mappings = require("mappings")
+mappings.standard()
+
+-- comment this if packer is not installed
+require("plugins")
+mappings.telescope()
+mappings.neogit()

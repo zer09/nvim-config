@@ -6,7 +6,7 @@ vim.g.mapleader = " "
 
 local M = {}
 
-M.activateMappings = function()
+M.standard = function()
 	-- escape sequence
 	map("i", ",.", "<Esc>")
 
@@ -42,7 +42,7 @@ M.activateMappings = function()
 	map("i", "<C-f>", "<Right>")
 end
 
-M.activatePluginMappigs = function()
+M.telescope = function()
 	-- Telescope mappings
 	map("n", "<Leader>tp", ":Telescope fd<CR>")
 	map("n", "<Leader>tt", ":Telescope file_browser<CR>")
@@ -50,7 +50,9 @@ M.activatePluginMappigs = function()
 	map("n", "<Leader>fg", ":Telescope live_grep<CR>")
 	map("n", "<Leader>fh", ":Telescope help_tags<CR>")
 	map("n", "<Leader>fm", ":Telescope keymaps<CR>")
+end
 
+M.neogit = function()
 	-- neogit mappings
 	map("n", "<Leader>gg", ":Neogit<CR>")
 end
