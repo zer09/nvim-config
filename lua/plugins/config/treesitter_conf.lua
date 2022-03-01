@@ -1,3 +1,5 @@
+local mappings = require("mappings")
+
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
 		"bash",
@@ -29,29 +31,17 @@ require("nvim-treesitter.configs").setup({
 			enable = true,
 			-- Automatically jump forward to textobj, similar to targets.vim
 			lookahead = true,
-			keymaps = {
-				-- You can use the capture groups defined in textobjects.scm
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["ac"] = "@class.outer",
-				["ic"] = "@class.inner",
-			},
+			keymaps = mappings.treesitter.textobjects.select,
 		},
 		lsp_interop = {
 			enable = true,
-			peek_definition_code = {
-				["gD"] = "@function.outer",
-			},
+			peek_definition_code = mappings.treesitter.textobjects.lsp_interop.peek_definition_code,
 		},
 	},
 	textsubjects = {
 		enable = true,
 		prev_selection = ",", -- (Optional) keymap to select the previous selection
-		keymaps = {
-			["."] = "textsubjects-smart",
-			[";"] = "textsubjects-container-outer",
-			["i;"] = "textsubjects-container-inner",
-		},
+		keymaps = mappings.treesitter.textsubjects,
 	},
 	rainbow = {
 		enable = true,
@@ -59,9 +49,7 @@ require("nvim-treesitter.configs").setup({
 	},
 	pairs = {
 		enable = true,
-		keymaps = {
-			goto_partner = "%",
-		},
+		keymaps = mappings.treesitter.pairs,
 	},
 	autotag = {
 		enable = true,

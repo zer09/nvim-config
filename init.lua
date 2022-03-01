@@ -9,6 +9,11 @@ require("impatient")
 -- Do not source the default filetype.vim
 vim.g.did_load_filetypes = 1
 
-require("mappings")
+local mappings = require("mappings")
+mappings.activateMappings()
+
+require("cmds")
 require("options")
 require("plugins")
+
+mappings.activatePluginMappigs()
