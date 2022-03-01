@@ -85,10 +85,6 @@ local plugins = {
 		config = conf("choosewin"),
 	},
 	{
-		"kyazdani42/nvim-tree.lua",
-		config = conf("tree"),
-	},
-	{
 		"TimUntersberger/neogit",
 		config = conf("neogit"),
 		requires = { "nvim-lua/plenary.nvim" },
