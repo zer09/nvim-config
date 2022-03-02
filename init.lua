@@ -11,7 +11,11 @@ vim.g.did_load_filetypes = 1
 
 require("cmds")
 require("options")
-require("plugins")
+
+-- no need to load this immediately, since we have packer_compiled
+vim.defer_fn(function()
+	require("plugins")
+end, 0)
 
 -- comment this if packer is not installed
 require("plugins.options")
