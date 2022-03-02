@@ -15,5 +15,12 @@ require("lualine").setup({
 				end,
 			},
 		},
+		lualine_x = {
+			"encoding",
+			{
+				"filetype",
+				icon_only = true,
+			},
+		},
 	},
 })
