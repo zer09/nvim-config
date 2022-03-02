@@ -57,7 +57,6 @@ local plugins = {
 				},
 			},
 			"p00f/nvim-ts-rainbow",
-			"lewis6991/spellsitter.nvim",
 		},
 	},
 	{
