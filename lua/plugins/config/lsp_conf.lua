@@ -1,5 +1,14 @@
 local lsp_installer = require("nvim-lsp-installer")
 local servers = {
+	angularls = {},
+	bashls = {},
+	cssls = {},
+	cssmodules_ls = {},
+	eslint = {},
+	html = {},
+	sqls = {},
+	tsserver = {},
+	yamlls = {},
 	sumneko_lua = {
 		settings = {
 			Lua = {
