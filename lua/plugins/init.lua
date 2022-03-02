@@ -2,9 +2,11 @@ local plugins = {
 	{
 		"lewis6991/impatient.nvim",
 		"nathom/filetype.nvim",
+		"nvim-lua/plenary.nvim",
 		"ggandor/lightspeed.nvim",
 		"kyazdani42/nvim-web-devicons",
 		"b0o/schemastore.nvim",
+		"lewis6991/gitsigns.nvim",
 	},
 	{
 		"folke/tokyonight.nvim",
@@ -20,9 +22,6 @@ local plugins = {
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		requires = {
-			"nvim-lua/plenary.nvim",
-		},
 	},
 	{
 		"hrsh7th/nvim-cmp",
@@ -67,12 +66,10 @@ local plugins = {
 	},
 	{
 		"TimUntersberger/neogit",
-		requires = { "nvim-lua/plenary.nvim" },
 	},
 	{
 		"nvim-telescope/telescope.nvim",
 		requires = {
-			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-file-browser.nvim",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
