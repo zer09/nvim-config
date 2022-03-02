@@ -12,3 +12,5 @@ vim.cmd([[
 
 -- format on save
 -- vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 100)]])
+
+vim.cmd([[autocmd FileType NeogitCommitMessage nmap <buffer>cc :wq<CR>]])
