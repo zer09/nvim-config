@@ -9,8 +9,10 @@ local plugins = {
 		"lewis6991/gitsigns.nvim",
 	},
 	{
-		-- "folke/tokyonight.nvim",
+		"folke/tokyonight.nvim",
 		"marko-cerovac/material.nvim",
+		"mhartington/oceanic-next",
+		"RRethy/nvim-base16",
 	},
 	{
 		"nvim-lualine/lualine.nvim",

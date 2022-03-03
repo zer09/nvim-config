@@ -1,5 +1,6 @@
 local set = vim.opt
 
+set.syntax = "on"
 set.relativenumber = true
 set.numberwidth = 3
 set.mouse = "a"
@@ -21,4 +22,4 @@ set.splitbelow = true
 set.splitright = true
 set.inccommand = "split"
 set.scrolloff = 7
-set.signcolumn = "auto:1-9"
+set.signcolumn = "auto:1-2"

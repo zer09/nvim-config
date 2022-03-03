@@ -14,4 +14,7 @@ conf("telescope")
 conf("gitsign")
 
 -- conf("tokyonight")
-conf("material")
+-- conf("material")
+-- conf("oceanic_next")
+
+vim.cmd([[colorscheme base16-solarized-dark]])
