@@ -22,4 +22,4 @@ set.splitbelow = true
 set.splitright = true
 set.inccommand = "split"
 set.scrolloff = 7
-set.signcolumn = "auto:1-2"
+set.signcolumn = "yes"
