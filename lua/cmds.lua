@@ -14,3 +14,21 @@ vim.cmd([[
 -- vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 100)]])
 
 vim.cmd([[autocmd FileType NeogitCommitMessage nmap <buffer>cc :wq<CR>]])
+
+-- function TurnOffCaps()
+-- 	local _, _, caps_state = vim.fn.system("xset -q"):find("00: Caps Lock:%s+(%a+)")
+-- 	if caps_state == "on" then
+-- 		vim.fn.system("xdotool key Caps_Lock")
+-- 	end
+-- end
+
+vim.cmd([[
+function TurnOffCaps()
+  let capsState = matchstr(system('xset -q'), '00: Caps Lock:\s\+\zs\(on\|off\)\ze')
+  if capsState == 'on'
+    silent! execute ':!xdotool key Caps_Lock'
+  endif
+endfunction
+
+au InsertLeave * call TurnOffCaps()
+]])
