@@ -7,7 +7,6 @@ null_ls.setup({
 		-- null_ls.builtins.formatting.fixjson,
 		null_ls.builtins.formatting.prettierd,
 		null_ls.builtins.formatting.shfmt,
-		null_ls.builtins.formatting.sqlformat,
 	},
 	on_attach = function(client)
 		if client.resolved_capabilities.document_formatting then
