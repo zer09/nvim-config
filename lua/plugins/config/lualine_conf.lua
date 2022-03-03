@@ -1,6 +1,7 @@
 require("lualine").setup({
 	options = {
-		theme = "tokyonight",
+		theme = "material",
+		-- theme = "tokyonight",
 		component_separators = "|",
 		section_separators = "",
 	},
