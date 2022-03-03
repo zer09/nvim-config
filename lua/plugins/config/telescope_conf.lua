@@ -4,7 +4,7 @@ telescope.setup({
 	defaults = {
 		prompt_prefix = "❯ ",
 		selection_caret = "❯ ",
-		file_ignore_patterns = { "node_modules/.*", "%.env" },
+		file_ignore_patterns = { "node_modules/.*", "%.env", "yarn.lock", "package-lock.json" },
 		mappings = require("mappings").telescope_edfault_mappings,
 	},
 	extensions = {
