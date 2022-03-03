@@ -66,11 +66,7 @@ function M.choosewin()
 end
 
 -- will be used for lsp lsp_on_attach
-function M.lsp_on_attach(client, bufnr)
-	-- Disabled lsp formatting
-	client.resolved_capabilities.document_formatting = false
-	client.resolved_capabilities.document_range_formatting = false
-
+function M.lsp_on_attach(bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
