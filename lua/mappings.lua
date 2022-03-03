@@ -2,6 +2,7 @@ local helper = require("helper")
 local nmap = helper.nmap
 local nnoremap = helper.nnoremap
 local inoremap = helper.inoremap
+local vnoremap = helper.vnoremap
 
 vim.g.mapleader = " "
 
@@ -43,6 +44,30 @@ function M.standard()
 
 	-- Move forward on insert mode
 	inoremap("<C-f>", "<Right>")
+
+	-- on search dont lose the cursor
+	nnoremap("n", "nzzzv")
+	nnoremap("N", "Nzzzv")
+
+	-- dont lose cursor on join lines
+	nnoremap("J", "mzJ`z")
+
+	-- visual move
+	vnoremap("J", ":m '>+1<CR>gv=gv")
+	vnoremap("K", ":m '<-2<CR>gv=gv")
+
+	-- break undo sequence on every symbols
+	local str = [[!@#$%^&*()+_-=}{[]|:;"/?.><,`~ ]]
+	for i = 1, #str do
+		local s = str:sub(i, i)
+		inoremap(s, string.format("%s<C-g>u", s))
+	end
+
+	-- big jumps C-o C-i exact target
+	vim.cmd([[
+	nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
+	nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
+	]])
 end
 
 function M.telescope()
