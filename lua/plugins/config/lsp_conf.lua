@@ -69,6 +69,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
+local aerial = require("aerial")
 local on_attach = require("mappings").lsp_on_attach
 lsp_installer.on_server_ready(function(server)
 	local config = servers[server.name] or {}
@@ -79,6 +80,7 @@ lsp_installer.on_server_ready(function(server)
 		client.resolved_capabilities.document_range_formatting = false
 
 		on_attach(bufnr)
+		aerial.on_attach(client, bufnr)
 	end
 	server:setup(config)
 end)

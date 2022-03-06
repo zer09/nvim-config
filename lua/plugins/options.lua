@@ -12,6 +12,7 @@ conf("choosewin")
 conf("neogit")
 conf("telescope")
 conf("gitsign")
+conf("aerial")
 
 -- conf("tokyonight")
 -- conf("material")

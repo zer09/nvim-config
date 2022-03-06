@@ -7,6 +7,7 @@ local plugins = {
 		"kyazdani42/nvim-web-devicons",
 		"b0o/schemastore.nvim",
 		"lewis6991/gitsigns.nvim",
+		"stevearc/aerial.nvim",
 	},
 	{
 		"folke/tokyonight.nvim",
