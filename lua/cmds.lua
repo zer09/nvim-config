@@ -32,3 +32,16 @@ endfunction
 
 au InsertLeave * call TurnOffCaps()
 ]])
+
+vim.cmd([[
+""
+" Will remove the trailing whitespace
+fun! TrimWhitespace()
+  let l:save = winsaveview()
+  keeppatterns %s/\s\+$//e
+  call winrestview(l:save)
+endfun
+
+" Remove whitespaces on save
+autocmd BufWritePre * :call TrimWhitespace()
+]])
