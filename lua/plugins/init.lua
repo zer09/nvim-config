@@ -8,6 +8,7 @@ local plugins = {
 		"b0o/schemastore.nvim",
 		"lewis6991/gitsigns.nvim",
 		"stevearc/aerial.nvim",
+		"lambdalisue/suda.vim",
 	},
 	{
 		"folke/tokyonight.nvim",
