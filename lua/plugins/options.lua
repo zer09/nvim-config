@@ -19,3 +19,5 @@ conf("aerial")
 -- conf("oceanic_next")
 
 vim.cmd([[colorscheme base16-solarized-dark]])
+-- vim.cmd([[colorscheme base16-monokai]])
+-- vim.cmd([[colorscheme base16-tomorrow]])

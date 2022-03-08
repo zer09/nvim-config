@@ -90,6 +90,12 @@ function M.choosewin()
 	nmap("-", "<Plug>(choosewin)")
 end
 
+function M.theme()
+	nnoremap("<Leader>t1", "<cmd>lua vim.cmd('colorscheme base16-solarized-dark')<CR>")
+	nnoremap("<Leader>t2", "<cmd>lua vim.cmd('colorscheme base16-monokai')<CR>")
+	nnoremap("<Leader>t3", "<cmd>lua vim.cmd('colorscheme base16-tomorrow')<CR>")
+end
+
 -- will be used for lsp lsp_on_attach
 function M.lsp_on_attach(bufnr)
 	-- Enable completion triggered by <c-x><c-o>
