@@ -101,6 +101,11 @@ function M.lsp_on_attach(bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
+	nnoremap("<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>")
+	nnoremap("gp", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+	nnoremap("gn", "<cmd>lua vim.diagnostic.goto_next()<CR>")
+	nnoremap("<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
+
 	local opts = { buffer = bufnr }
 
 	-- Mappings.
