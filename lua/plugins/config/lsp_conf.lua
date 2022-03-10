@@ -1,6 +1,10 @@
 local lsp_installer = require("nvim-lsp-installer")
+local root_pattern = require("lspconfig.util").root_pattern
+
 local servers = {
-	angularls = {},
+	angularls = {
+		root_dir = root_pattern("angular.json"),
+	},
 	bashls = {},
 	cssls = {},
 	cssmodules_ls = {},
