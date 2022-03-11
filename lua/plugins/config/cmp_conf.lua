@@ -9,16 +9,28 @@ local lspkind = require("lspkind")
 -- nvim-cmp setup
 local cmp = require("cmp")
 cmp.setup({
+	completion = {
+		keyword_length = 3,
+	},
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
 		end,
 	},
-	formatting = { format = lspkind.cmp_format({
-		mode = "symbol_text",
-		preset = "codicons",
-		maxwidth = 50,
-	}) },
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = "symbol_text",
+			preset = "codicons",
+			maxwidth = 50,
+			menu = {
+				buffer = "[BUF]",
+				nvim_lsp = "[LSP]",
+				nvim_lua = "[API]",
+				path = "[PATH]",
+				luasnip = "[SNIP]",
+			},
+		}),
+	},
 	experimental = {
 		native_menu = false,
 		ghost_text = true,
