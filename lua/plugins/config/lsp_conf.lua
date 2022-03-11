@@ -1,5 +1,5 @@
-local lsp_installer = require("nvim-lsp-installer")
 local root_pattern = require("lspconfig.util").root_pattern
+local lsp_installer = require("nvim-lsp-installer")
 
 local servers = {
 	angularls = {
@@ -46,6 +46,27 @@ for name, _ in pairs(servers) do
 	end
 end
 
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+
+local aerial = require("aerial")
+local on_attach = require("mappings").lsp_on_attach
+lsp_installer.on_server_ready(function(server)
+	local config = servers[server.name] or {}
+	config.capabilities = capabilities
+	config.on_attach = function(client, bufnr)
+		-- Disabled lsp formatting
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
+
+		on_attach(bufnr)
+		aerial.on_attach(client, bufnr)
+	end
+	server:setup(config)
+end)
+
 -- vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]])
 vim.cmd([[autocmd! ColorScheme * highlight FloatBorder guifg=grey]])
 
@@ -67,27 +88,6 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 	opts.border = opts.border or border
 	return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
-
--- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-
-local aerial = require("aerial")
-local on_attach = require("mappings").lsp_on_attach
-lsp_installer.on_server_ready(function(server)
-	local config = servers[server.name] or {}
-	config.capabilities = capabilities
-	config.on_attach = function(client, bufnr)
-		-- Disabled lsp formatting
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
-
-		on_attach(bufnr)
-		aerial.on_attach(client, bufnr)
-	end
-	server:setup(config)
-end)
 
 vim.diagnostic.config({
 	virtual_text = false,
