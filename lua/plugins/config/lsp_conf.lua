@@ -10,6 +10,7 @@ local servers = {
 	cssmodules_ls = {},
 	eslint = {},
 	html = {},
+	-- sqlls = {},
 	sqls = {
 		cmd = { "sqls", "--config", vim.loop.cwd() .. "/sqls.yml" },
 	},
@@ -69,8 +70,12 @@ lsp_installer.on_server_ready(function(server)
 	server:setup(config)
 end)
 
--- vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]])
-vim.cmd([[autocmd! ColorScheme * highlight FloatBorder guifg=grey]])
+-- Show diagnostics on floating window
+local colaug = vim.api.nvim_create_augroup("colaug", { clear = true })
+vim.api.nvim_create_autocmd("InsertLeave", {
+	group = colaug,
+	command = "highlight FloatBorder guifg=grey",
+})
 
 local border = {
 	{ "🭽", "FloatBorder" },

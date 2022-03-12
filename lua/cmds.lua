@@ -1,47 +1,61 @@
+local comaug = vim.api.nvim_create_augroup("comaug", { clear = true })
+
 -- Prevent add new comment when creating new line
-vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
+vim.api.nvim_create_autocmd("FileType", {
+	group = comaug,
+	command = "setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
+})
 
 -- highlight on yank
-vim.cmd([[au TextYankPost * lua vim.highlight.on_yank {}]])
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = comaug,
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
 
 -- remove the cursorline if the buffer is not in focus
-vim.cmd([[
-  autocmd InsertLeave,WinEnter * set cursorline
-  autocmd InsertEnter,WinLeave * set nocursorline
-]])
+vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
+	group = comaug,
+	callback = function()
+		vim.opt.cursorline = true
+	end,
+})
 
--- format on save
--- vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 100)]])
+vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
+	group = comaug,
+	callback = function()
+		vim.opt.cursorline = false
+	end,
+})
 
-vim.cmd([[autocmd FileType NeogitCommitMessage nmap <buffer>cc :wq<CR>]])
+-- TurnOffCaps on InsertLeave
+vim.api.nvim_create_autocmd("InsertLeave", {
+	group = comaug,
+	callback = function()
+		local _, _, caps_state = vim.fn.system("xset -q"):find("00: Caps Lock:%s+(%a+)")
+		if caps_state == "on" then
+			vim.fn.system("xdotool key Caps_Lock")
+		end
+	end,
+})
 
--- function TurnOffCaps()
--- 	local _, _, caps_state = vim.fn.system("xset -q"):find("00: Caps Lock:%s+(%a+)")
--- 	if caps_state == "on" then
--- 		vim.fn.system("xdotool key Caps_Lock")
--- 	end
--- end
+-- remove trailing whitespace
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = comaug,
+	callback = function()
+		local save = vim.fn.winsaveview()
+		vim.api.nvim_exec([[keepjumps keeppatterns silent! %s/\s\+$//e]], false)
+		vim.fn.winrestview(save)
+	end,
+})
 
-vim.cmd([[
-function TurnOffCaps()
-  let capsState = matchstr(system('xset -q'), '00: Caps Lock:\s\+\zs\(on\|off\)\ze')
-  if capsState == 'on'
-    silent! execute ':!xdotool key Caps_Lock'
-  endif
-endfunction
-
-au InsertLeave * call TurnOffCaps()
-]])
-
-vim.cmd([[
-""
-" Will remove the trailing whitespace
-fun! TrimWhitespace()
-  let l:save = winsaveview()
-  keeppatterns %s/\s\+$//e
-  call winrestview(l:save)
-endfun
-
-" Remove whitespaces on save
-autocmd BufWritePre * :call TrimWhitespace()
-]])
+-- map cc to save commit
+local gitaug = vim.api.nvim_create_augroup("gitaug", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "NeogitCommitMessage",
+	group = gitaug,
+	callback = function()
+		require("helper").nmap("cc", ":wq<CR>", { buffer = 0 })
+	end,
+})
