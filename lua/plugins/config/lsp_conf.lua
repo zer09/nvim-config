@@ -10,10 +10,10 @@ local servers = {
 	cssmodules_ls = {},
 	eslint = {},
 	html = {},
-	-- sqlls = {},
-	sqls = {
-		cmd = { "sqls", "--config", vim.loop.cwd() .. "/sqls.yml" },
-	},
+	sqlls = {},
+	--sqls = {
+	--	cmd = { "sqls", "--config", vim.loop.cwd() .. "/sqls.yml" },
+	-- },
 	tsserver = {},
 	yamlls = {},
 	sumneko_lua = {
