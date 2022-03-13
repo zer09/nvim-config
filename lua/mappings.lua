@@ -3,6 +3,7 @@ local nmap = helper.nmap
 local nnoremap = helper.nnoremap
 local inoremap = helper.inoremap
 local vnoremap = helper.vnoremap
+local trouble = require("trouble.providers.telescope")
 
 vim.g.mapleader = " "
 
@@ -125,6 +126,11 @@ function M.lsp_on_attach(bufnr)
 	nnoremap("<Leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
+function M.trouble()
+	nnoremap("<Leader>ee", "<CMD>TroubleToggle<CR>")
+	nnoremap("<Leader>ew", "<CMD>TroubleToggle workspace_diagnostics<CR>")
+	nnoremap("<Leader>ed", "<CMD>TroubleToggle document_diagnostics<CR>")
+end
 -- treesitter textobjects keymaps
 M.treesitter = {
 	textobjects = {
@@ -151,10 +157,14 @@ M.treesitter = {
 	},
 }
 
-M.telescope_edfault_mappings = {
+M.telescope_default_mappings = {
 	i = {
 		["<esc>"] = require("telescope.actions").close,
 		["<C-u>"] = false,
+		["<C-t>"] = trouble.open_with_trouble,
+	},
+	n = {
+		["<C-t>"] = trouble.open_with_trouble,
 	},
 }
 

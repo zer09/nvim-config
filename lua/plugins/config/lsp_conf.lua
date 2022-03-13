@@ -70,37 +70,37 @@ lsp_installer.on_server_ready(function(server)
 	server:setup(config)
 end)
 
--- Show diagnostics on floating window
-local colaug = vim.api.nvim_create_augroup("colaug", { clear = true })
-vim.api.nvim_create_autocmd("InsertLeave", {
-	group = colaug,
-	command = "highlight FloatBorder guifg=grey",
-})
+-- -- Show diagnostics on floating window
+-- local colaug = vim.api.nvim_create_augroup("colaug", { clear = true })
+-- vim.api.nvim_create_autocmd("InsertLeave", {
+-- 	group = colaug,
+-- 	command = "highlight FloatBorder guifg=grey",
+-- })
 
-local border = {
-	{ "🭽", "FloatBorder" },
-	{ "▔", "FloatBorder" },
-	{ "🭾", "FloatBorder" },
-	{ "▕", "FloatBorder" },
-	{ "🭿", "FloatBorder" },
-	{ "▁", "FloatBorder" },
-	{ "🭼", "FloatBorder" },
-	{ "▏", "FloatBorder" },
-}
+-- local border = {
+-- 	{ "🭽", "FloatBorder" },
+-- 	{ "▔", "FloatBorder" },
+-- 	{ "🭾", "FloatBorder" },
+-- 	{ "▕", "FloatBorder" },
+-- 	{ "🭿", "FloatBorder" },
+-- 	{ "▁", "FloatBorder" },
+-- 	{ "🭼", "FloatBorder" },
+-- 	{ "▏", "FloatBorder" },
+-- }
 
--- To instead override globally
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-	opts = opts or {}
-	opts.border = opts.border or border
-	return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
+-- -- To instead override globally
+-- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+-- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+-- 	opts = opts or {}
+-- 	opts.border = opts.border or border
+-- 	return orig_util_open_floating_preview(contents, syntax, opts, ...)
+-- end
 
 vim.diagnostic.config({
 	virtual_text = false,
 })
 
--- You will likely want to reduce updatetime which affects CursorHold
--- note: this setting is global and should be set only once
-vim.o.updatetime = 500
-vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
+-- -- You will likely want to reduce updatetime which affects CursorHold
+-- -- note: this setting is global and should be set only once
+-- vim.o.updatetime = 500
+-- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])

@@ -9,6 +9,7 @@ local plugins = {
 		"lewis6991/gitsigns.nvim",
 		"stevearc/aerial.nvim",
 		"lambdalisue/suda.vim",
+		"folke/lsp-colors.nvim",
 	},
 	{
 		"folke/tokyonight.nvim",
@@ -81,6 +82,12 @@ local plugins = {
 				run = "make",
 			},
 		},
+	},
+	{
+		"folke/trouble.nvim",
+		config = function()
+			require("trouble").setup({})
+		end,
 	},
 }
 
