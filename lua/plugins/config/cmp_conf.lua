@@ -33,11 +33,11 @@ cmp.setup({
 		ghost_text = false,
 	},
 	sources = cmp.config.sources({
-		{ name = "nvim_lua" },
-		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
-		{ name = "path" },
+		{ name = "nvim_lsp" },
 		{ name = "buffer" },
+		{ name = "nvim_lua" },
+		{ name = "path" },
 	}),
 	mapping = {
 		["<C-p>"] = cmp.mapping.select_prev_item(),
