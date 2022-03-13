@@ -9,9 +9,6 @@ local lspkind = require("lspkind")
 -- nvim-cmp setup
 local cmp = require("cmp")
 cmp.setup({
-	completion = {
-		keyword_length = 3,
-	},
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
@@ -33,7 +30,7 @@ cmp.setup({
 	},
 	experimental = {
 		native_menu = false,
-		ghost_text = true,
+		ghost_text = false,
 	},
 	sources = cmp.config.sources({
 		{ name = "nvim_lua" },
