@@ -12,6 +12,21 @@ null_ls.setup({
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				group = lspformataug,
 				callback = function()
+					local ft = vim.bo.filetype
+					if ft == "javascript" or ft == "typescript" then
+						local params = {
+							command = "_typescript.organizeImports",
+							arguments = { vim.api.nvim_buf_get_name(0) },
+							title = "",
+						}
+						vim.lsp.buf_request_sync(
+							vim.api.nvim_get_current_buf(),
+							"workspace/executeCommand",
+							params,
+							1000
+						)
+					end
+
 					vim.lsp.buf.formatting_sync()
 				end,
 			})
