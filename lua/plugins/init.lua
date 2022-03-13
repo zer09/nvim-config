@@ -10,6 +10,11 @@ local plugins = {
 		"stevearc/aerial.nvim",
 		"lambdalisue/suda.vim",
 		"folke/lsp-colors.nvim",
+		"nvim-lualine/lualine.nvim",
+		"jose-elias-alvarez/null-ls.nvim",
+		"windwp/nvim-autopairs",
+		"t9md/vim-choosewin",
+		"TimUntersberger/neogit",
 	},
 	{
 		"folke/tokyonight.nvim",
@@ -18,16 +23,10 @@ local plugins = {
 		"RRethy/nvim-base16",
 	},
 	{
-		"nvim-lualine/lualine.nvim",
-	},
-	{
 		"neovim/nvim-lspconfig",
 		requires = {
 			"williamboman/nvim-lsp-installer",
 		},
-	},
-	{
-		"jose-elias-alvarez/null-ls.nvim",
 	},
 	{
 		"hrsh7th/nvim-cmp",
@@ -63,15 +62,6 @@ local plugins = {
 			},
 			"p00f/nvim-ts-rainbow",
 		},
-	},
-	{
-		"windwp/nvim-autopairs",
-	},
-	{
-		"t9md/vim-choosewin",
-	},
-	{
-		"TimUntersberger/neogit",
 	},
 	{
 		"nvim-telescope/telescope.nvim",

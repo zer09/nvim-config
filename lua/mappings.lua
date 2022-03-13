@@ -99,31 +99,20 @@ end
 
 -- will be used for lsp lsp_on_attach
 function M.lsp_on_attach(bufnr)
-	-- Enable completion triggered by <c-x><c-o>
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-	nnoremap("<space>e", "<CMD>lua vim.diagnostic.open_float()<CR>")
-	nnoremap("gp", "<CMD>lua vim.diagnostic.goto_prev()<CR>")
-	nnoremap("gn", "<CMD>lua vim.diagnostic.goto_next()<CR>")
-	nnoremap("<space>q", "<CMD>lua vim.diagnostic.setloclist()<CR>")
-
 	local opts = { buffer = bufnr }
 
-	-- Mappings.
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	-- bnnoremap(bufnr, "n", "gD", "<CMD>lua vim.lsp.buf.declaration()<CR>")
+	nnoremap("gp", "<CMD>lua vim.diagnostic.goto_prev()<CR>")
+	nnoremap("gn", "<CMD>lua vim.diagnostic.goto_next()<CR>")
 	nnoremap("gd", "<CMD>lua vim.lsp.buf.definition()<CR>", opts)
-	nnoremap("K", "<CMD>lua vim.lsp.buf.hover()<CR>", opts)
 	nnoremap("gi", "<CMD>lua vim.lsp.buf.implementation()<CR>", opts)
+	nnoremap("gr", "<CMD>lua vim.lsp.buf.references()<CR>", opts)
+
+	nnoremap("K", "<CMD>lua vim.lsp.buf.hover()<CR>", opts)
 	nnoremap("<C-k>", "<CMD>lua vim.lsp.buf.signature_help()<CR>", opts)
-	nnoremap("<Leader>wa", "<CMD>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-	nnoremap("<Leader>wr", "<CMD>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
 	nnoremap("<Leader>wl", "<CMD>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-	nnoremap("<Leader>D", "<CMD>lua vim.lsp.buf.type_definition()<CR>", opts)
+
 	nnoremap("<Leader>rn", "<CMD>lua vim.lsp.buf.rename()<CR>", opts)
 	nnoremap("<Leader>ca", "<CMD>lua vim.lsp.buf.code_action()<CR>", opts)
-	nnoremap("gr", "<CMD>lua vim.lsp.buf.references()<CR>", opts)
-	nnoremap("<Leader>f", "<CMD>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
 function M.trouble()
