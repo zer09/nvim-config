@@ -92,9 +92,9 @@ function M.choosewin()
 end
 
 function M.theme()
-	nnoremap("<Leader>t1", "<cmd>lua vim.cmd('colorscheme base16-solarized-dark')<CR>")
-	nnoremap("<Leader>t2", "<cmd>lua vim.cmd('colorscheme base16-monokai')<CR>")
-	nnoremap("<Leader>t3", "<cmd>lua vim.cmd('colorscheme base16-tomorrow')<CR>")
+	nnoremap("<Leader>t1", "<CMD>lua vim.cmd('colorscheme base16-solarized-dark')<CR>")
+	nnoremap("<Leader>t2", "<CMD>lua vim.cmd('colorscheme base16-monokai')<CR>")
+	nnoremap("<Leader>t3", "<CMD>lua vim.cmd('colorscheme base16-tomorrow')<CR>")
 end
 
 -- will be used for lsp lsp_on_attach
@@ -102,28 +102,28 @@ function M.lsp_on_attach(bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-	nnoremap("<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>")
-	nnoremap("gp", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
-	nnoremap("gn", "<cmd>lua vim.diagnostic.goto_next()<CR>")
-	nnoremap("<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
+	nnoremap("<space>e", "<CMD>lua vim.diagnostic.open_float()<CR>")
+	nnoremap("gp", "<CMD>lua vim.diagnostic.goto_prev()<CR>")
+	nnoremap("gn", "<CMD>lua vim.diagnostic.goto_next()<CR>")
+	nnoremap("<space>q", "<CMD>lua vim.diagnostic.setloclist()<CR>")
 
 	local opts = { buffer = bufnr }
 
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	-- bnnoremap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-	nnoremap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	nnoremap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	nnoremap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	nnoremap("<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	nnoremap("<Leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-	nnoremap("<Leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-	nnoremap("<Leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-	nnoremap("<Leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	nnoremap("<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	nnoremap("<Leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	nnoremap("gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	nnoremap("<Leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	-- bnnoremap(bufnr, "n", "gD", "<CMD>lua vim.lsp.buf.declaration()<CR>")
+	nnoremap("gd", "<CMD>lua vim.lsp.buf.definition()<CR>", opts)
+	nnoremap("K", "<CMD>lua vim.lsp.buf.hover()<CR>", opts)
+	nnoremap("gi", "<CMD>lua vim.lsp.buf.implementation()<CR>", opts)
+	nnoremap("<C-k>", "<CMD>lua vim.lsp.buf.signature_help()<CR>", opts)
+	nnoremap("<Leader>wa", "<CMD>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+	nnoremap("<Leader>wr", "<CMD>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+	nnoremap("<Leader>wl", "<CMD>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+	nnoremap("<Leader>D", "<CMD>lua vim.lsp.buf.type_definition()<CR>", opts)
+	nnoremap("<Leader>rn", "<CMD>lua vim.lsp.buf.rename()<CR>", opts)
+	nnoremap("<Leader>ca", "<CMD>lua vim.lsp.buf.code_action()<CR>", opts)
+	nnoremap("gr", "<CMD>lua vim.lsp.buf.references()<CR>", opts)
+	nnoremap("<Leader>f", "<CMD>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
 function M.trouble()
