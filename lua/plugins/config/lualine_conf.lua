@@ -2,7 +2,7 @@ require("lualine").setup({
 	options = {
 		-- theme = "material",
 		theme = "tokyonight",
-		component_separators = "|",
+		component_separators = "",
 		section_separators = "",
 	},
 	sections = {
@@ -16,12 +16,17 @@ require("lualine").setup({
 				end,
 			},
 		},
-		lualine_x = {
-			"encoding",
+		lualine_c = {
 			{
 				"filetype",
 				icon_only = true,
 			},
+			{
+				"filename",
+			},
+		},
+		lualine_x = {
+			"encoding",
 		},
 	},
 })
