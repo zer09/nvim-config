@@ -73,8 +73,8 @@ end
 
 function M.telescope()
 	-- Telescope mappings
-	nnoremap("<Leader>tp", ":Telescope fd<CR>")
-	nnoremap("<Leader>tt", ":Telescope file_browser<CR>")
+	nnoremap("<Leader>tp", ":Telescope fd hidden=true<CR>")
+	nnoremap("<Leader>tt", ":Telescope file_browser hidden=true<CR>")
 	nnoremap("<Leader>bb", ":Telescope buffers<CR>")
 	nnoremap("<Leader>ts", ":Telescope live_grep<CR>")
 	nnoremap("<Leader>th", ":Telescope help_tags<CR>")
