@@ -79,6 +79,13 @@ local plugins = {
 			require("trouble").setup({})
 		end,
 	},
+	{
+		"kristijanhusak/vim-dadbod-completion",
+		requires = {
+			"kristijanhusak/vim-dadbod-ui",
+			"tpope/vim-dadbod",
+		},
+	},
 }
 
 local packer = require("packer")

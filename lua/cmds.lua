@@ -59,3 +59,10 @@ vim.api.nvim_create_autocmd("FileType", {
 		require("helper").nmap("cc", ":wq<CR>", { buffer = 0 })
 	end,
 })
+
+vim.cmd([[
+  augroup DadbodSql
+    au!
+    autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
+  augroup END
+]])

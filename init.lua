@@ -8,6 +8,8 @@
 require("impatient") -- comment this during install
 -- Do not source the default filetype.vim
 vim.g.did_load_filetypes = 1
+vim.g.snippets = "luasnip"
+vim.g.db = "mysql://root:password@localhost"
 
 require("cmds")
 require("options")
