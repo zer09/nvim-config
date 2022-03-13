@@ -1,4 +1,4 @@
-vim.g.material_style = "deep ocean"
+vim.g.material_style = "lighter"
 
 require("material").setup({
 	italics = {

@@ -95,6 +95,7 @@ function M.theme()
 	nnoremap("<Leader>t1", "<CMD>lua vim.cmd('colorscheme base16-solarized-dark')<CR>")
 	nnoremap("<Leader>t2", "<CMD>lua vim.cmd('colorscheme base16-monokai')<CR>")
 	nnoremap("<Leader>t3", "<CMD>lua vim.cmd('colorscheme base16-tomorrow')<CR>")
+	nnoremap("<Leader>t4", [[<CMD>lua require('plugins.config.material_conf') vim.cmd('colorscheme material')<CR>]])
 end
 
 -- will be used for lsp lsp_on_attach
