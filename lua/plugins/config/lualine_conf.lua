@@ -19,6 +19,7 @@ require("lualine").setup({
 		lualine_c = {
 			{
 				"filetype",
+				padding = { left = 1, right = 0 },
 				icon_only = true,
 			},
 			{
