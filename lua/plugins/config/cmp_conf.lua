@@ -44,7 +44,7 @@ cmp.setup({
 		["<C-p>"] = cmp.mapping.select_prev_item(),
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		[",."] = cmp.mapping.close(),
-		["<CR>"] = cmp.mapping.confirm(),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
