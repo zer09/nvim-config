@@ -1,14 +1,17 @@
+local nnoremap = require("helper").nnoremap
+
 require("aerial").setup({
 	close_behavior = "global",
 	placement_editor_edge = "true",
 	on_attach = function(bufnr)
+		local opts = { buffer = bufnr }
 		-- Toggle the aerial window with <Leader>a
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>a", "<CMD>AerialToggle!<CR>", {})
+		nnoremap("<Leader>a", "<CMD>AerialToggle!<CR>", opts)
 		-- Jump forwards/backwards with '{' and '}'
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "{", "<CMD>AerialPrev<CR>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "}", "<CMD>AerialNext<CR>", {})
+		nnoremap("{", "<CMD>AerialPrev<CR>", opts)
+		nnoremap("}", "<CMD>AerialNext<CR>", opts)
 		-- Jump up the tree with '[[' or ']]'
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "[[", "<CMD>AerialPrevUp<CR>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "]]", "<CMD>AerialNextUp<CR>", {})
+		nnoremap("[[", "<CMD>AerialPrevUp<CR>", opts)
+		nnoremap("]]", "<CMD>AerialNextUp<CR>", opts)
 	end,
 })
