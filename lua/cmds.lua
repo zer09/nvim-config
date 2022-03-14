@@ -59,3 +59,21 @@ vim.api.nvim_create_autocmd("FileType", {
 		require("helper").nmap("cc", ":wq<CR>", { buffer = 0 })
 	end,
 })
+
+--terminal
+-- reference: https://stackoverflow.com/a/63909865/3387602
+local termaug = vim.api.nvim_create_augroup("termaug", { clear = true })
+-- start insert when the terminal is open
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = termaug,
+	command = "startinsert",
+})
+
+-- disable number line on terminal
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = termaug,
+	callback = function()
+		vim.opt.number = false
+		vim.opt.relativenumber = false
+	end,
+})
