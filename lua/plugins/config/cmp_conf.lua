@@ -5,6 +5,8 @@ end
 
 local luasnip = require("luasnip")
 local lspkind = require("lspkind")
+local compare = require("cmp.config.compare")
+local cmp_buffer = require("cmp_buffer")
 require("luasnip.loaders.from_vscode").lazy_load()
 
 -- nvim-cmp setup
@@ -32,6 +34,22 @@ cmp.setup({
 	experimental = {
 		native_menu = false,
 		ghost_text = false,
+	},
+	sorting = {
+		priority_weight = 2,
+		comparators = {
+			function(...)
+				return cmp_buffer:compare_locality(...)
+			end,
+			compare.offset,
+			compare.exact,
+			compare.score,
+			compare.recently_used,
+			compare.kind,
+			compare.sort_text,
+			compare.length,
+			compare.order,
+		},
 	},
 	sources = cmp.config.sources({
 		{ name = "luasnip", max_item_count = 10 },
