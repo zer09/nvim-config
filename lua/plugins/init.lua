@@ -15,6 +15,7 @@ local plugins = {
 		"windwp/nvim-autopairs",
 		"t9md/vim-choosewin",
 		"TimUntersberger/neogit",
+		"p00f/nvim-ts-rainbow",
 	},
 	{
 		"folke/tokyonight.nvim",
@@ -54,13 +55,6 @@ local plugins = {
 			"romgrk/nvim-treesitter-context",
 			"theHamsta/nvim-treesitter-pairs",
 			"windwp/nvim-ts-autotag",
-			{
-				"JoosepAlviste/nvim-ts-context-commentstring",
-				requires = {
-					"tpope/vim-commentary",
-				},
-			},
-			"p00f/nvim-ts-rainbow",
 		},
 	},
 	{
@@ -77,6 +71,12 @@ local plugins = {
 		"folke/trouble.nvim",
 		config = function()
 			require("trouble").setup({})
+		end,
+	},
+	{
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
 		end,
 	},
 }
