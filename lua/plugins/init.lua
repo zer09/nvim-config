@@ -22,6 +22,7 @@ local plugins = {
 		"marko-cerovac/material.nvim",
 		"mhartington/oceanic-next",
 		"RRethy/nvim-base16",
+		"EdenEast/nightfox.nvim",
 	},
 	{
 		"neovim/nvim-lspconfig",
