@@ -19,16 +19,17 @@ conf("aerial")
 -- conf("oceanic_next")
 -- conf("base_16")
 
-local nightfox = require("nightfox")
-nightfox.setup({
-	styles = {
-		comments = "italic", -- change style of comments to be italic
-		keywords = "bold", -- change style of keywords to be bold
-		functions = "italic", -- styles can be a comma separated list
-	},
-	inverse = {
-		match_paren = true,
-		search = true,
+require("nightfox").setup({
+	options = {
+		styles = {
+			comments = "italic",
+			keywords = "bold",
+			functions = "italic",
+		},
+		inverse = {
+			match_paren = true,
+			search = true,
+		},
 	},
 })
 
