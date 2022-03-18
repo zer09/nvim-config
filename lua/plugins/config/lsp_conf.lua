@@ -11,7 +11,7 @@ local servers = {
 	},
 	bashls = {},
 	cssls = {},
-	cssmodules_ls = {},
+	-- cssmodules_ls = {},
 	eslint = {},
 	html = {},
 	-- sqlls = {},
