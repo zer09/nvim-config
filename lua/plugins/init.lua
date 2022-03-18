@@ -31,21 +31,8 @@ local plugins = {
 		},
 	},
 	{
-		"hrsh7th/nvim-cmp",
-		requires = {
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lua",
-			"hrsh7th/cmp-path",
-			"onsails/lspkind-nvim", -- Enables icons on completions
-			{ -- Snippets
-				"L3MON4D3/LuaSnip",
-				requires = {
-					"saadparwaiz1/cmp_luasnip",
-					"zer09/friendly-snippets",
-				},
-			},
-		},
+		"neoclide/coc.nvim",
+		branch = "release",
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",

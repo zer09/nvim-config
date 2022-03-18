@@ -54,15 +54,15 @@ for name, _ in pairs(servers) do
 end
 
 -- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 local aerial = require("aerial")
 local on_attach = require("mappings").lsp_on_attach
 lsp_installer.on_server_ready(function(server)
 	local config = servers[server.name] or {}
-	config.capabilities = capabilities
+	-- config.capabilities = capabilities
 	config.on_attach = function(client, bufnr)
 		-- Disabled lsp formatting
 		client.resolved_capabilities.document_formatting = false

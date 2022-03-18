@@ -4,7 +4,7 @@ end
 
 conf("lsp")
 conf("null_ls")
-conf("cmp")
+conf("coc")
 conf("treesitter")
 conf("autopairs")
 conf("choosewin")
