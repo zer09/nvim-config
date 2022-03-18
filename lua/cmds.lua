@@ -54,6 +54,11 @@ vim.api.nvim_create_autocmd("VimLeave", {
 	command = ":mksession! ses.vim",
 })
 
+vim.api.nvim_create_autocmd("VimEnter", {
+	group = comaug,
+	command = ":clearjumps",
+})
+
 -- map cc to save commit
 local gitaug = vim.api.nvim_create_augroup("gitaug", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
