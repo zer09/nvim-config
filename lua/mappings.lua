@@ -3,6 +3,7 @@ local nmap = helper.nmap
 local nnoremap = helper.nnoremap
 local inoremap = helper.inoremap
 local vnoremap = helper.vnoremap
+local xnoremap = helper.xnoremap
 local trouble = require("trouble.providers.telescope")
 
 vim.g.mapleader = " "
@@ -20,6 +21,10 @@ function M.standard()
 	nnoremap("Q", "<NOP>")
 	nnoremap("Qa", ":qa")
 	nnoremap("QA", ":qa")
+
+	--replace without yank
+	-- xnoremap("p", "pgvy")
+	xnoremap("p", [[pgv"@=v:register.'y'<CR>]])
 
 	-- clear search highlight
 	nnoremap("<Leader>sc", ":noh<CR>")
