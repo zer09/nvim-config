@@ -86,7 +86,7 @@ local function goto_definition(split_cmd)
 			return nil
 		end
 
-		if result[1].uri ~= ctx.params.textDocument.uri then
+		if result[1].uri ~= ctx.params.textDocument.uri and #vim.api.nvim_list_wins() < 3 then
 			vim.cmd(split_cmd)
 		end
 
