@@ -19,8 +19,9 @@ function M.standard()
 	nnoremap("q", "<NOP>")
 	nnoremap("q:", "<NOP>")
 	nnoremap("Q", "<NOP>")
-	nnoremap("Qa", ":qa")
-	nnoremap("QA", ":qa")
+	nnoremap("Qa", ":qa<CR>")
+	nnoremap("QA", ":qa<CR>")
+	nnoremap("<Leader>qq", ":qa<CR>")
 
 	--replace without yank
 	-- xnoremap("p", "pgvy")
