@@ -86,20 +86,16 @@ local function goto_definition(split_cmd)
 			return nil
 		end
 
-		if split_cmd then
+		if result[1].uri ~= ctx.params.textDocument.uri then
 			vim.cmd(split_cmd)
 		end
 
-		if vim.tbl_islist(result) then
-			util.jump_to_location(result[1], "utf-8")
+		util.jump_to_location(result[1], "utf-8")
 
-			if #result > 1 then
-				util.set_qflist(util.locations_to_items(result))
-				api.nvim_command("copen")
-				api.nvim_command("wincmd p")
-			end
-		else
-			util.jump_to_location(result, "utf-8")
+		if #result > 1 then
+			util.set_qflist(util.locations_to_items(result))
+			api.nvim_command("copen")
+			api.nvim_command("wincmd p")
 		end
 	end
 
