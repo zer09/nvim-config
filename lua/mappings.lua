@@ -113,6 +113,7 @@ function M.lsp_on_attach(bufnr)
 	nnoremap("gd", "<CMD>lua vim.lsp.buf.definition()<CR>", opts)
 	nnoremap("gi", "<CMD>lua vim.lsp.buf.implementation()<CR>", opts)
 	nnoremap("gr", "<CMD>lua vim.lsp.buf.references()<CR>", opts)
+	nnoremap("goi", "<CMD>OrganizeImports<CR>", opts)
 
 	nnoremap("K", "<CMD>lua vim.lsp.buf.hover()<CR>", opts)
 	nnoremap("<C-k>", "<CMD>lua vim.lsp.buf.signature_help()<CR>", opts)
