@@ -80,6 +80,10 @@ local plugins = {
 			require("Comment").setup()
 		end,
 	},
+	{
+		"kevinhwang91/nvim-bqf",
+		ft = "qf",
+	},
 }
 
 local packer = require("packer")
