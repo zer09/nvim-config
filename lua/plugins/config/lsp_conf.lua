@@ -86,7 +86,19 @@ local function goto_definition(split_cmd)
 			return nil
 		end
 
-		if result[1].uri ~= ctx.params.textDocument.uri and #vim.api.nvim_list_wins() < 3 then
+		local wc = 0
+		local windows = vim.api.nvim_tabpage_list_wins(0)
+
+		for _, v in pairs(windows) do
+			local cfg = vim.api.nvim_win_get_config(v)
+			local ft = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(v), "filetype")
+
+			if (cfg.relative == "" or cfg.external == false) and ft ~= "qf" then
+				wc = wc + 1
+			end
+		end
+
+		if result[1].uri ~= ctx.params.textDocument.uri and wc < 3 then
 			vim.cmd(split_cmd)
 		end
 
