@@ -7,7 +7,7 @@ require("nightfox").setup({
 		},
 		inverse = {
 			match_paren = true,
-			search = true,
+			-- search = true,
 		},
 	},
 })
