@@ -31,6 +31,10 @@ cmp.setup({
 			},
 		}),
 	},
+	matching = {
+		disallow_fuzzy_matching = true,
+		disallow_prefix_unmatching = true,
+	},
 	experimental = {
 		native_menu = false,
 		ghost_text = false,
