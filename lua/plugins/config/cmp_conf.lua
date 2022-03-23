@@ -42,6 +42,7 @@ cmp.setup({
 	sorting = {
 		priority_weight = 2,
 		comparators = {
+			compare.length,
 			compare.score,
 			compare.offset,
 			function(...)
@@ -51,7 +52,6 @@ cmp.setup({
 			compare.recently_used,
 			compare.kind,
 			compare.sort_text,
-			compare.length,
 			compare.order,
 		},
 	},

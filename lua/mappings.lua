@@ -25,7 +25,13 @@ function M.standard()
 
 	--replace without yank
 	-- xnoremap("p", "pgvy")
-	xnoremap("p", [[pgv"@=v:register.'y'<CR>]])
+	-- nnoremap P "0p
+	-- vnoremap P "0p
+	-- xnoremap("p", [[pgv"@=v:register.'y'<CR>]])
+	-- vnoremap("p", [[pgv"@=v:register.'y'<CR>]])
+	-- nnoremap("p", [[pgv"@=v:register.'y'<CR>]])
+	nnoremap("P", [["0p]])
+	vnoremap("P", [["0p]])
 
 	-- clear search highlight
 	nnoremap("<Leader>sc", ":noh<CR>")
