@@ -53,6 +53,14 @@ for name, _ in pairs(servers) do
 	end
 end
 
+local null_ls_mapping = require("mappings").null_ls
+local function tsAttach(client, bufnr)
+	local ts_utils = require("nvim-lsp-ts-utils")
+	ts_utils.setup({})
+	ts_utils.setup_client(client)
+	null_ls_mapping(bufnr)
+end
+
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -68,6 +76,9 @@ lsp_installer.on_server_ready(function(server)
 		client.resolved_capabilities.document_formatting = false
 		client.resolved_capabilities.document_range_formatting = false
 
+		if server.name == "tsserver" then
+			tsAttach(client, bufnr)
+		end
 		on_attach(bufnr)
 		aerial.on_attach(client, bufnr)
 	end

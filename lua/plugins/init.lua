@@ -28,6 +28,7 @@ local plugins = {
 		"neovim/nvim-lspconfig",
 		requires = {
 			"williamboman/nvim-lsp-installer",
+			"jose-elias-alvarez/nvim-lsp-ts-utils",
 		},
 	},
 	{
