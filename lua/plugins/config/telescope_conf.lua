@@ -5,7 +5,7 @@ telescope.setup({
 		prompt_prefix = "❯ ",
 		selection_caret = "❯ ",
 		-- layout_strategy = "vertical",
-		file_ignore_patterns = { "node_modules/.*", "%.env", "yarn.lock", "package-lock.json" },
+		file_ignore_patterns = { "node_modules/.*", "%.env", "yarn.lock", "package-lock.json", "init.sql" },
 		mappings = require("mappings").telescope_default_mappings,
 	},
 	extensions = {
