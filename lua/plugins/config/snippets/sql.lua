@@ -32,7 +32,6 @@ USE `{}`$$
 
 DROP PROCEDURE IF EXISTS `{}`$$
 
-
 CREATE DEFINER=`root`@`%` PROCEDURE `{}`(
 	{},
 	OUT _ERR INT,
@@ -50,8 +49,6 @@ BEGIN
 	_MSG = MESSAGE_TEXT;
 
 	ROLLBACK;
-
-	DELETE FROM t_user WHERE id = _uid;
 
 	INSERT INTO t_ev_logs(e_source,e_no,e_state,e_msg)
 	VALUE('{}',_ERR,_STATE,_MSG);

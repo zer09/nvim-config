@@ -146,7 +146,7 @@ table.insert(
 {} ({}) {{
 	return this.hc.post<Result<{}>>(
 		urlApi('{}'),
-		{{ {} }}
+		{{{}}},
 		{{observe: 'response'}}
 	).pipe(ResultFilter.pipeFilter)
 }}
