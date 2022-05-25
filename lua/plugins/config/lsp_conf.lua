@@ -68,6 +68,7 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 local aerial = require("aerial")
 local on_attach = require("mappings").lsp_on_attach
+local angularlsReady = false
 lsp_installer.on_server_ready(function(server)
 	local config = servers[server.name] or {}
 	config.capabilities = capabilities
@@ -76,9 +77,17 @@ lsp_installer.on_server_ready(function(server)
 		client.server_capabilities.document_formatting = false
 		client.server_capabilities.document_range_formatting = false
 
+		if server.name == "angularls" then
+			angularlsReady = true
+		end
+
 		if server.name == "tsserver" then
 			tsAttach(client, bufnr)
+			if angularlsReady then
+				client.server_capabilities.renameProvider = false
+			end
 		end
+
 		on_attach(bufnr)
 		aerial.on_attach(client, bufnr)
 	end
