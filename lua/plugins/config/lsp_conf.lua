@@ -73,8 +73,8 @@ lsp_installer.on_server_ready(function(server)
 	config.capabilities = capabilities
 	config.on_attach = function(client, bufnr)
 		-- Disabled lsp formatting
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
+		client.server_capabilities.document_formatting = false
+		client.server_capabilities.document_range_formatting = false
 
 		if server.name == "tsserver" then
 			tsAttach(client, bufnr)
