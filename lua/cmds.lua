@@ -9,7 +9,10 @@ vim.api.nvim_create_autocmd("FileType", {
 -- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = comaug,
-	callback = vim.highlight.on_yank,
+	-- callback = vim.highlight.on_yank,
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 -- remove the cursorline if the buffer is not in focus
