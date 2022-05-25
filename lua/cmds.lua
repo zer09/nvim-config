@@ -51,12 +51,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
-local lspformataug = vim.api.nvim_create_augroup("lspformataug", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePre", {
-	group = lspformataug,
-	command = "Format",
-})
-
 -- save session
 vim.api.nvim_create_autocmd("VimLeave", {
 	group = comaug,

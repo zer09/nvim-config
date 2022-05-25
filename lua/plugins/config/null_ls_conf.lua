@@ -1,16 +1,16 @@
-local function formatter(client)
-	if client.resolved_capabilities.document_formatting then
-		vim.api.nvim_add_user_command("Format", function()
-			if #vim.lsp.buf_get_clients() < 1 then
-				return
-			end
-
-			vim.lsp.buf.formatting_sync(nil, 1500)
-		end, {
-			desc = "Format the document using the formatter configured in null-ls config",
-		})
-	end
+local lsp_formatting = function(bufnr)
+	vim.lsp.buf.format({
+		filter = function(clients)
+			-- filter out clients that you don't want to use
+			return vim.tbl_filter(function(client)
+				return client.name ~= "tsserver"
+			end, clients)
+		end,
+		bufnr = bufnr,
+	})
 end
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local null_ls = require("null-ls")
 
@@ -21,7 +21,16 @@ null_ls.setup({
 		null_ls.builtins.formatting.prettierd,
 		null_ls.builtins.formatting.shfmt,
 	},
-	on_attach = function(client)
-		formatter(client)
+	on_attach = function(client, bufnr)
+		if client.supports_method("textDocument/formatting") then
+			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = augroup,
+				buffer = bufnr,
+				callback = function()
+					lsp_formatting(bufnr)
+				end,
+			})
+		end
 	end,
 })
