@@ -23,6 +23,10 @@ local plugins = {
 		"mhartington/oceanic-next",
 		"RRethy/nvim-base16",
 		"EdenEast/nightfox.nvim",
+		{
+			"catppuccin/nvim",
+			as = "catppuccin",
+		},
 	},
 	{
 		"neovim/nvim-lspconfig",
