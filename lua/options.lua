@@ -24,3 +24,4 @@ set.inccommand = "split"
 set.scrolloff = 7
 set.signcolumn = "yes"
 set.colorcolumn = "80"
+set.title = true
