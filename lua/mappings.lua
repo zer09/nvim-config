@@ -16,7 +16,7 @@ function M.standard()
 
 	-- Disabled mappings
 	nnoremap("<Space>", "<NOP>")
-	nnoremap("q", "<NOP>")
+	-- nnoremap("q", "<NOP>")
 	nnoremap("q:", "<NOP>")
 	nnoremap("Q", "<NOP>")
 	nnoremap("Qa", ":qa<CR>")
@@ -142,6 +142,7 @@ function M.trouble()
 	nnoremap("<Leader>ew", "<CMD>TroubleToggle workspace_diagnostics<CR>")
 	nnoremap("<Leader>ed", "<CMD>TroubleToggle document_diagnostics<CR>")
 end
+
 -- treesitter textobjects keymaps
 M.treesitter = {
 	textobjects = {
