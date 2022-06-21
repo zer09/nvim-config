@@ -18,6 +18,9 @@ local servers = {
 	sqls = {
 		cmd = { "sqls", "--config", vim.loop.cwd() .. "/sqls.yml" },
 	},
+	rust_analyzer = {},
+	svelte = {},
+	tailwindcss = {},
 	tsserver = {},
 	yamlls = {},
 	sumneko_lua = {
