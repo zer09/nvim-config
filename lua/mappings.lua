@@ -16,9 +16,9 @@ function M.standard()
 
 	-- Disabled mappings
 	nnoremap("<Space>", "<NOP>")
-	-- nnoremap("q", "<NOP>")
+	nnoremap("q", "<NOP>")
 	nnoremap("q:", "<NOP>")
-	nnoremap("Q", "<NOP>")
+	nnoremap("Q", "q")
 	nnoremap("Qa", ":qa<CR>")
 	nnoremap("QA", ":qa<CR>")
 	nnoremap("<Leader>qq", ":qa<CR>")
