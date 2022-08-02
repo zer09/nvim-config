@@ -26,3 +26,4 @@ set.signcolumn = "yes"
 set.colorcolumn = "80"
 set.title = true
 set.list = true
+set.pumheight = 10
