@@ -12,6 +12,7 @@ conf("neogit")
 conf("telescope")
 conf("gitsign")
 conf("aerial")
+conf("indent_blankline")
 
 -- conf("tokyonight")
 -- conf("material")

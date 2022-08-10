@@ -16,6 +16,7 @@ local plugins = {
 		"t9md/vim-choosewin",
 		"TimUntersberger/neogit",
 		"p00f/nvim-ts-rainbow",
+		"lukas-reineke/indent-blankline.nvim",
 	},
 	{
 		"folke/tokyonight.nvim",
