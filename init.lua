@@ -6,9 +6,6 @@
 -- https://oroques.dev/notes/neovim-init/
 
 require("impatient") -- comment this during install
--- Do not source the default filetype.vim
-vim.g.did_load_filetypes = 1
-
 require("cmds")
 require("options")
 

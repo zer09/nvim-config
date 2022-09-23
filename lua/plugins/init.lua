@@ -1,7 +1,6 @@
 local plugins = {
 	{
 		"lewis6991/impatient.nvim",
-		"nathom/filetype.nvim",
 		"nvim-lua/plenary.nvim",
 		"ggandor/lightspeed.nvim",
 		"kyazdani42/nvim-web-devicons",
