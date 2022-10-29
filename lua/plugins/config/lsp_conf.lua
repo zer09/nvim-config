@@ -65,9 +65,8 @@ local function tsAttach(client, bufnr)
 end
 
 -- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 local aerial = require("aerial")
 local on_attach = require("mappings").lsp_on_attach
