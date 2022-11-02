@@ -68,7 +68,6 @@ end
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local aerial = require("aerial")
 local on_attach = require("mappings").lsp_on_attach
 local angularlsReady = false
 lsp_installer.on_server_ready(function(server)
@@ -91,7 +90,6 @@ lsp_installer.on_server_ready(function(server)
 		end
 
 		on_attach(bufnr)
-		aerial.on_attach(client, bufnr)
 	end
 	server:setup(config)
 end)
