@@ -10,7 +10,6 @@ local plugins = {
 		"lambdalisue/suda.vim",
 		"folke/lsp-colors.nvim",
 		"nvim-lualine/lualine.nvim",
-		"jose-elias-alvarez/null-ls.nvim",
 		"windwp/nvim-autopairs",
 		"t9md/vim-choosewin",
 		"TimUntersberger/neogit",
@@ -29,12 +28,22 @@ local plugins = {
 		},
 	},
 	{
-		"neovim/nvim-lspconfig",
+		"williamboman/mason.nvim",
 		requires = {
-			"williamboman/nvim-lsp-installer",
-			"jose-elias-alvarez/nvim-lsp-ts-utils",
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			"williamboman/mason-lspconfig.nvim",
+			"neovim/nvim-lspconfig",
+			"jose-elias-alvarez/null-ls.nvim",
+			"jayp0521/mason-null-ls.nvim",
 		},
 	},
+	-- {
+	-- 	"neovim/nvim-lspconfig",
+	-- 	requires = {
+	-- 		"williamboman/nvim-lsp-installer",
+	-- 		"jose-elias-alvarez/nvim-lsp-ts-utils",
+	-- 	},
+	-- },
 	{
 		"hrsh7th/nvim-cmp",
 		requires = {

@@ -2,8 +2,9 @@ local function conf(name)
 	require(string.format("plugins.config.%s_conf", name))
 end
 
-conf("lsp")
-conf("null_ls")
+-- conf("lsp")
+-- conf("null_ls")
+conf("mason")
 conf("cmp")
 conf("treesitter")
 conf("autopairs")
