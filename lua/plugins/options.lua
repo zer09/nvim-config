@@ -5,6 +5,7 @@ end
 -- conf("lsp")
 -- conf("null_ls")
 conf("mason")
+conf("formatter")
 conf("cmp")
 conf("treesitter")
 conf("autopairs")

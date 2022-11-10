@@ -33,8 +33,9 @@ local plugins = {
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
-			"jose-elias-alvarez/null-ls.nvim",
-			"jayp0521/mason-null-ls.nvim",
+			"mhartington/formatter.nvim",
+			-- "jose-elias-alvarez/null-ls.nvim",
+			-- "jayp0521/mason-null-ls.nvim",
 		},
 	},
 	-- {
