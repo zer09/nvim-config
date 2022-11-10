@@ -27,3 +27,5 @@ set.colorcolumn = "80"
 set.title = true
 set.list = true
 set.pumheight = 10
+
+vim.g.python3_host_prog = "/usr/bin/python3"
