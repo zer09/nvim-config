@@ -29,61 +29,37 @@ mason_lsp_config.setup({
 	automatic_installation = true,
 })
 
-local lsp_on_attach_mappings = require("mappings").lsp_on_attach
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 local on_attach = function(client, bufnr)
 	-- Disabled lsp formatting
 	client.server_capabilities.document_formatting = false
 	client.server_capabilities.document_range_formatting = false
 
-	lsp_on_attach_mappings(bufnr)
+	require("mappings").lsp_on_attach(bufnr)
 end
 
--- local angularlsReady = false
 mason_lsp_config.setup_handlers({
 	function(server_name)
 		lspconfig[server_name].setup({
-			on_attach = function(client, bufnr)
-				on_attach(client, bufnr)
-			end,
-			-- on_attach = function(client, bufnr)
-			-- 	on_attach(client, bufnr)
-			-- end,
-			-- on_attach = function(client, bufnr)
-			-- 	-- Disabled lsp formatting
-			-- 	client.server_capabilities.document_formatting = false
-			-- 	client.server_capabilities.document_range_formatting = false
-			--
-			-- 	lsp_on_attach_mappings(bufnr)
-			--
-			-- 	-- if server_name == "angularls" then
-			-- 	-- 	angularlsReady = true
-			-- 	-- end
-			-- 	--
-			-- 	-- if server_name == "tsserver" then
-			-- 	-- 	if angularlsReady then
-			-- 	-- 		client.server_capabilities.renameProvider = false
-			-- 	-- 	end
-			-- 	-- end
-			-- 	--
-			-- 	-- on_attach(client, bufnr)
-			-- end,
+			on_attach = on_attach,
+			capabilities = capabilities,
 		})
 	end,
-	["jsonls"] = function()
+	["jsonls"] = function(_)
 		lspconfig.jsonls.setup({
-			on_attach = function(client, bufnr)
-				on_attach(client, bufnr)
-			end,
+			on_attach = on_attach,
+			capabilities = capabilities,
 			settings = {
 				json = require("schemastore").json.schemas(),
 			},
 		})
 	end,
-	["sumneko_lua"] = function()
+	["sumneko_lua"] = function(_)
 		lspconfig.sumneko_lua.setup({
-			on_attach = function(client, bufnr)
-				on_attach(client, bufnr)
-			end,
+			on_attach = on_attach,
+			capabilities = capabilities,
 			settings = {
 				Lua = {
 					diagnostics = {
