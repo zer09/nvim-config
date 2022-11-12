@@ -8,6 +8,7 @@
 require("impatient") -- comment this during install
 require("cmds")
 require("options")
+require("handlers")
 
 -- no need to load this immediately, since we have packer_compiled
 vim.defer_fn(function()
