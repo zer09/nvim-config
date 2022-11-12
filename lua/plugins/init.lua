@@ -34,6 +34,7 @@ local plugins = {
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 			"mhartington/formatter.nvim",
+			"jose-elias-alvarez/typescript.nvim",
 			-- "jose-elias-alvarez/null-ls.nvim",
 			-- "jayp0521/mason-null-ls.nvim",
 		},

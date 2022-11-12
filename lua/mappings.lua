@@ -137,6 +137,16 @@ function M.null_ls(bufnr)
 	nnoremap("gli", ":TSLspImportAll<CR>", opts)
 end
 
+function M.typescript(bufnr)
+	local opts = { buffer = bufnr }
+
+	nnoremap("gld", ":TypescriptGoToSourceDefinition<CR>", opts)
+	nnoremap("glf", ":TypescriptFixAll<CR>", opts)
+	nnoremap("gli", ":TypescriptAddMissingImports<CR>", opts)
+	nnoremap("glo", ":TypescriptOrganizeImports<CR>", opts)
+	nnoremap("glu", ":TypescriptRemoveUnused<CR>", opts)
+end
+
 function M.trouble()
 	nnoremap("<Leader>ee", "<CMD>TroubleToggle<CR>")
 	nnoremap("<Leader>ew", "<CMD>TroubleToggle workspace_diagnostics<CR>")
