@@ -11,6 +11,10 @@ require("mason").setup({
 local mason_lsp_config = require("mason-lspconfig")
 local lspconfig = require("lspconfig")
 
+vim.diagnostic.config({
+	virtual_text = false,
+})
+
 mason_lsp_config.setup({
 	ensure_installed = {
 		"angularls",
