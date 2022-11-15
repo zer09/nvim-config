@@ -78,8 +78,11 @@ mason_lsp_config.setup_handlers({
 			server = {
 				on_attach = function(client, bufnr)
 					on_attach(client, bufnr)
-					-- TODO: // disable rename provider on angular projects only
-					client.server_capabilities.renameProvider = false
+					print(vim.fn.findfile("angular.json", ".;"))
+					if vim.fn.findfile("angular.json", ".;") ~= "" then
+						client.server_capabilities.renameProvider = false
+					end
+
 					require("mappings").typescript(bufnr)
 				end,
 				capabilities = capabilities,
