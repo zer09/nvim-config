@@ -22,6 +22,29 @@ require("plugins.config.snippets.all")
 
 -- nvim-cmp setup
 local cmp = require("cmp")
+
+local up = function(fallback)
+	if cmp.visible() then
+		cmp.select_prev_item()
+	elseif ls.jumpable(-1) then
+		ls.jump(-1)
+	else
+		fallback()
+	end
+end
+
+local down = function(fallback)
+	if cmp.visible() then
+		cmp.select_next_item()
+	elseif ls.expand_or_jumpable() then
+		ls.expand_or_jump()
+	elseif has_words_before() then
+		cmp.complete()
+	else
+		fallback()
+	end
+end
+
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -78,26 +101,10 @@ cmp.setup({
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		[",."] = cmp.mapping.close(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif ls.expand_or_jumpable() then
-				ls.expand_or_jump()
-			elseif has_words_before() then
-				cmp.complete()
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif ls.jumpable(-1) then
-				ls.jump(-1)
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
+		["<Tab>"] = cmp.mapping(down, { "i", "s" }),
+		["<S-Tab>"] = cmp.mapping(up, { "i", "s" }),
+		["<Down>"] = cmp.mapping(down, { "i", "s" }),
+		["<Up>"] = cmp.mapping(up, { "i", "s" }),
 	},
 })
 
