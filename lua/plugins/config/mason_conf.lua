@@ -78,7 +78,7 @@ mason_lsp_config.setup_handlers({
 			server = {
 				on_attach = function(client, bufnr)
 					on_attach(client, bufnr)
-					print(vim.fn.findfile("angular.json", ".;"))
+
 					if vim.fn.findfile("angular.json", ".;") ~= "" then
 						client.server_capabilities.renameProvider = false
 					end
