@@ -6,8 +6,6 @@ local vnoremap = helper.vnoremap
 local xnoremap = helper.xnoremap
 local trouble = require("trouble.providers.telescope")
 
-vim.g.mapleader = " "
-
 local M = {}
 
 function M.standard()
@@ -176,17 +174,6 @@ M.treesitter = {
 	},
 	pairs = {
 		goto_partner = "%",
-	},
-}
-
-M.telescope_default_mappings = {
-	i = {
-		["<esc>"] = require("telescope.actions").close,
-		["<C-u>"] = false,
-		["<C-t>"] = trouble.open_with_trouble,
-	},
-	n = {
-		["<C-t>"] = trouble.open_with_trouble,
 	},
 }
 

@@ -5,18 +5,48 @@
 -- https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/
 -- https://oroques.dev/notes/neovim-init/
 
-require("impatient") -- comment this during install
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	-- bootstrap lazy.nvim
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
+end
+
+vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.g.mapleader = " "
+
+require("lazy").setup("plugins", {
+	defaults = {
+		version = "*", -- try installing the latest stable version for plugins that support semver
+	},
+	performance = {
+		rtp = {
+			-- disable some rtp plugins
+			disabled_plugins = {
+				"gzip",
+				"matchit",
+				"matchparen",
+				"netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
+})
+
+-- require("impatient") -- comment this during install
 require("cmds")
 require("options")
 require("handlers")
 
--- no need to load this immediately, since we have packer_compiled
-vim.defer_fn(function()
-	require("plugins")
-end, 0)
-
--- comment this if packer is not installed
-require("plugins.options")
 local mappings = require("mappings")
 mappings.standard()
 mappings.telescope()
