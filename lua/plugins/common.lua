@@ -29,6 +29,7 @@ return {
 		config = function()
 			require("neogit").setup({
 				auto_refresh = false,
+				console_timeout = 10000,
 				disable_commit_confirmation = true,
 				disable_insert_on_commit = true,
 				signs = {
