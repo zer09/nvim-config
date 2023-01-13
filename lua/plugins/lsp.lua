@@ -13,6 +13,10 @@
 -- 	"yamlls",
 -- }
 
+vim.diagnostic.config({
+	virtual_text = false,
+})
+
 return {
 	{
 		"williamboman/mason.nvim",
