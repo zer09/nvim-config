@@ -1,18 +1,3 @@
--- local servers = {
--- 	"angularls",
--- 	"bashls",
--- 	"cssls",
--- 	"eslint",
--- 	"html",
--- 	"jsonls",
--- 	"rust_analyzer",
--- 	"sumneko_lua",
--- 	"svelte",
--- 	"tailwindcss",
--- 	"tsserver",
--- 	"yamlls",
--- }
-
 vim.diagnostic.config({
 	virtual_text = false,
 })
@@ -38,14 +23,6 @@ return {
 					},
 				},
 			})
-
-			-- local mr = require("mason-registry")
-			-- for _, tool in ipairs(servers) do
-			-- 	local p = mr.get_package(tool)
-			-- 	if not p:is_installed() then
-			-- 		p:install()
-			-- 	end
-			-- end
 		end,
 	},
 	{
@@ -56,7 +33,7 @@ return {
 			"jose-elias-alvarez/typescript.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 		},
-		config = function(plugin)
+		config = function()
 			local lspconfig = require("lspconfig")
 			local mason_lsp_config = require("mason-lspconfig")
 
