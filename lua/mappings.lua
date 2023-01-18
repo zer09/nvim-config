@@ -42,6 +42,13 @@ function M.standard()
 	nnoremap("<Leader>bt", "<CMD>bprevious<CR>")
 	nnoremap("<Leader>bn", "<CMD>bnext<CR>")
 
+	-- tabs
+	nnoremap("<Leader>tfi", ":tabfirst<CR>")
+	nnoremap("<Leader>tla", ":tablast<CR>")
+	nnoremap("<Leader>tre", ":tabprevious<CR>")
+	nnoremap("<Leader>tnn", ":tabnext<CR>")
+	nnoremap("<Leader>tne", ":tabnew<CR>")
+
 	-- Close the windown but keep the buffer
 	nnoremap("<Leader>wd", "<C-w>c")
 	nnoremap("<Leader>bd", ":b#<Bar>bd#<CR>")
