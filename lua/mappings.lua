@@ -39,6 +39,8 @@ function M.standard()
 	-- Windows and Buffers
 	nnoremap("<Leader>wv", ":vsplit<CR>")
 	nnoremap("<Leader>ws", ":split<CR>")
+	nnoremap("<Leader>bt", "<CMD>bprevious<CR>")
+	nnoremap("<Leader>bn", "<CMD>bnext<CR>")
 
 	-- Close the windown but keep the buffer
 	nnoremap("<Leader>wd", "<C-w>c")
