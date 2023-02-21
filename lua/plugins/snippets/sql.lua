@@ -10,19 +10,6 @@ local M = {}
 table.insert(
 	M,
 	s(
-		"_date",
-		fmt(
-			[[
-DECLARE _date {} DEFAULT CONVERT_TZ(NOW(),@@GLOBAL.TIME_ZONE,'+08:00');
-]],
-			{ i(1, "dateType") }
-		)
-	)
-)
-
-table.insert(
-	M,
-	s(
 		"sproc",
 		fmt(
 			[[
