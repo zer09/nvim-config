@@ -55,6 +55,7 @@ return {
 					"bashls",
 					"cssls",
 					"eslint",
+					"gopls",
 					"html",
 					"jsonls",
 					"rust_analyzer",

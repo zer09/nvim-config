@@ -20,6 +20,9 @@ return {
 					css = {
 						prettierd,
 					},
+					go = {
+						require("formatter.filetypes.go").gofmt,
+					},
 					html = {
 						prettierd,
 						rustywind,
