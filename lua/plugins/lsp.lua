@@ -26,10 +26,30 @@ return {
 		end,
 	},
 	{
+		"williamboman/mason-lspconfig.nvim",
+		config = function()
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"angularls",
+					"bashls",
+					"cssls",
+					"eslint",
+					"gopls",
+					"html",
+					"jsonls",
+					"lua_ls",
+					"rust_analyzer",
+					"svelte",
+					"tailwindcss",
+					"tsserver",
+					"yamlls",
+				},
+			})
+		end,
+	},
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
 			"jose-elias-alvarez/typescript.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 		},
@@ -48,25 +68,6 @@ return {
 
 				require("mappings").lsp_on_attach(bufnr)
 			end
-
-			mason_lsp_config.setup({
-				ensure_installed = {
-					"angularls",
-					"bashls",
-					"cssls",
-					"eslint",
-					"gopls",
-					"html",
-					"jsonls",
-					"rust_analyzer",
-					"lua_ls",
-					"svelte",
-					"tailwindcss",
-					"tsserver",
-					"yamlls",
-				},
-				automatic_installation = true,
-			})
 
 			mason_lsp_config.setup_handlers({
 				function(server_name)
@@ -92,6 +93,12 @@ return {
 							Lua = {
 								diagnostics = {
 									globals = { "vim" },
+								},
+								workspace = {
+									library = {
+										[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+										[vim.fn.stdpath("config") .. "/lua"] = true,
+									},
 								},
 							},
 						},

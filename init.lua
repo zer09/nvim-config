@@ -22,9 +22,6 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 vim.g.mapleader = " "
 
 require("lazy").setup("plugins", {
-	defaults = {
-		version = "*", -- try installing the latest stable version for plugins that support semver
-	},
 	performance = {
 		rtp = {
 			-- disable some rtp plugins
