@@ -1,2 +1,3 @@
 plugin/
 ses.vim
+.luarc.json
