@@ -88,6 +88,8 @@ return {
 				["lua_ls"] = function(_)
 					local lib = vim.api.nvim_get_runtime_file("", true)
 					table.insert(lib, vim.fn.stdpath("config") .. "/lua")
+					table.insert(lib, "${3rd}/luv/library")
+					table.insert(lib, "${3rd}/luassert/library")
 
 					lspconfig.lua_ls.setup({
 						on_attach = on_attach,
