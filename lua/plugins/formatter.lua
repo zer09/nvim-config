@@ -21,7 +21,7 @@ return {
 						prettierd,
 					},
 					go = {
-						require("formatter.filetypes.go").gofmt,
+						require("formatter.filetypes.go").goimports,
 					},
 					html = {
 						prettierd,
