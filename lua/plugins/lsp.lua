@@ -86,19 +86,22 @@ return {
 					})
 				end,
 				["lua_ls"] = function(_)
+					local lib = vim.api.nvim_get_runtime_file("", true)
+					table.insert(lib, vim.fn.stdpath("config") .. "/lua")
+
 					lspconfig.lua_ls.setup({
 						on_attach = on_attach,
 						capabilities = capabilities,
 						settings = {
 							Lua = {
+								runtime = {
+									version = "LuaJIT",
+								},
 								diagnostics = {
 									globals = { "vim" },
 								},
 								workspace = {
-									library = {
-										[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-										[vim.fn.stdpath("config") .. "/lua"] = true,
-									},
+									library = lib,
 								},
 							},
 						},
