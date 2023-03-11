@@ -51,7 +51,7 @@ function M.standard()
 
 	-- Close the windown but keep the buffer
 	nnoremap("<Leader>wd", "<C-w>c")
-	nnoremap("<Leader>bd", ":b#<Bar>bd#<CR>")
+	-- nnoremap("<Leader>bd", ":b#<Bar>bd#<CR>")
 
 	-- terminal
 	nnoremap("<Leader>tw", ":tabnew terminal<Bar>:term<CR>")

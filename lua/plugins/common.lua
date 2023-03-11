@@ -57,4 +57,10 @@ return {
 		"kevinhwang91/nvim-bqf",
 		ft = "qf",
 	},
+	{
+		"famiu/bufdelete.nvim",
+		config = function()
+			require("helper").nnoremap("<Leader>bd", ":Bdelete<CR>")
+		end,
+	},
 }
