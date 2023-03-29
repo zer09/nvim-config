@@ -30,7 +30,7 @@ set.pumheight = 10
 
 vim.g.python3_host_prog = "/usr/bin/python3"
 
-if vim.fn.has("wsl") then
+if vim.fn.has("wsl") == 1 then
 	vim.g.clipboard = {
 		name = "WslClipboard",
 		copy = {
