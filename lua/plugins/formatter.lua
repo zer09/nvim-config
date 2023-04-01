@@ -20,6 +20,9 @@ return {
 					css = {
 						prettierd,
 					},
+					dart = {
+						require("formatter.filetypes.dart").dartformat,
+					},
 					go = {
 						require("formatter.filetypes.go").goimports,
 					},

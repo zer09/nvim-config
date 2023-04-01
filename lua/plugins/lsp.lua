@@ -131,4 +131,33 @@ return {
 			})
 		end,
 	},
+	{
+		"akinsho/flutter-tools.nvim",
+		lazy = false,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"stevearc/dressing.nvim", -- optional for vim.ui.select
+			"hrsh7th/cmp-nvim-lsp",
+		},
+		config = function()
+			local capabilities =
+				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+			local on_attach = function(client, bufnr)
+				-- Disabled lsp formatting
+				client.server_capabilities.document_formatting = false
+				client.server_capabilities.document_range_formatting = false
+
+				require("mappings").lsp_on_attach(bufnr)
+			end
+
+			require("flutter-tools").setup({
+				lsp = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+				},
+			})
+		end,
+	},
 }
