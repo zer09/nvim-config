@@ -24,7 +24,7 @@ return {
 						"package-lock.json",
 						"init.sql",
 						"target/.*",
-						".git",
+						".git/.*",
 					},
 					mappings = {
 						i = {
