@@ -17,6 +17,7 @@ return {
 					"bash",
 					"comment",
 					"css",
+					"dart",
 					"go",
 					"help",
 					"html",
