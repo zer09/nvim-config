@@ -51,12 +51,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
--- save session
-vim.api.nvim_create_autocmd("VimLeave", {
-	group = comaug,
-	command = ":mksession! ses.vim",
-})
-
 vim.api.nvim_create_autocmd("VimEnter", {
 	group = comaug,
 	command = ":clearjumps",
