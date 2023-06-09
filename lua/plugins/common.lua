@@ -57,4 +57,13 @@ return {
 		"kevinhwang91/nvim-bqf",
 		ft = "qf",
 	},
+	{
+		-- https://www.youtube.com/watch?v=NJDu_53T_4M
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup()
+		end,
+	},
 }
