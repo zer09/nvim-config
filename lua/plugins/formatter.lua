@@ -43,6 +43,9 @@ return {
 					markdown = {
 						prettierd,
 					},
+					proto = {
+						require("formatter.defaults.clangformat"),
+					},
 					rust = {
 						require("formatter.filetypes.rust").rustfmt,
 					},
