@@ -32,6 +32,7 @@ return {
 				ensure_installed = {
 					"angularls",
 					"bashls",
+					"bufls",
 					"cssls",
 					"eslint",
 					"gopls",
