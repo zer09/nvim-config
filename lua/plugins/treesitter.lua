@@ -25,6 +25,7 @@ return {
 					"jsdoc",
 					"lua",
 					"markdown",
+					"proto",
 					"query",
 					"regex",
 					"rust",
