@@ -61,6 +61,11 @@ return {
 	{
 		"kevinhwang91/nvim-bqf",
 		ft = "qf",
+		opts = {
+			preview = {
+				winblend = 0,
+			},
+		},
 	},
 	{
 		-- https://www.youtube.com/watch?v=NJDu_53T_4M
