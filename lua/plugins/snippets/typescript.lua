@@ -44,8 +44,8 @@ table.insert(
 			[[
 		try {{
 			{}
-		}} catch(e) {{
-			logError('{}', e);
+		}} catch(error) {{
+			logError('{}', error);
 			return unhandledFailedResult();
 		}}
 ]],
@@ -108,8 +108,8 @@ table.insert(
 async {}({}){{
 	try {{
 		{}
-	}} catch(e) {{
-		logError('{}:{}', e);
+	}} catch(error) {{
+		logError('{}:{}', error);
 		return unhandledFailedResult();
 	}}
 }}
