@@ -8,21 +8,20 @@ return {
 		"folke/lsp-colors.nvim",
 		"p00f/nvim-ts-rainbow",
 		"lukas-reineke/indent-blankline.nvim",
+		"folke/trouble.nvim",
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		config = function()
-			require("gitsigns").setup({
-				signs = {
-					add = { text = "▌" },
-					change = { text = "▌" },
-					changedelete = { text = "▌" },
-					delete = { text = "▁" },
-					topdelete = { text = "▔" },
-				},
-				numhl = true,
-			})
-		end,
+		opts = {
+			signs = {
+				add = { text = "▌" },
+				change = { text = "▌" },
+				changedelete = { text = "▌" },
+				delete = { text = "▁" },
+				topdelete = { text = "▔" },
+			},
+			numhl = true,
+		},
 	},
 	{
 		"NeogitOrg/neogit",
@@ -47,12 +46,6 @@ return {
 		},
 	},
 	{
-		"folke/trouble.nvim",
-		config = function()
-			require("trouble").setup({})
-		end,
-	},
-	{
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup()
@@ -72,8 +65,5 @@ return {
 		"kylechui/nvim-surround",
 		version = "*",
 		event = "VeryLazy",
-		config = function()
-			require("nvim-surround").setup()
-		end,
 	},
 }

@@ -13,40 +13,36 @@ return {
 				desc = "Mason",
 			},
 		},
-		config = function()
-			require("mason").setup({
-				ui = {
-					icons = {
-						package_installed = "✓",
-						package_pending = "➜",
-						package_uninstalled = "✗",
-					},
+		opts = {
+			ui = {
+				icons = {
+					package_installed = "✓",
+					package_pending = "➜",
+					package_uninstalled = "✗",
 				},
-			})
-		end,
+			},
+		},
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"angularls",
-					"bashls",
-					"bufls",
-					"cssls",
-					"eslint",
-					"gopls",
-					"html",
-					"jsonls",
-					"lua_ls",
-					"rust_analyzer",
-					"svelte",
-					"tailwindcss",
-					"tsserver",
-					"yamlls",
-				},
-			})
-		end,
+		opts = {
+			ensure_installed = {
+				"angularls",
+				"bashls",
+				"bufls",
+				"cssls",
+				"eslint",
+				"gopls",
+				"html",
+				"jsonls",
+				"lua_ls",
+				"rust_analyzer",
+				"svelte",
+				"tailwindcss",
+				"tsserver",
+				"yamlls",
+			},
+		},
 	},
 	{
 		"neovim/nvim-lspconfig",
