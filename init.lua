@@ -51,3 +51,5 @@ mappings.neogit()
 mappings.choosewin()
 mappings.theme()
 mappings.trouble()
+
+vim.cmd.colorscheme("kanagawa")
