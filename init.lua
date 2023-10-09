@@ -1,27 +1,30 @@
--- resources
--- https://github.com/shaeinst/roshnivim/blob/main/lua/packer_nvim.lua
--- https://github.com/martinsione/dotfiles
--- https://github.com/folke/dot
--- https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/
--- https://oroques.dev/notes/neovim-init/
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-	-- bootstrap lazy.nvim
 	vim.fn.system({
 		"git",
 		"clone",
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
+		"--branch=stable", -- latest stable release
 		lazypath,
 	})
 end
 
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 
 require("lazy").setup("plugins", {
+	change_detection = {
+		enabled = true,
+		notify = false,
+	},
+	checker = {
+		enabled = true,
+		notify = false,
+	},
+	install = {
+		missing = true,
+	},
 	performance = {
 		rtp = {
 			-- disable some rtp plugins
@@ -30,6 +33,7 @@ require("lazy").setup("plugins", {
 				"matchit",
 				"matchparen",
 				"netrwPlugin",
+				"rplugin",
 				"tarPlugin",
 				"tohtml",
 				"tutor",
@@ -37,19 +41,13 @@ require("lazy").setup("plugins", {
 			},
 		},
 	},
+	ui = {
+		border = "rounded",
+	},
 })
 
--- require("impatient") -- comment this during install
-require("cmds")
 require("options")
-require("handlers")
-
-local mappings = require("mappings")
-mappings.standard()
-mappings.telescope()
-mappings.neogit()
-mappings.choosewin()
-mappings.theme()
-mappings.trouble()
+require("cmd")
+require("map")
 
 vim.cmd.colorscheme("kanagawa")

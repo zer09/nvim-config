@@ -1,6 +1,8 @@
 return {
 	{
 		"t9md/vim-choosewin",
+		version = false,
+		event = "VeryLazy",
 		config = function()
 			-- Label to choose when selecting tab.
 			vim.g.choosewin_label = "HTNSAOEU"
@@ -10,6 +12,8 @@ return {
 
 			-- Dont blink the cursor window is selected.
 			vim.g.choosewin_blink_on_land = 0
+
+			require("helper").nmap("-", "<Plug>(choosewin)")
 		end,
 	},
 }

@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 local set = vim.opt
 
 set.syntax = "on"
@@ -11,8 +13,8 @@ set.clipboard:prepend({ "unnamed", "unnamedplus" })
 set.virtualedit = "block"
 set.ignorecase = true
 set.smartcase = true
-set.updatetime = 250
-set.completeopt = "menuone,noselect"
+-- set.updatetime = 250 -- the number of milliseconds vim to wait before writing it to swap file
+set.completeopt = "menu,menuone,noselect"
 set.tabstop = 2
 set.softtabstop = 2
 set.shiftwidth = 2
@@ -46,17 +48,4 @@ if vim.fn.has("wsl") == 1 then
 		},
 		cache_enabled = true,
 	}
-
-	-- vim.g.clipboard = {
-	-- 	name = "WslClipboard",
-	-- 	copy = {
-	-- 		["+"] = "clip.exe",
-	-- 		["*"] = "clip.exe",
-	-- 	},
-	-- 	paste = {
-	-- 		["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-	-- 		["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-	-- 	},
-	-- 	cache_enabled = true,
-	-- }
 end

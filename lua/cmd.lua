@@ -62,7 +62,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "NeogitCommitMessage",
 	group = gitaug,
 	callback = function()
-		require("helper").nmap("cc", ":wq<CR>", { buffer = 0 })
+		require("helper").nmap("cc", "<CMD>wq<CR>", { buffer = 0 })
 	end,
 })
 

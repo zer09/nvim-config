@@ -1,80 +1,116 @@
-vim.diagnostic.config({
-	virtual_text = false,
-})
+local on_attach = function(client, bufnr)
+	client.server_capabilities.document_formatting = false
+	client.server_capabilities.document_range_formatting = false
+
+	local opts = { buffer = bufnr }
+	local nnoremap = require("helper").nnoremap
+
+	nnoremap("gp", "<CMD>lua vim.diagnostic.goto_prev()<CR>")
+	nnoremap("gn", "<CMD>lua vim.diagnostic.goto_next()<CR>")
+	nnoremap("gd", "<CMD>lua vim.lsp.buf.definition()<CR>", opts)
+	nnoremap("gi", "<CMD>lua vim.lsp.buf.implementation()<CR>", opts)
+	nnoremap("gr", "<CMD>lua vim.lsp.buf.references()<CR>", opts)
+
+	nnoremap("K", "<CMD>lua vim.lsp.buf.hover()<CR>", opts)
+	nnoremap("<C-k>", "<CMD>lua vim.lsp.buf.signature_help()<CR>", opts)
+	nnoremap("<Leader>wl", "<CMD>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+
+	nnoremap("<Leader>rn", "<CMD>lua vim.lsp.buf.rename()<CR>", opts)
+	nnoremap("<Leader>ca", "<CMD>lua vim.lsp.buf.code_action()<CR>", opts)
+end
 
 return {
 	{
-		"williamboman/mason.nvim",
-		cmd = "Mason",
-		keys = {
-			{
-				"<Leader>cm",
-				"<cmd>Mason<cr>",
-				desc = "Mason",
-			},
-		},
-		opts = {
-			ui = {
-				icons = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗",
-				},
-			},
-		},
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		opts = {
-			ensure_installed = {
-				"angularls",
-				"bashls",
-				"bufls",
-				"cssls",
-				"eslint",
-				"gopls",
-				"html",
-				"jsonls",
-				"lua_ls",
-				"rust_analyzer",
-				"svelte",
-				"tailwindcss",
-				"tsserver",
-				"yamlls",
-			},
-		},
+		"folke/neodev.nvim",
+		version = false,
+		event = "VeryLazy",
+		opts = {},
+		dependencies = { "hrsh7th/nvim-cmp" },
 	},
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"jose-elias-alvarez/typescript.nvim",
 			"hrsh7th/cmp-nvim-lsp",
+			{
+				"b0o/SchemaStore.nvim",
+				version = false,
+				lazy = true,
+			},
+			{
+				"williamboman/mason.nvim",
+				opts = {
+					ui = {
+						icons = {
+							package_installed = "✓",
+							package_pending = "➜",
+							package_uninstalled = "✗",
+						},
+					},
+				},
+			},
+			{
+				"williamboman/mason-lspconfig.nvim",
+				opts = {
+					ensure_installed = {
+						"angularls",
+						"bashls",
+						"bufls",
+						"cssls",
+						"eslint",
+						"gopls",
+						"html",
+						"jsonls",
+						"lua_ls",
+						"rust_analyzer",
+						"svelte",
+						"tailwindcss",
+						"yamlls",
+					},
+				},
+			},
 		},
 		config = function()
-			local lspconfig = require("lspconfig")
-			local mason_lsp_config = require("mason-lspconfig")
+			local lsp = require("lspconfig")
 
 			local capabilities =
 				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-			local on_attach = function(client, bufnr)
-				-- Disabled lsp formatting
-				client.server_capabilities.document_formatting = false
-				client.server_capabilities.document_range_formatting = false
-
-				require("mappings").lsp_on_attach(bufnr)
-			end
-
-			mason_lsp_config.setup_handlers({
+			require("mason-lspconfig").setup_handlers({
 				function(server_name)
-					lspconfig[server_name].setup({
+					lsp[server_name].setup({
 						on_attach = on_attach,
 						capabilities = capabilities,
 					})
 				end,
-				["jsonls"] = function(_)
-					lspconfig.jsonls.setup({
+				["lua_ls"] = function()
+					require("neodev").setup({})
+
+					lsp.lua_ls.setup({
+						on_attach = on_attach,
+						capabilities = capabilities,
+						settings = {
+							Lua = {
+								runtime = {
+									version = "LuaJIT",
+								},
+								workspace = {
+									checkThirdParty = false,
+									library = {
+										vim.env.VIMRUNTIME,
+										"${3rd}/luv/library",
+										"${3rd}/busted/library",
+									},
+								},
+								completion = {
+									callSnippet = "Replace",
+								},
+							},
+						},
+					})
+				end,
+				["jsonls"] = function()
+					lsp.jsonls.setup({
 						on_attach = on_attach,
 						capabilities = capabilities,
 						settings = {
@@ -85,57 +121,19 @@ return {
 						},
 					})
 				end,
-				["lua_ls"] = function()
-					lspconfig.lua_ls.setup({
+				["yamlls"] = function()
+					lsp.yamlls.setup({
 						on_attach = on_attach,
 						capabilities = capabilities,
-						on_init = function(client)
-							local path = client.workspace_folders[1].name
-							if
-								not vim.loop.fs_stat(path .. "/.luarc.json")
-								and not vim.loop.fs_stat(path .. "/.luarc.jsonc")
-							then
-								client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
-									Lua = {
-										runtime = {
-											-- Tell the language server which version of Lua you're using
-											-- (most likely LuaJIT in the case of Neovim)
-											version = "LuaJIT",
-										},
-										-- Make the server aware of Neovim runtime files
-										workspace = {
-											checkThirdParty = false,
-											library = {
-												vim.env.VIMRUNTIME,
-												-- "${3rd}/luv/library"
-												-- "${3rd}/busted/library",
-											},
-											-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-											-- library = vim.api.nvim_get_runtime_file("", true)
-										},
-									},
-								})
-
-								client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-							end
-
-							return true
-						end,
-					})
-				end,
-				["tsserver"] = function(_)
-					require("typescript").setup({
-						server = {
-							on_attach = function(client, bufnr)
-								on_attach(client, bufnr)
-
-								if vim.fn.findfile("angular.json", ".;") ~= "" then
-									client.server_capabilities.renameProvider = false
-								end
-
-								require("mappings").typescript(bufnr)
-							end,
-							capabilities = capabilities,
+						settings = {
+							yaml = {
+								schemaStore = {
+									enable = false,
+									url = "",
+								},
+								schemas = require("schemastore").yaml.schemas(),
+								validate = { enable = true },
+							},
 						},
 					})
 				end,
@@ -144,7 +142,7 @@ return {
 	},
 	{
 		"akinsho/flutter-tools.nvim",
-		lazy = false,
+		event = "VeryLazy",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"stevearc/dressing.nvim", -- optional for vim.ui.select
@@ -155,18 +153,32 @@ return {
 				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-			local on_attach = function(client, bufnr)
-				-- Disabled lsp formatting
-				client.server_capabilities.document_formatting = false
-				client.server_capabilities.document_range_formatting = false
-
-				require("mappings").lsp_on_attach(bufnr)
-			end
-
 			require("flutter-tools").setup({
 				lsp = {
 					on_attach = on_attach,
 					capabilities = capabilities,
+				},
+			})
+		end,
+	},
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"neovim/nvim-lspconfig",
+		},
+		opts = {},
+		config = function()
+			local capabilities =
+				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+			require("typescript-tools").setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				settings = {
+					expose_as_code_action = "all",
+					complete_function_calls = true,
 				},
 			})
 		end,
