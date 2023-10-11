@@ -174,7 +174,17 @@ return {
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 			require("typescript-tools").setup({
-				on_attach = on_attach,
+				on_attach = function(client, bufnr)
+					local opts = { buffer = bufnr }
+					local nnoremap = require("helper").nnoremap
+
+					nnoremap("gld", "<CMD>TSToolsGoToSourceDefinition<CR>", opts)
+					nnoremap("glf", "<CMD>TSToolsFixAll<CR>", opts)
+					nnoremap("gli", "<CMD>TSToolsAddMissingImports<CR>", opts)
+					nnoremap("glo", "<CMD>TSToolsOrganizeImports<CR>", opts)
+
+					on_attach(client, bufnr)
+				end,
 				capabilities = capabilities,
 				settings = {
 					expose_as_code_action = "all",
