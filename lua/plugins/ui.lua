@@ -1,3 +1,5 @@
+local iconKinds = require("helper").icons.kinds
+
 return {
 	{
 		"nvim-tree/nvim-web-devicons",
@@ -87,7 +89,38 @@ return {
 		"simrat39/symbols-outline.nvim",
 		version = false,
 		event = "VeryLazy",
-		opts = {},
+		opts = {
+			symbols = {
+				File = { icon = iconKinds.File, hl = "@text.uri" },
+				Module = { icon = iconKinds.Module, hl = "@namespace" },
+				Namespace = { icon = iconKinds.Namespace, hl = "@namespace" },
+				Package = { icon = iconKinds.Package, hl = "@namespace" },
+				Class = { icon = iconKinds.Class, hl = "@type" },
+				Method = { icon = iconKinds.Method, hl = "@method" },
+				Property = { icon = iconKinds.Property, hl = "@method" },
+				Field = { icon = iconKinds.Field, hl = "@field" },
+				Constructor = { icon = iconKinds.Constructor, hl = "@constructor" },
+				Enum = { icon = iconKinds.Enum, hl = "@type" },
+				Interface = { icon = iconKinds.Interface, hl = "@type" },
+				Function = { icon = iconKinds.Function, hl = "@function" },
+				Variable = { icon = iconKinds.Variable, hl = "@constant" },
+				Constant = { icon = iconKinds.Constant, hl = "@constant" },
+				String = { icon = iconKinds.String, hl = "@string" },
+				Number = { icon = iconKinds.Number, hl = "@number" },
+				Boolean = { icon = iconKinds.Boolean, hl = "@boolean" },
+				Array = { icon = iconKinds.Array, hl = "@constant" },
+				Object = { icon = iconKinds.Object, hl = "@type" },
+				Key = { icon = iconKinds.Key, hl = "@type" },
+				Null = { icon = iconKinds.Null, hl = "@type" },
+				EnumMember = { icon = iconKinds.EnumMember, hl = "@field" },
+				Struct = { icon = iconKinds.Struct, hl = "@type" },
+				Event = { icon = iconKinds.Event, hl = "@type" },
+				Operator = { icon = iconKinds.Operator, hl = "@operator" },
+				TypeParameter = { icon = iconKinds.TypeParameter, hl = "@parameter" },
+				Component = { icon = "", hl = "@function" },
+				Fragment = { icon = "", hl = "@constant" },
+			},
+		},
 		init = function()
 			require("helper").nnoremap("<Leader>oo", "<CMD>SymbolsOutline<CR>")
 		end,
