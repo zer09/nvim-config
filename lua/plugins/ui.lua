@@ -129,7 +129,19 @@ return {
 		"windwp/nvim-autopairs",
 		version = false,
 		event = "VeryLazy",
-		opts = {},
+		opts = {
+			check_ts = true,
+		},
+		config = function()
+			local np = require("nvim-autopairs")
+			np.setup({})
+
+			require("nvim-autopairs").add_rules({
+				require("nvim-autopairs.rule")("<", ">", { "typescript" }):with_pair(
+					require("nvim-autopairs.conds").not_before_text(" ")
+				),
+			})
+		end,
 	},
 	{
 		"kevinhwang91/nvim-bqf",
