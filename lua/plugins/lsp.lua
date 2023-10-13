@@ -21,6 +21,9 @@ local on_attach = function(client, bufnr)
 
 	nnoremap("<Leader>rn", "<CMD>lua vim.lsp.buf.rename()<CR>", opts)
 	nnoremap("<Leader>ca", "<CMD>lua vim.lsp.buf.code_action()<CR>", opts)
+
+	-- disable diagnostic on current buffer
+	nnoremap("gq", "<CMD>lua vim.diagnostic.disable(0)<CR>", opts)
 end
 
 return {
