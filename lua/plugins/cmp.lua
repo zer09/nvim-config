@@ -17,37 +17,45 @@ return {
 					require("luasnip.loaders.from_vscode").lazy_load()
 				end,
 			},
-			keys = {
-				{
-					"<Tab>",
-					function()
-						return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-					end,
-					expr = true,
-					silent = true,
-					mode = "i",
-				},
-				{
-					"<Tab>",
-					function()
-						require("luasnip").jump(1)
-					end,
-					mode = "s",
-				},
-				{
-					"<S-Tab>",
-					function()
-						require("luasnip").jump(-1)
-					end,
-					mode = { "i", "s" },
-				},
-			},
 		},
 	},
 	opts = function()
 		vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 
 		local cmp = require("cmp")
+		local ls = require("luasnip")
+
+		require("plugins.snippets.typescript")
+		require("plugins.snippets.sql")
+		require("plugins.snippets.html")
+		require("plugins.snippets.all")
+
+		local function has_words_before()
+			local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+			return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+		end
+
+		local up = function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif ls.jumpable(-1) then
+				ls.jump(-1)
+			else
+				fallback()
+			end
+		end
+
+		local down = function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif ls.expand_or_jumpable() then
+				ls.expand_or_jump()
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback()
+			end
+		end
 
 		local iconKinds = require("helper").icons.kinds
 		local iconKindLower = {}
@@ -56,9 +64,6 @@ return {
 		end
 
 		return {
-			completion = {
-				completeopt = "menu,menuone,noinsert",
-			},
 			experimental = {
 				ghost_text = {
 					hl_group = "CmpGhostText",
@@ -84,7 +89,6 @@ return {
 			},
 			mapping = cmp.mapping.preset.insert({
 				["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-				["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 				["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -95,6 +99,11 @@ return {
 					behavior = cmp.ConfirmBehavior.Replace,
 					select = true,
 				}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+				[",."] = cmp.mapping.close(),
+				["<Tab>"] = cmp.mapping(down, { "i", "s" }),
+				["<S-Tab>"] = cmp.mapping(up, { "i", "s" }),
+				["<Down>"] = cmp.mapping(down, { "i", "s" }),
+				["<Up>"] = cmp.mapping(up, { "i", "s" }),
 			}),
 			matching = {
 				disallow_fuzzy_matching = true,
@@ -112,7 +121,6 @@ return {
 				{ name = "nvim_lua" },
 				{ name = "path" },
 				{ name = "nvim_lsp_signature_help" },
-			}, {
 				{ name = "buffer" },
 			}),
 			window = {
