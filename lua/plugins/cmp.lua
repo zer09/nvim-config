@@ -24,6 +24,7 @@ return {
 
 		local cmp = require("cmp")
 		local ls = require("luasnip")
+		local types = require("cmp.types")
 
 		require("plugins.snippets.typescript")
 		require("plugins.snippets.sql")
@@ -116,7 +117,12 @@ return {
 			},
 			sorting = require("cmp.config.default")().sorting,
 			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
+				{
+					name = "nvim_lsp",
+					entry_filter = function(entry)
+						return types.lsp.CompletionItemKind[entry:get_kind()] ~= "Keyword"
+					end,
+				},
 				{ name = "luasnip" },
 				{ name = "nvim_lua" },
 				{ name = "path" },
