@@ -90,6 +90,7 @@ return {
 		version = false,
 		event = "VeryLazy",
 		opts = {
+			autofold_depth = 2,
 			symbols = {
 				File = { icon = iconKinds.File, hl = "@text.uri" },
 				Module = { icon = iconKinds.Module, hl = "@namespace" },
