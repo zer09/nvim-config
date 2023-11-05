@@ -31,6 +31,7 @@ return {
 						"%.env",
 						"yarn.lock",
 						"package%-lock.json",
+						"pnpm%-lock.yaml",
 						"lazy%-lock.json",
 						"init.sql",
 						"target/.*",
