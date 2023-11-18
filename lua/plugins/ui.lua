@@ -80,10 +80,10 @@ return {
 		opts = {},
 	},
 	{
-		"folke/flash.nvim",
-		version = false,
-		event = "VeryLazy",
-		opts = {},
+		"ggandor/leap.nvim",
+		config = function()
+			require("leap").add_default_mappings()
+		end,
 	},
 	{
 		"simrat39/symbols-outline.nvim",
