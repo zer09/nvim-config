@@ -49,5 +49,6 @@ require("lazy").setup("plugins", {
 require("options")
 require("cmd")
 require("map")
+require("goto")
 
 vim.cmd.colorscheme("kanagawa")
