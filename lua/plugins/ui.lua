@@ -38,13 +38,17 @@ return {
 		version = false,
 		event = "VeryLazy",
 		opts = {
+			notify = {
+				enabled = true,
+				view = "mini",
+			},
 			messages = {
 				enabled = true,
 				view = "mini",
-				view_error = "notify",
-				view_warn = "notify",
+				view_error = "mini",
+				view_warn = "mini",
 				view_history = "messages",
-				view_search = "virtualtext",
+				-- view_search = "virtualtext",
 			},
 			lsp = {
 				override = {
@@ -54,7 +58,7 @@ return {
 				},
 			},
 			presets = {
-				bottom_search = true,
+				-- bottom_search = true,
 				command_palette = true,
 				long_message_to_split = true,
 				lsp_doc_border = true,
