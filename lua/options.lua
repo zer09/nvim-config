@@ -30,7 +30,8 @@ set.title = true
 set.list = true
 set.pumheight = 10
 
-vim.g.python3_host_prog = "/usr/bin/python3"
+-- already using the default python3.11
+-- vim.g.python3_host_prog = "/usr/bin/python3"
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 
