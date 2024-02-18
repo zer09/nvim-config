@@ -1,7 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	-- version = false,
-	tag = "v0.9.2",
+	version = false,
 	build = ":TSUpdate",
 	event = "VeryLazy",
 	dependencies = {
