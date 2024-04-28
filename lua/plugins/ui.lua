@@ -159,4 +159,13 @@ return {
 			},
 		},
 	},
+	{
+		"andrewferrier/wrapping.nvim",
+		config = function()
+			require("wrapping").setup()
+			local nnoremap = require("helper").nnoremap
+			nnoremap("<Leader>ow", "<CMD>lua require('wrapping').soft_wrap_mode()<CR>")
+			nnoremap("<Leader>yow", "<CMD>lua require('wrapping').toggle_wrap_mode()<CR>")
+		end,
+	},
 }
