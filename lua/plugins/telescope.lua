@@ -60,6 +60,8 @@ return {
 				extensions = {
 					file_browser = {
 						path = "%:p:h",
+						grouped = true,
+						create_from_prompt = false,
 					},
 				},
 			})
