@@ -25,6 +25,8 @@ return {
 	{
 		"numToStr/Comment.nvim",
 		version = false,
+		enabled = false,
+		cond = false,
 		event = "VeryLazy",
 		opts = {},
 	},
