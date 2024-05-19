@@ -13,7 +13,20 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 
-require("lazy").setup("plugins", {
+require("lazy").setup({
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+		config = function()
+			vim.cmd.colorscheme("kanagawa")
+		end,
+	},
+	{
+		import = "plugins",
+	},
+}, {
 	change_detection = {
 		enabled = true,
 		notify = false,
@@ -50,5 +63,3 @@ require("options")
 require("cmd")
 require("map")
 require("goto")
-
-vim.cmd.colorscheme("kanagawa")

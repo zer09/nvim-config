@@ -1,6 +1,7 @@
 return {
 	"NeogitOrg/neogit",
-	version = false,
+	branch = "nightly",
+	lazy = true,
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
 		"nvim-telescope/telescope.nvim", -- optional
@@ -19,6 +20,10 @@ return {
 			section = { "", "" },
 			item = { "", "" },
 			hunk = { "", "" },
+		},
+		commit_editor = {
+			kind = "vsplit",
+			show_staged_diff = false,
 		},
 	},
 	init = function()

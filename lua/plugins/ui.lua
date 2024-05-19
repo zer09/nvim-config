@@ -10,12 +10,6 @@ return {
 		event = "VeryLazy",
 	},
 	{
-		"rebelot/kanagawa.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},
-	},
-	{
 		"stevearc/dressing.nvim",
 		version = false,
 		event = "VeryLazy",
