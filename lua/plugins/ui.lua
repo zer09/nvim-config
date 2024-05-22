@@ -136,11 +136,13 @@ return {
 			local np = require("nvim-autopairs")
 			np.setup({})
 
-			require("nvim-autopairs").add_rules({
+			np.add_rules({
 				require("nvim-autopairs.rule")("<", ">", { "typescript" }):with_pair(
 					require("nvim-autopairs.conds").not_before_text(" ")
 				),
 			})
+
+			np.get_rules("[")[1].not_filetypes = { "html" }
 		end,
 	},
 	{
