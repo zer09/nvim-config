@@ -2,6 +2,12 @@ vim.diagnostic.config({
 	virtual_text = false,
 })
 
+local iconKinds = require("helper").icons.kinds
+local navbuddyexclude = { tailwindcss = true, eslint = true, angularls = true }
+local function tableHaskey(table, Key)
+	return table[Key] ~= nil
+end
+
 local on_attach = function(client, bufnr)
 	client.server_capabilities.document_formatting = false
 	client.server_capabilities.document_range_formatting = false
@@ -24,6 +30,11 @@ local on_attach = function(client, bufnr)
 
 	-- disable diagnostic on current buffer
 	nnoremap("gq", "<CMD>lua vim.diagnostic.disable(0)<CR>", opts)
+
+	if tableHaskey(navbuddyexclude, client.config.name) ~= true then
+		local navbuddy = require("nvim-navbuddy")
+		navbuddy.attach(client, bufnr)
+	end
 end
 
 return {
@@ -37,6 +48,52 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
+			{
+				"neovim/nvim-lspconfig",
+				dependencies = {
+					{
+						"SmiteshP/nvim-navbuddy",
+						dependencies = {
+							"SmiteshP/nvim-navic",
+							"MunifTanjim/nui.nvim",
+						},
+						opts = {
+							lsp = { auto_attach = true },
+							icons = {
+								File = iconKinds.File,
+								Module = iconKinds.Module,
+								Namespace = iconKinds.Namespace,
+								Package = iconKinds.Package,
+								Class = iconKinds.Class,
+								Method = iconKinds.Method,
+								Property = iconKinds.Property,
+								Field = iconKinds.Field,
+								Constructor = iconKinds.Constructor,
+								Enum = iconKinds.Enum,
+								Interface = iconKinds.Interface,
+								Function = iconKinds.Function,
+								Variable = iconKinds.Variable,
+								Constant = iconKinds.Constant,
+								String = iconKinds.String,
+								Number = iconKinds.Number,
+								Boolean = iconKinds.Boolean,
+								Array = iconKinds.Array,
+								Object = iconKinds.Object,
+								Key = iconKinds.Key,
+								Null = iconKinds.Null,
+								EnumMember = iconKinds.EnumMember,
+								Struct = iconKinds.Struct,
+								Event = iconKinds.Event,
+								Operator = iconKinds.Operator,
+								TypeParameter = iconKinds.TypeParameter,
+							},
+						},
+						init = function()
+							require("helper").nnoremap("<Leader>oo", "<CMD>Navbuddy<CR>")
+						end,
+					},
+				},
+			},
 			"hrsh7th/cmp-nvim-lsp",
 			{
 				"b0o/SchemaStore.nvim",

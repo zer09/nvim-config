@@ -87,6 +87,7 @@ return {
 		"simrat39/symbols-outline.nvim",
 		version = false,
 		event = "VeryLazy",
+		enabled = false,
 		opts = {
 			autofold_depth = 2,
 			symbols = {
@@ -120,9 +121,9 @@ return {
 				Fragment = { icon = "", hl = "@constant" },
 			},
 		},
-		init = function()
-			require("helper").nnoremap("<Leader>oo", "<CMD>SymbolsOutline<CR>")
-		end,
+		-- init = function()
+		-- 	require("helper").nnoremap("<Leader>oo", "<CMD>SymbolsOutline<CR>")
+		-- end,
 	},
 	{
 		"windwp/nvim-autopairs",
