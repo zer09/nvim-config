@@ -38,12 +38,25 @@ local on_attach = function(client, bufnr)
 end
 
 return {
+	-- {
+	-- 	"folke/neodev.nvim",
+	-- 	version = false,
+	-- 	event = "VeryLazy",
+	-- 	opts = {},
+	-- 	dependencies = { "hrsh7th/nvim-cmp" },
+	-- },
 	{
-		"folke/neodev.nvim",
-		version = false,
-		event = "VeryLazy",
-		opts = {},
-		dependencies = { "hrsh7th/nvim-cmp" },
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- vim.env.LAZY .. "/luvit-meta/library",
+			},
+		},
+		dependencies = {
+			"Bilal2453/luvit-meta",
+			lazy = true,
+		},
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -147,32 +160,32 @@ return {
 						capabilities = capabilities,
 					})
 				end,
-				["lua_ls"] = function()
-					require("neodev").setup({})
-
-					lsp.lua_ls.setup({
-						on_attach = on_attach,
-						capabilities = capabilities,
-						settings = {
-							Lua = {
-								runtime = {
-									version = "LuaJIT",
-								},
-								workspace = {
-									checkThirdParty = false,
-									library = {
-										vim.env.VIMRUNTIME,
-										"${3rd}/luv/library",
-										"${3rd}/busted/library",
-									},
-								},
-								completion = {
-									callSnippet = "Replace",
-								},
-							},
-						},
-					})
-				end,
+				-- ["lua_ls"] = function()
+				-- 	require("neodev").setup({})
+				--
+				-- 	lsp.lua_ls.setup({
+				-- 		on_attach = on_attach,
+				-- 		capabilities = capabilities,
+				-- 		settings = {
+				-- 			Lua = {
+				-- 				runtime = {
+				-- 					version = "LuaJIT",
+				-- 				},
+				-- 				workspace = {
+				-- 					checkThirdParty = false,
+				-- 					library = {
+				-- 						vim.env.VIMRUNTIME,
+				-- 						"${3rd}/luv/library",
+				-- 						"${3rd}/busted/library",
+				-- 					},
+				-- 				},
+				-- 				completion = {
+				-- 					callSnippet = "Replace",
+				-- 				},
+				-- 			},
+				-- 		},
+				-- 	})
+				-- end,
 				["jsonls"] = function()
 					lsp.jsonls.setup({
 						on_attach = on_attach,
