@@ -143,6 +143,7 @@ return {
 			})
 
 			np.get_rules("[")[1].not_filetypes = { "html" }
+			np.get_rules("(")[1].not_filetypes = { "html" }
 		end,
 	},
 	{
