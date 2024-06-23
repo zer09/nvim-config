@@ -9,7 +9,7 @@ return {
 		{
 			"<Leader>f",
 			function()
-				require("conform").format({ async = true, lsp_fallback = true })
+				require("conform").format({ async = true, lsp_format = "fallback" })
 			end,
 			mode = "",
 			desc = "Format buffer",
@@ -46,14 +46,14 @@ return {
 				end
 			end
 
-			return { timeout = 200, lsp_fallback = true }, on_format
+			return { timeout = 200, lsp_format = "fallback" }, on_format
 		end,
 		format_after_save = function(bufnr)
 			if not slow_format_filetypes[vim.bo[bufnr].filetype] then
 				return
 			end
 
-			return { lsp_fallback = true }
+			return { lsp_format = "fallback" }
 		end,
 	},
 }
