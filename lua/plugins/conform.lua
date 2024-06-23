@@ -25,7 +25,7 @@ return {
 			json = { "prettierd" },
 			lua = { "stylua" },
 			markdown = { "prettierd" },
-			proto = { "clang_format" },
+			proto = { "clang-format" },
 			rust = { "rustfmt" },
 			scss = { "prettierd" },
 			sh = { "shfmt" },
