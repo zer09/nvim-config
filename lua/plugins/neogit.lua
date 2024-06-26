@@ -11,7 +11,6 @@ return {
 	},
 	config = function()
 		require("neogit").setup({
-			auto_refresh = false,
 			console_timeout = 10000,
 			disable_context_highlighting = true,
 			disable_commit_confirmation = false,
@@ -30,6 +29,17 @@ return {
 		})
 
 		require("helper").nnoremap("<Leader>gg", "<CMD>Neogit<CR>")
+
+		-- map cc to save commit
+		local gitaug = vim.api.nvim_create_augroup("gitaug", { clear = true })
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "NeogitCommitMessage",
+			group = gitaug,
+			callback = function()
+				require("helper").nmap("cc", "<CMD>wq<CR>", { buffer = 0 })
+			end,
+		})
+
 		local Color = require("neogit.lib.color").Color
 		local base_green = Color.from_hex("#a6d189")
 		local base_red = Color.from_hex("#e78284")
