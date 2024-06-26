@@ -1,31 +1,34 @@
 return {
 	"NeogitOrg/neogit",
-	lazy = true,
+	event = "VeryLazy",
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
+		"sindrets/diffview.nvim", -- optional - Diff integration
+
+		-- Only one of these is needed, not both.
 		"nvim-telescope/telescope.nvim", -- optional
-		"sindrets/diffview.nvim", -- optional
-		"ibhagwan/fzf-lua", -- optional
+		-- "ibhagwan/fzf-lua", -- optional
 	},
-	opts = {
-		auto_refresh = false,
-		console_timeout = 10000,
-		disable_context_highlighting = true,
-		disable_commit_confirmation = false,
-		disable_builtin_notifications = true,
-		disable_insert_on_commit = false,
-		signs = {
-			-- { CLOSED, OPENED }
-			section = { "", "" },
-			item = { "", "" },
-			hunk = { "", "" },
-		},
-		commit_editor = {
-			kind = "vsplit",
-			show_staged_diff = false,
-		},
-	},
-	init = function()
+	config = function()
+		require("neogit").setup({
+			auto_refresh = false,
+			console_timeout = 10000,
+			disable_context_highlighting = true,
+			disable_commit_confirmation = false,
+			disable_builtin_notifications = true,
+			disable_insert_on_commit = false,
+			signs = {
+				-- { CLOSED, OPENED }
+				section = { "", "" },
+				item = { "", "" },
+				hunk = { "", "" },
+			},
+			commit_editor = {
+				kind = "vsplit",
+				show_staged_diff = false,
+			},
+		})
+
 		require("helper").nnoremap("<Leader>gg", "<CMD>Neogit<CR>")
 		local Color = require("neogit.lib.color").Color
 		local base_green = Color.from_hex("#a6d189")
