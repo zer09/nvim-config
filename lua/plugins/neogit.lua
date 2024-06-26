@@ -16,6 +16,7 @@ return {
 			disable_commit_confirmation = false,
 			disable_builtin_notifications = true,
 			disable_insert_on_commit = false,
+			kind = "replace",
 			signs = {
 				-- { CLOSED, OPENED }
 				section = { "", "" },
