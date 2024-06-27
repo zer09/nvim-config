@@ -51,6 +51,8 @@ return {
 		opts = {
 			library = {
 				-- vim.env.LAZY .. "/luvit-meta/library",
+				vim.env.VIMRUNTIME,
+				"${3rd}/luv/library",
 			},
 		},
 		dependencies = {

@@ -20,8 +20,15 @@ return {
 			},
 		},
 	},
-	opts = function()
+	opts = function(_, opts)
 		vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+
+		-- for lazydev
+		opts.sources = opts.sources or {}
+		table.insert(opts.sources, {
+			name = "lazydev",
+			group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+		})
 
 		local cmp = require("cmp")
 		local ls = require("luasnip")
