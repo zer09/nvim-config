@@ -56,6 +56,11 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	command = ":clearjumps",
 })
 
+vim.api.nvim_create_autocmd("TabEnter", {
+	group = comaug,
+	command = "checktime",
+})
+
 --terminal
 -- reference: https://stackoverflow.com/a/63909865/3387602
 local termaug = vim.api.nvim_create_augroup("termaug", { clear = true })
