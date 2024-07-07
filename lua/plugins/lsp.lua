@@ -63,52 +63,6 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			{
-				"neovim/nvim-lspconfig",
-				dependencies = {
-					{
-						"SmiteshP/nvim-navbuddy",
-						dependencies = {
-							"SmiteshP/nvim-navic",
-							"MunifTanjim/nui.nvim",
-						},
-						opts = {
-							lsp = { auto_attach = true },
-							icons = {
-								File = iconKinds.File,
-								Module = iconKinds.Module,
-								Namespace = iconKinds.Namespace,
-								Package = iconKinds.Package,
-								Class = iconKinds.Class,
-								Method = iconKinds.Method,
-								Property = iconKinds.Property,
-								Field = iconKinds.Field,
-								Constructor = iconKinds.Constructor,
-								Enum = iconKinds.Enum,
-								Interface = iconKinds.Interface,
-								Function = iconKinds.Function,
-								Variable = iconKinds.Variable,
-								Constant = iconKinds.Constant,
-								String = iconKinds.String,
-								Number = iconKinds.Number,
-								Boolean = iconKinds.Boolean,
-								Array = iconKinds.Array,
-								Object = iconKinds.Object,
-								Key = iconKinds.Key,
-								Null = iconKinds.Null,
-								EnumMember = iconKinds.EnumMember,
-								Struct = iconKinds.Struct,
-								Event = iconKinds.Event,
-								Operator = iconKinds.Operator,
-								TypeParameter = iconKinds.TypeParameter,
-							},
-						},
-						init = function()
-							require("helper").nnoremap("<Leader>oo", "<CMD>Navbuddy<CR>")
-						end,
-					},
-				},
-			},
 			"hrsh7th/cmp-nvim-lsp",
 			{
 				"b0o/SchemaStore.nvim",
@@ -146,6 +100,47 @@ return {
 						"yamlls",
 					},
 				},
+			},
+			{
+				"SmiteshP/nvim-navbuddy",
+				dependencies = {
+					"SmiteshP/nvim-navic",
+					"MunifTanjim/nui.nvim",
+				},
+				opts = {
+					lsp = { auto_attach = true },
+					icons = {
+						File = iconKinds.File,
+						Module = iconKinds.Module,
+						Namespace = iconKinds.Namespace,
+						Package = iconKinds.Package,
+						Class = iconKinds.Class,
+						Method = iconKinds.Method,
+						Property = iconKinds.Property,
+						Field = iconKinds.Field,
+						Constructor = iconKinds.Constructor,
+						Enum = iconKinds.Enum,
+						Interface = iconKinds.Interface,
+						Function = iconKinds.Function,
+						Variable = iconKinds.Variable,
+						Constant = iconKinds.Constant,
+						String = iconKinds.String,
+						Number = iconKinds.Number,
+						Boolean = iconKinds.Boolean,
+						Array = iconKinds.Array,
+						Object = iconKinds.Object,
+						Key = iconKinds.Key,
+						Null = iconKinds.Null,
+						EnumMember = iconKinds.EnumMember,
+						Struct = iconKinds.Struct,
+						Event = iconKinds.Event,
+						Operator = iconKinds.Operator,
+						TypeParameter = iconKinds.TypeParameter,
+					},
+				},
+				init = function()
+					require("helper").nnoremap("<Leader>oo", "<CMD>Navbuddy<CR>")
+				end,
 			},
 		},
 		config = function()
