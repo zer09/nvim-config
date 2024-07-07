@@ -70,7 +70,8 @@ return {
 				lazy = true,
 			},
 			{
-				"williamboman/mason.nvim",
+				-- "williamboman/mason.nvim",
+				dir = "/home/gc/devtools/mason.nvim",
 				opts = {
 					ui = {
 						icons = {
@@ -79,13 +80,17 @@ return {
 							package_uninstalled = "✗",
 						},
 					},
+					registries = {
+						"file:/home/gc/devtools/mason-registry",
+						-- "github:mason-org/mason-registry",
+					},
 				},
 			},
 			{
 				"williamboman/mason-lspconfig.nvim",
 				opts = {
 					ensure_installed = {
-						"angularls",
+						"angularls@17.3.2",
 						"bashls",
 						"bufls",
 						"cssls",
