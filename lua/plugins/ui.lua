@@ -166,4 +166,7 @@ return {
 			nnoremap("<Leader>yow", "<CMD>lua require('wrapping').toggle_wrap_mode()<CR>")
 		end,
 	},
+	{
+		"tpope/vim-fugitive",
+	},
 }
