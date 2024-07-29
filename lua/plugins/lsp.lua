@@ -70,8 +70,8 @@ return {
 				lazy = true,
 			},
 			{
-				-- "williamboman/mason.nvim",
-				dir = "/home/gc/devtools/mason.nvim",
+				"williamboman/mason.nvim",
+				-- dir = "/home/gc/devtools/mason.nvim",
 				opts = {
 					ui = {
 						icons = {
@@ -81,8 +81,8 @@ return {
 						},
 					},
 					registries = {
-						"file:/home/gc/devtools/mason-registry",
-						-- "github:mason-org/mason-registry",
+						-- "file:/home/gc/devtools/mason-registry",
+						"github:mason-org/mason-registry",
 					},
 				},
 			},
@@ -188,6 +188,15 @@ return {
 				-- 		},
 				-- 	})
 				-- end,
+				-- ["angularls"] = function()
+				-- 	local cap = capabilities
+				-- 	cap.renameProvider = false
+				--
+				-- 	lsp.angularls.setup({
+				-- 		on_attach = on_attach,
+				-- 		capabilities = cap,
+				-- 	})
+				-- end,
 				["jsonls"] = function()
 					lsp.jsonls.setup({
 						on_attach = on_attach,
@@ -204,14 +213,23 @@ return {
 					lsp.yamlls.setup({
 						on_attach = on_attach,
 						capabilities = capabilities,
+						-- lazy-load schemastore when needed
+						on_new_config = function(new_config)
+							new_config.settings.yaml.schemas = vim.tbl_deep_extend(
+								"force",
+								new_config.settings.yaml.schemas or {},
+								require("schemastore").yaml.schemas()
+							)
+						end,
 						settings = {
 							yaml = {
 								schemaStore = {
 									enable = false,
 									url = "",
 								},
-								schemas = require("schemastore").yaml.schemas(),
-								validate = { enable = true },
+								-- schemas = require("schemastore").yaml.schemas(),
+								-- validate = { enable = true },
+								validate = true,
 							},
 						},
 					})
