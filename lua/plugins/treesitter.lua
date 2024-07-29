@@ -22,6 +22,7 @@ return {
 				additional_vim_regex_highlighting = { "python" },
 			},
 			ensure_installed = {
+				"angular",
 				"bash",
 				"comment",
 				"css",
