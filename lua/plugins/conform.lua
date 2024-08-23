@@ -19,7 +19,7 @@ return {
 		formatters_by_ft = {
 			css = { "prettierd" },
 			dart = { "dart_format" },
-			go = { "goimports" },
+			go = { "goimports-reviser", prepend_args = { "-rm-unused", "-set-alias" } },
 			html = { "prettierd" },
 			javascript = { "prettierd" },
 			json = { "prettierd" },
