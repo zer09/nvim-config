@@ -249,6 +249,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"stevearc/dressing.nvim", -- optional for vim.ui.select
 			"hrsh7th/cmp-nvim-lsp",
+			"nvim-telescope/telescope.nvim",
 		},
 		config = function()
 			local capabilities =
@@ -256,11 +257,23 @@ return {
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 			require("flutter-tools").setup({
+				dev_log = {
+					notify_errors = true, -- if there is an error whilst running then notify the user
+					open_cmd = "tabedit", -- command to use to open the log buffer
+				},
 				lsp = {
 					on_attach = on_attach,
 					capabilities = capabilities,
+					color = { -- show the derived colours for dart variables
+						enabled = true, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
+						background = true, -- highlight the background
+					},
 				},
 			})
+
+			require("telescope").load_extension("flutter")
+			local nnoremap = require("helper").nnoremap
+			nnoremap("<Leader>tf", "<CMD>Telescope flutter commands<CR>")
 		end,
 	},
 	{
