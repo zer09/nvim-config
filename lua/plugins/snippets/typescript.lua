@@ -151,13 +151,6 @@ table.insert(
 			[[
 export class {}Controller {{
 	private static _instance: {}Controller;
-	private readonly {}Svc: {}Service;
-	private readonly router = Router();
-
-	private constructor() {{
-		this.{}Svc = {}Service.instance();
-		this.initRouters();
-	}}
 
 	static instance() {{
 		if(!{}Controller._instance) {{
@@ -165,6 +158,14 @@ export class {}Controller {{
 		}}
 
 		return {}Controller._instance;
+	}}
+
+	private readonly {}Svc: {}Service;
+	private readonly router = Router();
+
+	private constructor() {{
+		this.{}Svc = {}Service.instance();
+		this.initRouters();
 	}}
 
 	get routers() {{
