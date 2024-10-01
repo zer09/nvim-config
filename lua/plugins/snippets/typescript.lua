@@ -180,13 +180,13 @@ export class {}Controller {{
 			{
 				i(1),
 				rep(1),
+				rep(1),
+				rep(1),
+				rep(1),
+				rep(1),
 				l(l._1:lower(), 1),
 				rep(1),
 				l(l._1:lower(), 1),
-				rep(1),
-				rep(1),
-				rep(1),
-				rep(1),
 				rep(1),
 				i(0),
 			}
