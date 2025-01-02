@@ -33,7 +33,7 @@ return {
 		-- map cc to save commit
 		local gitaug = vim.api.nvim_create_augroup("gitaug", { clear = true })
 		vim.api.nvim_create_autocmd("FileType", {
-			pattern = "NeogitCommitMessage",
+			pattern = "gitcommit",
 			group = gitaug,
 			callback = function()
 				require("helper").nmap("cc", "<CMD>wq<CR>", { buffer = 0 })
