@@ -92,7 +92,7 @@ return {
 					ensure_installed = {
 						"angularls@17.3.2",
 						"bashls",
-						"bufls",
+						"buf_ls",
 						"cssls",
 						"eslint",
 						"gopls",
