@@ -19,6 +19,14 @@ return {
 				end,
 			},
 		},
+		{
+			"brenoprata10/nvim-highlight-colors",
+			config = function()
+				require("nvim-highlight-colors").setup({
+					enable_tailwind = true,
+				})
+			end,
+		},
 	},
 	opts = function(_, opts)
 		vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
@@ -80,6 +88,8 @@ return {
 			},
 			formatting = {
 				format = function(entry, item)
+					local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
+
 					if iconKindLower[item.abbr:lower()] then
 						item.kind = iconKindLower[item.abbr:lower()] .. item.kind
 					elseif iconKinds[item.kind] then
@@ -93,6 +103,12 @@ return {
 						path = "[PATH]",
 						luasnip = "[SNIP]",
 					})[entry.source.name]
+
+					if color_item.abbr_hl_group then
+						item.kind_hl_group = color_item.abbr_hl_group
+						item.kind = color_item.abbr
+					end
+
 					return item
 				end,
 			},
