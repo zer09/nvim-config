@@ -90,7 +90,7 @@ return {
 				"williamboman/mason-lspconfig.nvim",
 				opts = {
 					ensure_installed = {
-						"angularls@17.3.2",
+						"angularls",
 						"bashls",
 						"buf_ls",
 						"cssls",
@@ -205,6 +205,19 @@ return {
 							json = {
 								schemas = require("schemastore").json.schemas(),
 								validate = { enable = true },
+							},
+						},
+					})
+				end,
+				["tailwindcss"] = function()
+					lsp.tailwindcss.setup({
+						on_attach = on_attach,
+						capabilities = capabilities,
+						settings = {
+							tailwindCSS = {
+								lint = {
+									invalidConfigPath = "warning",
+								},
 							},
 						},
 					})
