@@ -51,6 +51,7 @@ vim.g.loaded_perl_provider = 0
 -- 	}
 -- end
 
+-- https://github.com/microsoft/WSL/issues/11261#issuecomment-2011901398
 if vim.fn.has("wsl") == 1 then
 	if vim.fn.executable("wl-copy") == 0 then
 		print("wl-clipboard not found, clipboard integration won't work")
