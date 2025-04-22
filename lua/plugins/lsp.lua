@@ -1,7 +1,3 @@
-vim.diagnostic.config({
-	virtual_text = false,
-})
-
 local iconKinds = require("helper").icons.kinds
 local navbuddyexclude = { tailwindcss = true, eslint = true, angularls = true }
 local function tableHaskey(table, Key)
