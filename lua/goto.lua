@@ -1,3 +1,5 @@
+-- this doesnt work anymore, please the link
+-- https://github.com/neovim/neovim/issues/32384
 local function goto_definition()
 	local util = vim.lsp.util
 	local log = require("vim.lsp.log")
