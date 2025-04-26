@@ -13,7 +13,7 @@ return {
 			-- Dont blink the cursor window is selected.
 			vim.g.choosewin_blink_on_land = 0
 
-			require("helper").nmap("-", "<Plug>(choosewin)")
+			-- require("helper").nmap("-", "<Plug>(choosewin)")
 		end,
 	},
 }
