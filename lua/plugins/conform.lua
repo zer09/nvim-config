@@ -7,7 +7,7 @@ return {
 	cmd = { "ConformInfo" },
 	keys = {
 		{
-			"<Leader>f",
+			"<Leader>ff",
 			function()
 				require("conform").format({ async = true, lsp_format = "fallback" })
 			end,
@@ -34,6 +34,12 @@ return {
 			yaml = { "prettierd" },
 			["*"] = { "trim_whitespace" },
 			["_"] = { "trim_whitespace" },
+		},
+		formatters = {
+			dart_format = {
+				args = { "format", "$FILENAME" },
+				stdin = false,
+			},
 		},
 		format_on_save = function(bufnr)
 			if slow_format_filetypes[vim.bo[bufnr].filetype] then
