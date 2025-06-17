@@ -68,6 +68,7 @@ return {
 			{
 				"williamboman/mason.nvim",
 				-- dir = "/home/gc/devtools/mason.nvim",
+				pin = true,
 				opts = {
 					ui = {
 						icons = {
@@ -84,6 +85,7 @@ return {
 			},
 			{
 				"williamboman/mason-lspconfig.nvim",
+				pin = true,
 				opts = {
 					ensure_installed = {
 						"angularls",

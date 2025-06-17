@@ -1,5 +1,6 @@
 return {
 	"NeogitOrg/neogit",
+	pin = true,
 	event = "VeryLazy",
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
