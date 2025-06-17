@@ -15,7 +15,8 @@ local function goto_definition()
 			vim.cmd("vsplit")
 		end
 
-		util.jump_to_location(result[1], "utf-8")
+		-- util.jump_to_location(result[1], "utf-8")
+		vim.lsp.util.show_document(result[1], "utf-8", { focus = true })
 
 		if #result > 1 then
 			util.set_qflist(util.locations_to_items(result, "utf-8"))
