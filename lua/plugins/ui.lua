@@ -25,6 +25,7 @@ return {
 					return 2
 				end,
 			},
+			symbol = "│",
 		},
 	},
 	{
