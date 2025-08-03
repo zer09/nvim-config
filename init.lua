@@ -24,6 +24,7 @@ require("lazy").setup({
 	-- 	end,
 	-- },
 	{
+		-- https://github.com/catppuccin/nvim/discussions/323#discussioncomment-12522504
 		"catppuccin/nvim",
 		name = "catppuccin",
 		lazy = false,
@@ -93,6 +94,10 @@ require("lazy").setup({
 					},
 				},
 				transparent_background = false,
+				float = {
+					solid = false,
+					transparent = false,
+				},
 				show_end_of_buffer = false,
 				integration_default = false,
 				integrations = {
@@ -157,7 +162,7 @@ require("lazy").setup({
 							VertSplit = { bg = colors.base, fg = colors.surface0 },
 							WhichKeyFloat = { bg = colors.mantle },
 							YankHighlight = { bg = colors.surface2 },
-							FidgetTask = { fg = colors.subtext2 },
+							FidgetTask = { fg = colors.subtext0 },
 							FidgetTitle = { fg = colors.peach },
 
 							IblIndent = { fg = colors.surface0 },
@@ -189,8 +194,8 @@ require("lazy").setup({
 							SpecialChar = { fg = colors.yellow },
 							Type = { fg = colors.yellow, style = { "bold" } },
 							Function = { fg = colors.green, style = { "bold" } },
-							Delimiter = { fg = colors.subtext2 },
-							Ignore = { fg = colors.subtext2 },
+							Delimiter = { fg = colors.subtext0 },
+							Ignore = { fg = colors.subtext0 },
 							Macro = { fg = colors.teal },
 
 							TSAnnotation = { fg = colors.mauve },
@@ -240,7 +245,7 @@ require("lazy").setup({
 							TSRepeat = { fg = colors.red },
 							TSStorageClass = { fg = colors.peach },
 							TSStorageClassLifetime = { fg = colors.peach },
-							TSStrike = { fg = colors.subtext2 },
+							TSStrike = { fg = colors.subtext0 },
 							TSString = { fg = colors.teal },
 							TSStringEscape = { fg = colors.green },
 							TSStringRegex = { fg = colors.green },
@@ -288,7 +293,7 @@ require("lazy").setup({
 							NeotestIndent = { fg = colors.yellow },
 							NeotestExpandMarker = { fg = colors.yellow },
 							NeotestWinSelect = { fg = colors.yellow, bold = true },
-							NeotestTest = { fg = colors.subtext2 },
+							NeotestTest = { fg = colors.subtext0 },
 
 							["@annotation"] = { link = "TSAnnotation" },
 							["@attribute"] = { link = "TSAttribute" },
