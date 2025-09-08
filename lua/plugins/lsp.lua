@@ -1,74 +1,69 @@
-local iconKinds = require("helper").icons.kinds
-local navbuddyexclude = { tailwindcss = true, eslint = true, angularls = true }
-local function tableHaskey(table, Key)
-	return table[Key] ~= nil
-end
-
-local on_attach = function(client, bufnr)
-	client.server_capabilities.document_formatting = false
-	client.server_capabilities.document_range_formatting = false
-
-	local opts = { buffer = bufnr }
-	local nnoremap = require("helper").nnoremap
-
-	nnoremap("gp", "<CMD>lua vim.diagnostic.goto_prev()<CR>")
-	nnoremap("gn", "<CMD>lua vim.diagnostic.goto_next()<CR>")
-	nnoremap("gd", "<CMD>lua vim.lsp.buf.definition()<CR>", opts)
-	nnoremap("gi", "<CMD>lua vim.lsp.buf.implementation()<CR>", opts)
-	nnoremap("gr", "<CMD>lua vim.lsp.buf.references()<CR>", opts)
-
-	nnoremap("K", "<CMD>lua vim.lsp.buf.hover()<CR>", opts)
-	nnoremap("<C-k>", "<CMD>lua vim.lsp.buf.signature_help()<CR>", opts)
-	nnoremap("<Leader>wl", "<CMD>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-
-	nnoremap("<Leader>rn", "<CMD>lua vim.lsp.buf.rename()<CR>", opts)
-	nnoremap("<Leader>ca", "<CMD>lua vim.lsp.buf.code_action()<CR>", opts)
-
-	-- disable diagnostic on current buffer
-	nnoremap("gq", "<CMD>lua vim.diagnostic.disable(0)<CR>", opts)
-
-	if tableHaskey(navbuddyexclude, client.config.name) ~= true then
-		local navbuddy = require("nvim-navbuddy")
-		navbuddy.attach(client, bufnr)
-	end
-end
-
 return {
-	-- {
-	-- 	"folke/neodev.nvim",
-	-- 	version = false,
-	-- 	event = "VeryLazy",
-	-- 	opts = {},
-	-- 	dependencies = { "hrsh7th/nvim-cmp" },
-	-- },
 	{
 		"folke/lazydev.nvim",
 		ft = "lua", -- only load on lua files
-		opts = {
-			library = {
-				-- vim.env.LAZY .. "/luvit-meta/library",
-				vim.env.VIMRUNTIME,
-				"${3rd}/luv/library",
-			},
-		},
 		dependencies = {
 			"Bilal2453/luvit-meta",
 			lazy = true,
 		},
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		},
 	},
 	{
-		"neovim/nvim-lspconfig",
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			{
-				"b0o/SchemaStore.nvim",
-				version = false,
-				lazy = true,
+		"saghen/blink.cmp",
+		version = "1.*",
+		opts = {
+			keymap = { preset = "enter" },
+			completions = {
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 500,
+					treesitter_highlighting = true,
+				},
+				list = {
+					selection = { preselect = false, auto_insert = true },
+				},
 			},
+			sources = {
+				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				providers = {
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						-- make lazydev completions top priority (see `:h blink.cmp`)
+						score_offset = 100,
+					},
+				},
+			},
+		},
+	},
+	{
+		"mason-org/mason-lspconfig.nvim",
+		opts = {
+			ensure_installed = {
+				"angularls",
+				"bashls",
+				"cssls",
+				"eslint",
+				"gopls",
+				"html",
+				"jsonls",
+				"lua_ls",
+				"pbls",
+				"rust_analyzer",
+				"svelte",
+				"tailwindcss",
+				"yamlls",
+			},
+		},
+		dependencies = {
 			{
-				"williamboman/mason.nvim",
-				-- dir = "/home/gc/devtools/mason.nvim",
-				pin = true,
+				"mason-org/mason.nvim",
 				opts = {
 					ui = {
 						icons = {
@@ -77,253 +72,9 @@ return {
 							package_uninstalled = "✗",
 						},
 					},
-					registries = {
-						-- "file:/home/gc/devtools/mason-registry",
-						"github:mason-org/mason-registry",
-					},
 				},
 			},
-			{
-				"williamboman/mason-lspconfig.nvim",
-				pin = true,
-				opts = {
-					ensure_installed = {
-						"angularls",
-						"bashls",
-						"cssls",
-						"eslint",
-						"gopls",
-						"html",
-						"jsonls",
-						"lua_ls",
-						"pbls",
-						"rust_analyzer",
-						"svelte",
-						"tailwindcss",
-						"yamlls",
-					},
-				},
-			},
-			{
-				"SmiteshP/nvim-navbuddy",
-				dependencies = {
-					"SmiteshP/nvim-navic",
-					"MunifTanjim/nui.nvim",
-				},
-				opts = {
-					lsp = { auto_attach = true },
-					icons = {
-						File = iconKinds.File,
-						Module = iconKinds.Module,
-						Namespace = iconKinds.Namespace,
-						Package = iconKinds.Package,
-						Class = iconKinds.Class,
-						Method = iconKinds.Method,
-						Property = iconKinds.Property,
-						Field = iconKinds.Field,
-						Constructor = iconKinds.Constructor,
-						Enum = iconKinds.Enum,
-						Interface = iconKinds.Interface,
-						Function = iconKinds.Function,
-						Variable = iconKinds.Variable,
-						Constant = iconKinds.Constant,
-						String = iconKinds.String,
-						Number = iconKinds.Number,
-						Boolean = iconKinds.Boolean,
-						Array = iconKinds.Array,
-						Object = iconKinds.Object,
-						Key = iconKinds.Key,
-						Null = iconKinds.Null,
-						EnumMember = iconKinds.EnumMember,
-						Struct = iconKinds.Struct,
-						Event = iconKinds.Event,
-						Operator = iconKinds.Operator,
-						TypeParameter = iconKinds.TypeParameter,
-					},
-				},
-				init = function()
-					require("helper").nnoremap("<Leader>oo", "<CMD>Navbuddy<CR>")
-				end,
-			},
+			{ "neovim/nvim-lspconfig" },
 		},
-		config = function()
-			local lsp = require("lspconfig")
-
-			local capabilities =
-				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-			capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-			require("mason-lspconfig").setup_handlers({
-				function(server_name)
-					lsp[server_name].setup({
-						on_attach = on_attach,
-						capabilities = capabilities,
-					})
-				end,
-				-- ["lua_ls"] = function()
-				-- 	require("neodev").setup({})
-				--
-				-- 	lsp.lua_ls.setup({
-				-- 		on_attach = on_attach,
-				-- 		capabilities = capabilities,
-				-- 		settings = {
-				-- 			Lua = {
-				-- 				runtime = {
-				-- 					version = "LuaJIT",
-				-- 				},
-				-- 				workspace = {
-				-- 					checkThirdParty = false,
-				-- 					library = {
-				-- 						vim.env.VIMRUNTIME,
-				-- 						"${3rd}/luv/library",
-				-- 						"${3rd}/busted/library",
-				-- 					},
-				-- 				},
-				-- 				completion = {
-				-- 					callSnippet = "Replace",
-				-- 				},
-				-- 			},
-				-- 		},
-				-- 	})
-				-- end,
-				-- ["angularls"] = function()
-				-- 	local cap = capabilities
-				-- 	cap.renameProvider = false
-				--
-				-- 	lsp.angularls.setup({
-				-- 		on_attach = on_attach,
-				-- 		capabilities = cap,
-				-- 	})
-				-- end,
-				["jsonls"] = function()
-					lsp.jsonls.setup({
-						on_attach = on_attach,
-						capabilities = capabilities,
-						settings = {
-							json = {
-								schemas = require("schemastore").json.schemas(),
-								validate = { enable = true },
-							},
-						},
-					})
-				end,
-				["tailwindcss"] = function()
-					lsp.tailwindcss.setup({
-						on_attach = on_attach,
-						capabilities = capabilities,
-						settings = {
-							tailwindCSS = {
-								lint = {
-									invalidConfigPath = "warning",
-								},
-							},
-						},
-					})
-				end,
-				["yamlls"] = function()
-					lsp.yamlls.setup({
-						on_attach = on_attach,
-						capabilities = capabilities,
-						-- lazy-load schemastore when needed
-						on_new_config = function(new_config)
-							new_config.settings.yaml.schemas = vim.tbl_deep_extend(
-								"force",
-								new_config.settings.yaml.schemas or {},
-								require("schemastore").yaml.schemas()
-							)
-						end,
-						settings = {
-							yaml = {
-								schemaStore = {
-									enable = false,
-									url = "",
-								},
-								-- schemas = require("schemastore").yaml.schemas(),
-								-- validate = { enable = true },
-								validate = true,
-							},
-						},
-					})
-				end,
-			})
-
-			local diagnostics = require("helper").icons.diagnostics
-			vim.diagnostic.config({
-				signs = {
-					text = {
-						[vim.diagnostic.severity.ERROR] = diagnostics.Error,
-						[vim.diagnostic.severity.WARN] = diagnostics.Warn,
-						[vim.diagnostic.severity.HINT] = diagnostics.Hint,
-						[vim.diagnostic.severity.INFO] = diagnostics.Info,
-					},
-				},
-			})
-		end,
-	},
-	{
-		"akinsho/flutter-tools.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"stevearc/dressing.nvim", -- optional for vim.ui.select
-			"hrsh7th/cmp-nvim-lsp",
-			"nvim-telescope/telescope.nvim",
-		},
-		config = function()
-			local capabilities =
-				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-			capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-			require("flutter-tools").setup({
-				dev_log = {
-					notify_errors = true, -- if there is an error whilst running then notify the user
-					open_cmd = "tabedit", -- command to use to open the log buffer
-				},
-				lsp = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-					color = { -- show the derived colours for dart variables
-						enabled = true, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
-						background = true, -- highlight the background
-					},
-				},
-			})
-
-			require("telescope").load_extension("flutter")
-			local nnoremap = require("helper").nnoremap
-			nnoremap("<Leader>tf", "<CMD>Telescope flutter commands<CR>")
-		end,
-	},
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"neovim/nvim-lspconfig",
-		},
-		opts = {},
-		config = function()
-			local capabilities =
-				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-			capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-			require("typescript-tools").setup({
-				on_attach = function(client, bufnr)
-					local opts = { buffer = bufnr }
-					local nnoremap = require("helper").nnoremap
-
-					nnoremap("gld", "<CMD>TSToolsGoToSourceDefinition<CR>", opts)
-					nnoremap("glf", "<CMD>TSToolsFixAll<CR>", opts)
-					nnoremap("gli", "<CMD>TSToolsAddMissingImports<CR>", opts)
-					nnoremap("glo", "<CMD>TSToolsOrganizeImports<CR>", opts)
-
-					on_attach(client, bufnr)
-				end,
-				capabilities = capabilities,
-				settings = {
-					expose_as_code_action = "all",
-					complete_function_calls = true,
-				},
-			})
-		end,
 	},
 }

@@ -1,36 +1,33 @@
 return {
-	{
-		"nvim-lualine/lualine.nvim",
-		event = "VeryLazy",
-		opts = {
-			options = {
-				component_separators = "",
-				section_separators = { left = "", right = "" },
+	"nvim-lualine/lualine.nvim",
+	opts = {
+		options = {
+			component_separators = "",
+			section_separators = { left = "", right = "" },
+		},
+		sections = {
+			lualine_a = {
+				{
+					"mode",
+					fmt = function(mode)
+						return table.concat(vim.tbl_map(function(word)
+							return word:sub(1, 1)
+						end, vim.split(mode, "-")))
+					end,
+				},
 			},
-			sections = {
-				lualine_a = {
-					{
-						"mode",
-						fmt = function(mode)
-							return table.concat(vim.tbl_map(function(word)
-								return word:sub(1, 1)
-							end, vim.split(mode, "-")))
-						end,
-					},
+			lualine_c = {
+				{
+					"filetype",
+					padding = { left = 1, right = 0 },
+					icon_only = true,
 				},
-				lualine_c = {
-					{
-						"filetype",
-						padding = { left = 1, right = 0 },
-						icon_only = true,
-					},
-					{
-						"filename",
-					},
+				{
+					"filename",
 				},
-				lualine_x = {
-					"encoding",
-				},
+			},
+			lualine_x = {
+				"encoding",
 			},
 		},
 	},

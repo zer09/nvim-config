@@ -1,5 +1,3 @@
-local iconKinds = require("helper").icons.kinds
-
 return {
 	{
 		"nvim-tree/nvim-web-devicons",
@@ -8,12 +6,6 @@ return {
 	{
 		"HiPhish/rainbow-delimiters.nvim",
 		event = "VeryLazy",
-	},
-	{
-		"stevearc/dressing.nvim",
-		version = false,
-		event = "VeryLazy",
-		opts = {},
 	},
 	{
 		"echasnovski/mini.indentscope",
@@ -27,6 +19,52 @@ return {
 			},
 			symbol = "│",
 		},
+	},
+	{
+		"folke/todo-comments.nvim",
+		version = false,
+		event = "VeryLazy",
+		opts = {},
+	},
+	{
+		"ggandor/leap.nvim",
+		config = function()
+			require("leap").add_default_mappings()
+		end,
+	},
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = function()
+			local np = require("nvim-autopairs")
+			np.setup({ check_ts = true })
+			np.add_rules({
+				require("nvim-autopairs.rule")("<", ">", { "typescript" }):with_pair(
+					require("nvim-autopairs.conds").not_before_text(" ")
+				),
+			})
+
+			np.get_rules("[")[1].not_filetypes = { "html" }
+			np.get_rules("(")[1].not_filetypes = { "html" }
+		end,
+	},
+	{
+		"kevinhwang91/nvim-bqf",
+		ft = "qf",
+		opts = {
+			preview = {
+				winblend = 0,
+			},
+		},
+	},
+	{
+		"andrewferrier/wrapping.nvim",
+		config = function()
+			require("wrapping").setup()
+			local nnoremap = require("helper").nnoremap
+			nnoremap("<Leader>ow", "<CMD>lua require('wrapping').soft_wrap_mode()<CR>")
+			nnoremap("<Leader>yow", "<CMD>lua require('wrapping').toggle_wrap_mode()<CR>")
+		end,
 	},
 	{
 		"folke/noice.nvim",
@@ -71,103 +109,5 @@ return {
 				},
 			},
 		},
-	},
-	{
-		"folke/todo-comments.nvim",
-		version = false,
-		event = "VeryLazy",
-		opts = {},
-	},
-	{
-		"ggandor/leap.nvim",
-		config = function()
-			require("leap").add_default_mappings()
-		end,
-	},
-	{
-		"simrat39/symbols-outline.nvim",
-		version = false,
-		event = "VeryLazy",
-		enabled = false,
-		opts = {
-			autofold_depth = 2,
-			symbols = {
-				File = { icon = iconKinds.File, hl = "@text.uri" },
-				Module = { icon = iconKinds.Module, hl = "@namespace" },
-				Namespace = { icon = iconKinds.Namespace, hl = "@namespace" },
-				Package = { icon = iconKinds.Package, hl = "@namespace" },
-				Class = { icon = iconKinds.Class, hl = "@type" },
-				Method = { icon = iconKinds.Method, hl = "@method" },
-				Property = { icon = iconKinds.Property, hl = "@method" },
-				Field = { icon = iconKinds.Field, hl = "@field" },
-				Constructor = { icon = iconKinds.Constructor, hl = "@constructor" },
-				Enum = { icon = iconKinds.Enum, hl = "@type" },
-				Interface = { icon = iconKinds.Interface, hl = "@type" },
-				Function = { icon = iconKinds.Function, hl = "@function" },
-				Variable = { icon = iconKinds.Variable, hl = "@constant" },
-				Constant = { icon = iconKinds.Constant, hl = "@constant" },
-				String = { icon = iconKinds.String, hl = "@string" },
-				Number = { icon = iconKinds.Number, hl = "@number" },
-				Boolean = { icon = iconKinds.Boolean, hl = "@boolean" },
-				Array = { icon = iconKinds.Array, hl = "@constant" },
-				Object = { icon = iconKinds.Object, hl = "@type" },
-				Key = { icon = iconKinds.Key, hl = "@type" },
-				Null = { icon = iconKinds.Null, hl = "@type" },
-				EnumMember = { icon = iconKinds.EnumMember, hl = "@field" },
-				Struct = { icon = iconKinds.Struct, hl = "@type" },
-				Event = { icon = iconKinds.Event, hl = "@type" },
-				Operator = { icon = iconKinds.Operator, hl = "@operator" },
-				TypeParameter = { icon = iconKinds.TypeParameter, hl = "@parameter" },
-				Component = { icon = "", hl = "@function" },
-				Fragment = { icon = "", hl = "@constant" },
-			},
-		},
-		-- init = function()
-		-- 	require("helper").nnoremap("<Leader>oo", "<CMD>SymbolsOutline<CR>")
-		-- end,
-	},
-	{
-		"windwp/nvim-autopairs",
-		version = false,
-		event = "VeryLazy",
-		opts = {
-			check_ts = true,
-		},
-		config = function()
-			local np = require("nvim-autopairs")
-			np.setup({})
-
-			np.add_rules({
-				require("nvim-autopairs.rule")("<", ">", { "typescript" }):with_pair(
-					require("nvim-autopairs.conds").not_before_text(" ")
-				),
-			})
-
-			np.get_rules("[")[1].not_filetypes = { "html" }
-			np.get_rules("(")[1].not_filetypes = { "html" }
-		end,
-	},
-	{
-		"kevinhwang91/nvim-bqf",
-		version = false,
-		lazy = true,
-		ft = "qf",
-		opts = {
-			preview = {
-				winblend = 0,
-			},
-		},
-	},
-	{
-		"andrewferrier/wrapping.nvim",
-		config = function()
-			require("wrapping").setup()
-			local nnoremap = require("helper").nnoremap
-			nnoremap("<Leader>ow", "<CMD>lua require('wrapping').soft_wrap_mode()<CR>")
-			nnoremap("<Leader>yow", "<CMD>lua require('wrapping').toggle_wrap_mode()<CR>")
-		end,
-	},
-	{
-		"tpope/vim-fugitive",
 	},
 }

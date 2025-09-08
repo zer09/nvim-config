@@ -1,7 +1,6 @@
 return {
 	{
 		"lambdalisue/suda.vim",
-		lazy = false,
 		config = function()
 			vim.g.suda_smart_edit = 1
 		end,
@@ -9,7 +8,6 @@ return {
 	{
 		"echasnovski/mini.surround",
 		version = false,
-		event = "VeryLazy",
 		opts = {
 			mappings = {
 				add = "sua", -- Add surrounding in Normal and Visual modes
@@ -25,9 +23,6 @@ return {
 	{
 		"numToStr/Comment.nvim",
 		version = false,
-		-- enabled = false,
-		-- cond = false,
-		event = "VeryLazy",
 		opts = {},
 	},
 }
