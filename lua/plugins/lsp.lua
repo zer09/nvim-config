@@ -1,3 +1,31 @@
+local on_attach = function(client, bufnr)
+	client.server_capabilities.document_formatting = false
+	client.server_capabilities.document_range_formatting = false
+
+	local opts = { buffer = bufnr }
+	local nnoremap = require("helper").nnoremap
+
+	nnoremap("gp", "<CMD>lua vim.diagnostic.goto_prev()<CR>")
+	nnoremap("gn", "<CMD>lua vim.diagnostic.goto_next()<CR>")
+	nnoremap("gd", "<CMD>lua vim.lsp.buf.definition()<CR>", opts)
+	nnoremap("gi", "<CMD>lua vim.lsp.buf.implementation()<CR>", opts)
+	nnoremap("gr", "<CMD>lua vim.lsp.buf.references()<CR>", opts)
+
+	nnoremap("K", "<CMD>lua vim.lsp.buf.hover()<CR>", opts)
+	nnoremap("<C-k>", "<CMD>lua vim.lsp.buf.signature_help()<CR>", opts)
+	nnoremap("<Leader>wl", "<CMD>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+
+	nnoremap("<Leader>rn", "<CMD>lua vim.lsp.buf.rename()<CR>", opts)
+	nnoremap("<Leader>ca", "<CMD>lua vim.lsp.buf.code_action()<CR>", opts)
+
+	-- disable diagnostic on current buffer
+	nnoremap("gq", "<CMD>lua vim.diagnostic.disable(0)<CR>", opts)
+end
+
+vim.lsp.config("*", {
+	on_attach = on_attach,
+})
+
 return {
 	{
 		"folke/lazydev.nvim",
