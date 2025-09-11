@@ -77,7 +77,16 @@ return {
 			integration_default = false,
 			integrations = {
 				barbecue = { dim_dirname = true, bold_basename = true, dim_context = false, alt_background = false },
+				blink_cmp = {
+					style = "bordered",
+				},
+				colorful_winsep = {
+					enabled = true,
+					color = "red",
+				},
+				diffview = true,
 				cmp = true,
+				gitgraph = true,
 				gitsigns = true,
 				hop = true,
 				illuminate = { enabled = true },
