@@ -22,6 +22,15 @@ local on_attach = function(client, bufnr)
 	nnoremap("gq", "<CMD>lua vim.diagnostic.disable(0)<CR>", opts)
 end
 
+local has_words_before = function()
+	local col = vim.api.nvim_win_get_cursor(0)[2]
+	if col == 0 then
+		return false
+	end
+	local line = vim.api.nvim_get_current_line()
+	return line:sub(col, col):match("%s") == nil
+end
+
 vim.lsp.config("*", {
 	on_attach = on_attach,
 })
@@ -45,12 +54,26 @@ return {
 	{
 		"saghen/blink.cmp",
 		version = "1.*",
+		enabled = false,
 		dependencies = {
 			"onsails/lspkind.nvim",
 			"xzbdmw/colorful-menu.nvim",
 		},
 		opts = {
-			keymap = { preset = "enter" },
+			keymap = {
+				preset = "none",
+				-- If completion hasn't been triggered yet, insert the first suggestion; if it has, cycle to the next suggestion.
+				["<Tab>"] = {
+					function(cmp)
+						if has_words_before() then
+							return cmp.insert_next()
+						end
+					end,
+					"fallback",
+				},
+				-- Navigate to the previous suggestion or cancel completion if currently on the first one.
+				["<S-Tab>"] = { "insert_prev" },
+			},
 			sources = {
 				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 				providers = {
@@ -68,12 +91,21 @@ return {
 			completion = {
 				documentation = {
 					auto_show = true,
+					window = {
+						border = "rounded",
+					},
 				},
-				ghost_text = {
-					enabled = true,
-				},
+				-- list = {
+				-- 	selection = {
+				-- 		preselect = false,
+				-- 	},
+				-- 	cycle = {
+				-- 		from_top = false,
+				-- 	},
+				-- },
 				menu = {
 					border = "rounded",
+					-- enabled = false,
 					draw = {
 						columns = { { "kind_icon" }, { "label" }, { "kind" }, { "source_name" } },
 						components = {
@@ -125,7 +157,6 @@ return {
 					},
 				},
 			},
-			signature = { enabled = true },
 		},
 	},
 	{
