@@ -47,7 +47,7 @@ return {
 		version = "1.*",
 		dependencies = {
 			"onsails/lspkind.nvim",
-			-- "xzbdmw/colorful-menu.nvim",
+			"xzbdmw/colorful-menu.nvim",
 		},
 		opts = {
 			keymap = { preset = "enter" },
@@ -77,14 +77,14 @@ return {
 					draw = {
 						columns = { { "kind_icon" }, { "label" }, { "kind" }, { "source_name" } },
 						components = {
-							-- label = {
-							-- 	text = function(ctx)
-							-- 		return require("colorful-menu").blink_components_text(ctx)
-							-- 	end,
-							-- 	highlight = function(ctx)
-							-- 		return require("colorful-menu").blink_components_highlight(ctx)
-							-- 	end,
-							-- },
+							label = {
+								text = function(ctx)
+									return require("colorful-menu").blink_components_text(ctx)
+								end,
+								highlight = function(ctx)
+									return require("colorful-menu").blink_components_highlight(ctx)
+								end,
+							},
 							kind_icon = {
 								text = function(ctx)
 									local icon = ctx.kind_icon
@@ -162,5 +162,29 @@ return {
 			},
 			{ "neovim/nvim-lspconfig" },
 		},
+	},
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
+		config = function()
+			require("typescript-tools").setup({
+				on_attach = function(client, bufnr)
+					local opts = { buffer = bufnr }
+					local nnoremap = require("helper").nnoremap
+
+					nnoremap("gld", "<CMD>TSToolsGoToSourceDefinition<CR>", opts)
+					nnoremap("glf", "<CMD>TSToolsFixAll<CR>", opts)
+					nnoremap("gli", "<CMD>TSToolsAddMissingImports<CR>", opts)
+					nnoremap("glo", "<CMD>TSToolsOrganizeImports<CR>", opts)
+
+					on_attach(client, bufnr)
+				end,
+				settings = {
+					expose_as_code_action = "all",
+					complete_function_calls = true,
+				},
+			})
+		end,
 	},
 }
