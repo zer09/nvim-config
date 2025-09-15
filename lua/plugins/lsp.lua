@@ -22,15 +22,6 @@ local on_attach = function(client, bufnr)
 	nnoremap("gq", "<CMD>lua vim.diagnostic.disable(0)<CR>", opts)
 end
 
-local has_words_before = function()
-	local col = vim.api.nvim_win_get_cursor(0)[2]
-	if col == 0 then
-		return false
-	end
-	local line = vim.api.nvim_get_current_line()
-	return line:sub(col, col):match("%s") == nil
-end
-
 vim.lsp.config("*", {
 	on_attach = on_attach,
 })
@@ -48,114 +39,6 @@ return {
 				-- See the configuration section for more details
 				-- Load luvit types when the `vim.uv` word is found
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-			},
-		},
-	},
-	{
-		"saghen/blink.cmp",
-		version = "1.*",
-		enabled = false,
-		dependencies = {
-			"onsails/lspkind.nvim",
-			"xzbdmw/colorful-menu.nvim",
-		},
-		opts = {
-			keymap = {
-				preset = "none",
-				-- If completion hasn't been triggered yet, insert the first suggestion; if it has, cycle to the next suggestion.
-				["<Tab>"] = {
-					function(cmp)
-						if has_words_before() then
-							return cmp.insert_next()
-						end
-					end,
-					"fallback",
-				},
-				-- Navigate to the previous suggestion or cancel completion if currently on the first one.
-				["<S-Tab>"] = { "insert_prev" },
-			},
-			sources = {
-				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-				providers = {
-					lazydev = {
-						name = "LazyDev",
-						module = "lazydev.integrations.blink",
-						-- make lazydev completions top priority (see `:h blink.cmp`)
-						score_offset = 100,
-					},
-				},
-			},
-			appearance = {
-				use_nvim_cmp_as_default = true,
-			},
-			completion = {
-				documentation = {
-					auto_show = true,
-					window = {
-						border = "rounded",
-					},
-				},
-				-- list = {
-				-- 	selection = {
-				-- 		preselect = false,
-				-- 	},
-				-- 	cycle = {
-				-- 		from_top = false,
-				-- 	},
-				-- },
-				menu = {
-					border = "rounded",
-					-- enabled = false,
-					draw = {
-						columns = { { "kind_icon" }, { "label" }, { "kind" }, { "source_name" } },
-						components = {
-							label = {
-								text = function(ctx)
-									return require("colorful-menu").blink_components_text(ctx)
-								end,
-								highlight = function(ctx)
-									return require("colorful-menu").blink_components_highlight(ctx)
-								end,
-							},
-							kind_icon = {
-								text = function(ctx)
-									local icon = ctx.kind_icon
-									if vim.tbl_contains({ "Path" }, ctx.source_name) then
-										local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-										if dev_icon then
-											icon = dev_icon
-										end
-									else
-										icon = require("lspkind").symbolic(ctx.kind, {
-											mode = "symbol",
-										})
-									end
-
-									return icon .. ctx.icon_gap
-								end,
-
-								-- Optionally, use the highlight groups from nvim-web-devicons
-								-- You can also add the same function for `kind.highlight` if you want to
-								-- keep the highlight groups in sync with the icons.
-								highlight = function(ctx)
-									local hl = ctx.kind_hl
-									if vim.tbl_contains({ "Path" }, ctx.source_name) then
-										local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-										if dev_icon then
-											hl = dev_hl
-										end
-									end
-									return hl
-								end,
-							},
-							source_name = {
-								text = function(ctx)
-									return "[" .. ctx.source_name .. "]"
-								end,
-							},
-						},
-					},
-				},
 			},
 		},
 	},
@@ -217,5 +100,106 @@ return {
 				},
 			})
 		end,
+	},
+	{
+		"saghen/blink.cmp",
+		version = "1.*",
+		dependencies = {
+			"onsails/lspkind.nvim",
+			"xzbdmw/colorful-menu.nvim",
+			{
+				"L3MON4D3/LuaSnip",
+				-- follow latest release.
+				version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+				-- install jsregexp (optional!).
+				build = "make install_jsregexp",
+			},
+		},
+		opts = {
+			fuzzy = { implementation = "rust" },
+			snippets = { preset = "luasnip" },
+			sources = {
+				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				providers = {
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						-- make lazydev completions top priority (see `:h blink.cmp`)
+						score_offset = 100,
+					},
+				},
+			},
+			keymap = {
+				preset = "enter",
+				["<Tab>"] = { "select_next", "fallback" },
+				["<S-Tab>"] = { "select_prev", "fallback" },
+				["<C-Up>"] = { "scroll_documentation_up", "fallback" },
+				["<C-Down>"] = { "scroll_documentation_down", "fallback" },
+				[",."] = { "cancel" },
+			},
+			appearance = {
+				use_nvim_cmp_as_default = true,
+			},
+			completion = {
+				documentation = {
+					auto_show = false,
+					window = {
+						border = "rounded",
+					},
+				},
+				menu = {
+					border = "rounded",
+					draw = {
+						columns = { { "kind_icon" }, { "label" }, { "kind" }, { "source_name" } },
+						components = {
+							label = {
+								text = function(ctx)
+									return require("colorful-menu").blink_components_text(ctx)
+								end,
+								highlight = function(ctx)
+									return require("colorful-menu").blink_components_highlight(ctx)
+								end,
+							},
+							kind_icon = {
+								text = function(ctx)
+									local icon = ctx.kind_icon
+									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+										local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+										if dev_icon then
+											icon = dev_icon
+										end
+									else
+										icon = require("lspkind").symbolic(ctx.kind, {
+											mode = "symbol",
+										})
+									end
+
+									return icon .. ctx.icon_gap
+								end,
+
+								-- Optionally, use the highlight groups from nvim-web-devicons
+								-- You can also add the same function for `kind.highlight` if you want to
+								-- keep the highlight groups in sync with the icons.
+								highlight = function(ctx)
+									local hl = ctx.kind_hl
+									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+										local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+										if dev_icon then
+											hl = dev_hl
+										end
+									end
+									return hl
+								end,
+							},
+							source_name = {
+								text = function(ctx)
+									return "[" .. ctx.source_name .. "]"
+								end,
+							},
+						},
+					},
+				},
+			},
+		},
 	},
 }
