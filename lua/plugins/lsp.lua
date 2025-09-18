@@ -113,11 +113,19 @@ return {
 				version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 				-- install jsregexp (optional!).
 				build = "make install_jsregexp",
+				dependencies = {
+					{
+						"rafamadriz/friendly-snippets",
+						config = function()
+							require("luasnip.loaders.from_vscode").lazy_load()
+						end,
+					},
+				},
 			},
 		},
 		opts = {
 			fuzzy = { implementation = "rust" },
-			snippets = { preset = "luasnip" },
+			-- snippets = { preset = "luasnip" },
 			sources = {
 				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 				providers = {
@@ -126,6 +134,22 @@ return {
 						module = "lazydev.integrations.blink",
 						-- make lazydev completions top priority (see `:h blink.cmp`)
 						score_offset = 100,
+					},
+					snippets = {
+						-- module = "blink.cmp.sources.snippets",
+						-- score_offset = -1, -- receives a -3 from top level snippets.score_offset
+						opts = {
+							-- friendly_snippets = true,
+							-- search_paths = { vim.fn.stdpath("config") .. "/snippets" },
+							-- global_snippets = { "all" },
+							extended_filetypes = {
+								markdown = { "jekyll" },
+								sh = { "shelldoc" },
+							},
+							-- get_filetype = function(context)
+							-- 	return vim.bo.filetype
+							-- end,
+						},
 					},
 				},
 			},
