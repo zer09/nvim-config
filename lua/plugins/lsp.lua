@@ -1,9 +1,12 @@
+local nnoremap = require("helper").nnoremap
+local navbuddyexclude = { tailwindcss = true, eslint = true, angularls = true }
+local icons = require("helper").icons
+
 local on_attach = function(client, bufnr)
 	client.server_capabilities.document_formatting = false
 	client.server_capabilities.document_range_formatting = false
 
 	local opts = { buffer = bufnr }
-	local nnoremap = require("helper").nnoremap
 
 	nnoremap("gp", "<CMD>lua vim.diagnostic.goto_prev()<CR>")
 	nnoremap("gn", "<CMD>lua vim.diagnostic.goto_next()<CR>")
@@ -20,10 +23,36 @@ local on_attach = function(client, bufnr)
 
 	-- disable diagnostic on current buffer
 	nnoremap("gq", "<CMD>lua vim.diagnostic.disable(0)<CR>", opts)
+
+	if navbuddyexclude[client.config.name] == nil then
+		local navBuddy = require("nvim-navbuddy")
+		navBuddy.attach(client, bufnr)
+	end
 end
 
 vim.lsp.config("*", {
 	on_attach = on_attach,
+})
+
+vim.lsp.config.tailwindcss = {
+	settings = {
+		tailwindCSS = {
+			lint = {
+				invalidConfigPath = "warning",
+			},
+		},
+	},
+}
+
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+			[vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
+			[vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+			[vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
+		},
+	},
 })
 
 return {
@@ -74,7 +103,23 @@ return {
 					},
 				},
 			},
-			{ "neovim/nvim-lspconfig" },
+			{
+				"neovim/nvim-lspconfig",
+				dependencies = {
+					{
+						"SmiteshP/nvim-navbuddy",
+						dependencies = {
+							"SmiteshP/nvim-navic",
+							"MunifTanjim/nui.nvim",
+							"numToStr/Comment.nvim",
+							"nvim-telescope/telescope.nvim",
+						},
+						config = function()
+							require("helper").nnoremap("<Leader>oo", "<CMD>Navbuddy<CR>")
+						end,
+					},
+				},
+			},
 		},
 	},
 	{
@@ -85,7 +130,6 @@ return {
 			require("typescript-tools").setup({
 				on_attach = function(client, bufnr)
 					local opts = { buffer = bufnr }
-					local nnoremap = require("helper").nnoremap
 
 					nnoremap("gld", "<CMD>TSToolsGoToSourceDefinition<CR>", opts)
 					nnoremap("glf", "<CMD>TSToolsFixAll<CR>", opts)
@@ -99,6 +143,32 @@ return {
 					complete_function_calls = true,
 				},
 			})
+		end,
+	},
+	{
+		"nvim-flutter/flutter-tools.nvim",
+		lazy = false,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"stevearc/dressing.nvim", -- optional for vim.ui.select
+		},
+		config = function()
+			require("flutter-tools").setup({
+				dev_log = {
+					notify_errors = true, -- if there is an error whilst running then notify the user
+					open_cmd = "tabedit", -- command to use to open the log buffer
+				},
+				lsp = {
+					on_attach = on_attach,
+					color = { -- show the derived colours for dart variables
+						enabled = true, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
+						background = true, -- highlight the background
+					},
+				},
+			})
+
+			require("telescope").load_extension("flutter")
+			nnoremap("<Leader>tf", "<CMD>Telescope flutter commands<CR>")
 		end,
 	},
 	{
@@ -125,7 +195,6 @@ return {
 		},
 		opts = {
 			fuzzy = { implementation = "rust" },
-			-- snippets = { preset = "luasnip" },
 			sources = {
 				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 				providers = {
@@ -136,19 +205,13 @@ return {
 						score_offset = 100,
 					},
 					snippets = {
-						-- module = "blink.cmp.sources.snippets",
-						-- score_offset = -1, -- receives a -3 from top level snippets.score_offset
 						opts = {
-							-- friendly_snippets = true,
-							-- search_paths = { vim.fn.stdpath("config") .. "/snippets" },
-							-- global_snippets = { "all" },
 							extended_filetypes = {
 								markdown = { "jekyll" },
 								sh = { "shelldoc" },
+								html = { "angular" },
+								typescript = { "angular" },
 							},
-							-- get_filetype = function(context)
-							-- 	return vim.bo.filetype
-							-- end,
 						},
 					},
 				},
@@ -161,9 +224,6 @@ return {
 				["<C-Down>"] = { "scroll_documentation_down", "fallback" },
 				[",."] = { "cancel" },
 			},
-			appearance = {
-				use_nvim_cmp_as_default = true,
-			},
 			completion = {
 				documentation = {
 					auto_show = false,
@@ -174,6 +234,7 @@ return {
 				menu = {
 					border = "rounded",
 					draw = {
+						treesitter = { "lsp" },
 						columns = { { "kind_icon" }, { "label" }, { "kind" }, { "source_name" } },
 						components = {
 							label = {
