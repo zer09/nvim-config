@@ -150,7 +150,6 @@ return {
 		lazy = false,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"stevearc/dressing.nvim", -- optional for vim.ui.select
 		},
 		config = function()
 			require("flutter-tools").setup({
@@ -222,7 +221,6 @@ return {
 				["<S-Tab>"] = { "select_prev", "fallback" },
 				["<C-Up>"] = { "scroll_documentation_up", "fallback" },
 				["<C-Down>"] = { "scroll_documentation_down", "fallback" },
-				[",."] = { "cancel" },
 			},
 			completion = {
 				documentation = {
