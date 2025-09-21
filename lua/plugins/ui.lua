@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-tree/nvim-web-devicons",
-		lazy = true,
+		opts = {},
 	},
 	{
 		"HiPhish/rainbow-delimiters.nvim",
@@ -22,8 +22,9 @@ return {
 	},
 	{
 		"folke/todo-comments.nvim",
-		version = false,
-		event = "VeryLazy",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
 		opts = {},
 	},
 	{

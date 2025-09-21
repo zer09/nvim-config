@@ -5,6 +5,18 @@ return {
 	build = ":TSUpdate",
 	dependencies = {
 		"windwp/nvim-ts-autotag",
+		{
+			"andymass/vim-matchup",
+			opts = {
+				matchparen = {
+					offscreen = {},
+					deferred = 1,
+				},
+				motion = {
+					override_Npercent = 0,
+				},
+			},
+		},
 	},
 	config = function()
 		local configs = require("nvim-treesitter.configs")
