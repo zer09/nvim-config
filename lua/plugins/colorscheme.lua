@@ -92,7 +92,6 @@ return {
 					},
 					colorful_winsep = {
 						enabled = true,
-						color = "red",
 					},
 					diffview = true,
 					cmp = true,
@@ -122,6 +121,7 @@ return {
 						return {
 							CmpItemMenu = { fg = colors.surface2 },
 							CursorLineNr = { fg = colors.text },
+							ColorfulWinSep = { fg = colors.lavender },
 							FloatBorder = { bg = colors.base, fg = colors.surface0 },
 							GitSignsChange = { fg = colors.peach },
 							LineNr = { fg = colors.overlay0 },
