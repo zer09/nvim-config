@@ -190,10 +190,17 @@ return {
 						end,
 					},
 				},
+				config = function()
+					require("plugins.snippets.typescript")
+					require("plugins.snippets.sql")
+					require("plugins.snippets.html")
+					require("plugins.snippets.all")
+				end,
 			},
 		},
 		opts = {
 			fuzzy = { implementation = "rust" },
+			snippets = { preset = "luasnip" },
 			sources = {
 				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 				providers = {
@@ -203,22 +210,21 @@ return {
 						-- make lazydev completions top priority (see `:h blink.cmp`)
 						score_offset = 100,
 					},
-					snippets = {
-						opts = {
-							extended_filetypes = {
-								markdown = { "jekyll" },
-								sh = { "shelldoc" },
-								html = { "angular" },
-								typescript = { "angular" },
-							},
-						},
-					},
+					-- snippets = {
+					-- 	opts = {
+					-- 		extended_filetypes = {
+					-- 			markdown = { "jekyll" },
+					-- 			sh = { "shelldoc" },
+					-- 			html = { "angular" },
+					-- 		},
+					-- 	},
+					-- },
 				},
 			},
 			keymap = {
 				preset = "enter",
-				["<Tab>"] = { "select_next", "fallback" },
-				["<S-Tab>"] = { "select_prev", "fallback" },
+				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
 				["<C-Up>"] = { "scroll_documentation_up", "fallback" },
 				["<C-Down>"] = { "scroll_documentation_down", "fallback" },
 			},
