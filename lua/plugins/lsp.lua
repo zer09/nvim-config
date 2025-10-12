@@ -2,6 +2,30 @@ local nnoremap = require("helper").nnoremap
 local navbuddyexclude = { tailwindcss = true, eslint = true, angularls = true }
 local icons = require("helper").icons
 
+-- https://github.com/nvim-telescope/telescope.nvim/issues/3328#issuecomment-2472420006
+local filterDuplicates = function(array)
+	local uniqueArray = {}
+	for _, tableA in ipairs(array) do
+		local isDuplicate = false
+		for _, tableB in ipairs(uniqueArray) do
+			if vim.deep_equal(tableA, tableB) then
+				isDuplicate = true
+				break
+			end
+		end
+		if not isDuplicate then
+			table.insert(uniqueArray, tableA)
+		end
+	end
+	return uniqueArray
+end
+
+local on_list = function(options)
+	options.items = filterDuplicates(options.items)
+	vim.fn.setqflist({}, " ", options)
+	vim.cmd("botright copen")
+end
+
 local on_attach = function(client, bufnr)
 	client.server_capabilities.document_formatting = false
 	client.server_capabilities.document_range_formatting = false
@@ -12,13 +36,22 @@ local on_attach = function(client, bufnr)
 	nnoremap("gn", "<CMD>lua vim.diagnostic.goto_next()<CR>")
 	nnoremap("gd", "<CMD>lua vim.lsp.buf.definition()<CR>", opts)
 	nnoremap("gi", "<CMD>lua vim.lsp.buf.implementation()<CR>", opts)
-	nnoremap("gr", "<CMD>lua vim.lsp.buf.references()<CR>", opts)
+
+	-- this will override the onlist for find references
+	vim.keymap.set("n", "gr", function()
+		vim.lsp.buf.references(nil, { on_list = on_list })
+	end, { noremap = true })
 
 	nnoremap("K", "<CMD>lua vim.lsp.buf.hover()<CR>", opts)
 	nnoremap("<C-k>", "<CMD>lua vim.lsp.buf.signature_help()<CR>", opts)
 	nnoremap("<Leader>wl", "<CMD>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 
-	nnoremap("<Leader>rn", "<CMD>lua vim.lsp.buf.rename()<CR>", opts)
+	if vim.fn.findfile("angular.json", ".;") ~= "" then
+		nnoremap("<Leader>rn", "<CMD>lua vim.lsp.buf.rename(nil, { name = 'angularls' })<CR>", opts)
+	else
+		nnoremap("<Leader>rn", "<CMD>lua vim.lsp.buf.rename()<CR>", opts)
+	end
+
 	nnoremap("<Leader>ca", "<CMD>lua vim.lsp.buf.code_action()<CR>", opts)
 
 	-- disable diagnostic on current buffer
@@ -202,7 +235,7 @@ return {
 			fuzzy = { implementation = "rust" },
 			snippets = { preset = "luasnip" },
 			sources = {
-				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				default = { "snippets", "lazydev", "lsp", "path", "buffer" },
 				providers = {
 					lazydev = {
 						name = "LazyDev",
