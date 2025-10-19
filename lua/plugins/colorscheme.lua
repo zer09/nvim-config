@@ -120,6 +120,9 @@ return {
 				highlight_overrides = {
 					all = function(colors)
 						return {
+							BlinkCmpMenu = { bg = colors.base },
+							BlinkCmpMenuBorder = { bg = colors.base, fg = colors.lavender },
+							BlinkCmpDocBorder = { bg = colors.base, fg = colors.lavender },
 							CmpItemMenu = { fg = colors.surface2 },
 							CursorLineNr = { fg = colors.text },
 							ColorfulWinSep = { fg = colors.lavender },
