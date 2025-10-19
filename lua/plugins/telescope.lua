@@ -84,6 +84,7 @@ return {
 					file_browser = {
 						path = "%:p:h",
 						grouped = false,
+						create_from_prompt = false,
 					},
 				},
 			})
