@@ -235,7 +235,7 @@ return {
 			fuzzy = { implementation = "rust" },
 			snippets = { preset = "luasnip" },
 			sources = {
-				default = { "snippets", "lazydev", "lsp", "path", "buffer" },
+				default = { "lazydev", "lsp", "snippets", "path", "buffer" },
 				providers = {
 					lazydev = {
 						name = "LazyDev",
