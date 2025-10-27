@@ -1,9 +1,11 @@
+---@diagnostic disable: missing-fields
 return {
 	"nvim-treesitter/nvim-treesitter",
 	branch = "master",
 	lazy = false,
 	build = ":TSUpdate",
 	dependencies = {
+		"nvim-treesitter/nvim-treesitter-context",
 		"windwp/nvim-ts-autotag",
 		{
 			"andymass/vim-matchup",
@@ -56,5 +58,9 @@ return {
 		})
 
 		require("nvim-ts-autotag").setup()
+		require("treesitter-context").setup({
+			enable = true,
+			multiline_threshold = 3,
+		})
 	end,
 }
