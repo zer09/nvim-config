@@ -266,10 +266,12 @@ return {
 					auto_show = false,
 					window = {
 						border = "rounded",
+						winblend = 10,
 					},
 				},
 				menu = {
 					border = "rounded",
+					winblend = 10,
 					draw = {
 						treesitter = { "lsp" },
 						columns = { { "kind_icon" }, { "label" }, { "kind" }, { "source_name" } },
