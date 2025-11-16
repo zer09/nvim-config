@@ -141,6 +141,7 @@ return {
 			},
 			{
 				"neovim/nvim-lspconfig",
+				pin = true,
 				dependencies = {
 					{
 						"SmiteshP/nvim-navbuddy",
