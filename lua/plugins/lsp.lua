@@ -238,14 +238,24 @@ return {
 			fuzzy = { implementation = "rust" },
 			snippets = { preset = "luasnip" },
 			sources = {
-				default = { "lazydev", "lsp", "snippets", "path", "buffer" },
+				default = { "lazydev", "snippets", "lsp", "path", "buffer" },
 				providers = {
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
 						-- make lazydev completions top priority (see `:h blink.cmp`)
-						score_offset = 100,
+						-- score_offset = 100,
 					},
+					-- snippets = {
+					-- 	name = "SNIPPETS",
+					-- 	module = "blink.cmp.sources.snippets",
+					-- 	score_offset = 90,
+					-- },
+					-- lsp = {
+					-- 	name = "LSP",
+					-- 	module = "blink.cmp.sources.lsp",
+					-- 	score_offset = 80,
+					-- },
 					-- snippets = {
 					-- 	opts = {
 					-- 		extended_filetypes = {
