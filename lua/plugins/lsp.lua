@@ -61,6 +61,15 @@ local on_attach = function(client, bufnr)
 		local navBuddy = require("nvim-navbuddy")
 		navBuddy.attach(client, bufnr)
 	end
+
+	if client.config.name == "typescript-tools" then
+		print("typescript tool lunch")
+
+		nnoremap("gld", "<CMD>TSToolsGoToSourceDefinition<CR>", opts)
+		nnoremap("glf", "<CMD>TSToolsFixAll<CR>", opts)
+		nnoremap("gli", "<CMD>TSToolsAddMissingImports<CR>", opts)
+		nnoremap("glo", "<CMD>TSToolsOrganizeImports<CR>", opts)
+	end
 end
 
 vim.lsp.config("*", {
@@ -162,19 +171,8 @@ return {
 	{
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
 		config = function()
 			require("typescript-tools").setup({
-				on_attach = function(client, bufnr)
-					local opts = { buffer = bufnr }
-
-					nnoremap("gld", "<CMD>TSToolsGoToSourceDefinition<CR>", opts)
-					nnoremap("glf", "<CMD>TSToolsFixAll<CR>", opts)
-					nnoremap("gli", "<CMD>TSToolsAddMissingImports<CR>", opts)
-					nnoremap("glo", "<CMD>TSToolsOrganizeImports<CR>", opts)
-
-					on_attach(client, bufnr)
-				end,
 				settings = {
 					expose_as_code_action = "all",
 					complete_function_calls = true,
