@@ -95,6 +95,9 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
 		},
 	},
+	float = {
+		border = "rounded",
+	},
 })
 
 return {
@@ -103,13 +106,18 @@ return {
 		ft = "lua", -- only load on lua files
 		dependencies = {
 			"Bilal2453/luvit-meta",
-			lazy = true,
+			"DrKJeff16/wezterm-types",
 		},
 		opts = {
 			library = {
 				-- See the configuration section for more details
 				-- Load luvit types when the `vim.uv` word is found
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				-- Only load the lazyvim library when the `LazyVim` global is found
+				{ path = "LazyVim", words = { "LazyVim" } },
+				-- Load the wezterm types when the `wezterm` module is required
+				-- Needs `DrKJeff16/wezterm-types` to be installed
+				{ path = "wezterm-types", mods = { "wezterm" } },
 			},
 			enabled = function(root_dir)
 				return not vim.uv.fs_stat(root_dir .. "/.init.lua")
@@ -212,19 +220,18 @@ return {
 			"onsails/lspkind.nvim",
 			"xzbdmw/colorful-menu.nvim",
 			{
+				"rafamadriz/friendly-snippets",
+				config = function()
+					require("luasnip.loaders.from_vscode").lazy_load()
+				end,
+			},
+			{
 				"L3MON4D3/LuaSnip",
 				-- follow latest release.
 				version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 				-- install jsregexp (optional!).
 				build = "make install_jsregexp",
-				dependencies = {
-					{
-						"rafamadriz/friendly-snippets",
-						config = function()
-							require("luasnip.loaders.from_vscode").lazy_load()
-						end,
-					},
-				},
+				dependencies = { "rafamadriz/friendly-snippets" },
 				config = function()
 					require("plugins.snippets.typescript")
 					require("plugins.snippets.sql")
@@ -234,38 +241,6 @@ return {
 			},
 		},
 		opts = {
-			fuzzy = { implementation = "rust" },
-			snippets = { preset = "luasnip" },
-			sources = {
-				default = { "lazydev", "snippets", "lsp", "path", "buffer" },
-				providers = {
-					lazydev = {
-						name = "LazyDev",
-						module = "lazydev.integrations.blink",
-						-- make lazydev completions top priority (see `:h blink.cmp`)
-						-- score_offset = 100,
-					},
-					-- snippets = {
-					-- 	name = "SNIPPETS",
-					-- 	module = "blink.cmp.sources.snippets",
-					-- 	score_offset = 90,
-					-- },
-					-- lsp = {
-					-- 	name = "LSP",
-					-- 	module = "blink.cmp.sources.lsp",
-					-- 	score_offset = 80,
-					-- },
-					-- snippets = {
-					-- 	opts = {
-					-- 		extended_filetypes = {
-					-- 			markdown = { "jekyll" },
-					-- 			sh = { "shelldoc" },
-					-- 			html = { "angular" },
-					-- 		},
-					-- 	},
-					-- },
-				},
-			},
 			keymap = {
 				preset = "enter",
 				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
@@ -336,6 +311,79 @@ return {
 					},
 				},
 			},
+			sources = {
+				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				providers = {
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						-- make lazydev completions top priority (see `:h blink.cmp`)
+						score_offset = 100,
+					},
+					lsp = {
+						name = "LSP",
+						module = "blink.cmp.sources.lsp",
+						transform_items = function(_, items)
+							return vim.tbl_filter(function(item)
+								return item.kind ~= require("blink.cmp.types").CompletionItemKind.Keyword
+							end, items)
+						end,
+					},
+					-- snippets = {
+					-- 	name = "SNIPPETS",
+					-- 	module = "blink.cmp.sources.snippets",
+					-- 	score_offset = 90,
+					-- },
+					-- lsp = {
+					-- 	name = "LSP",
+					-- 	module = "blink.cmp.sources.lsp",
+					-- 	score_offset = 80,
+					-- },
+					-- snippets = {
+					-- 	opts = {
+					-- 		extended_filetypes = {
+					-- 			markdown = { "jekyll" },
+					-- 			sh = { "shelldoc" },
+					-- 			html = { "angular" },
+					-- 		},
+					-- 	},
+					-- },
+				},
+			},
+			fuzzy = {
+				-- Controls which implementation to use for the fuzzy matcher.
+				--
+				-- 'prefer_rust_with_warning' (Recommended) If available, use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Fallback to the Lua implementation when not available, emitting a warning message.
+				-- 'prefer_rust' If available, use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Fallback to the Lua implementation when not available.
+				-- 'rust' Always use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Error if not available.
+				-- 'lua' Always use the Lua implementation, doesn't download any prebuilt binaries
+				--
+				-- See the prebuilt_binaries section for controlling the download behavior
+				implementation = "rust",
+
+				-- Frecency tracks the most recently/frequently used items and boosts the score of the item
+				-- Note, this does not apply when using the Lua implementation.
+				frecency = {
+					-- Whether to enable the frecency feature
+					enabled = true,
+					-- Location of the frecency database
+					path = vim.fn.stdpath("state") .. "/blink/cmp/frecency.dat",
+				},
+
+				-- Proximity bonus boosts the score of items matching nearby words
+				-- Note, this does not apply when using the Lua implementation.
+				use_proximity = true,
+
+				-- Controls which sorts to use and in which order, falling back to the next sort if the first one returns nil
+				-- You may pass a function instead of a string to customize the sorting
+				sorts = {
+					"exact",
+					"score",
+					"sort_text",
+					"label",
+				},
+			},
+			snippets = { preset = "luasnip" },
 		},
 	},
 }
