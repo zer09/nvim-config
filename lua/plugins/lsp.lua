@@ -172,6 +172,21 @@ return {
 							require("helper").nnoremap("<Leader>oo", "<CMD>Navbuddy<CR>")
 						end,
 					},
+					{
+						"b0o/SchemaStore.nvim",
+						version = false,
+						lazy = true,
+						config = function()
+							vim.lsp.jsonls = {
+								settings = {
+									json = {
+										schemas = require("schemastore").json.schemas(),
+										validate = { enable = true },
+									},
+								},
+							}
+						end,
+					},
 				},
 			},
 		},
