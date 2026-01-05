@@ -328,6 +328,9 @@ return {
 			},
 			sources = {
 				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				per_filetype = {
+					html = { "lsp", "snippets" },
+				},
 				providers = {
 					lazydev = {
 						name = "LazyDev",
