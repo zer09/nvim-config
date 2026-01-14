@@ -264,6 +264,11 @@ return {
 				["<C-Down>"] = { "scroll_documentation_down", "fallback" },
 			},
 			completion = {
+				-- trigger = {
+				-- 	-- show_on_keyboard = true,
+				-- 	show_on_trigger_character = true,
+				-- 	show_on_blocked_trigger_characters = { " ", "\n", "\t", "," },
+				-- },
 				documentation = {
 					auto_show = false,
 					window = {
@@ -329,6 +334,7 @@ return {
 			sources = {
 				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 				per_filetype = {
+					-- only enable lsp and snippets on html
 					html = { "lsp", "snippets" },
 				},
 				providers = {
@@ -342,6 +348,10 @@ return {
 						name = "LSP",
 						module = "blink.cmp.sources.lsp",
 						transform_items = function(_, items)
+							-- Removes language keywords/constants (if, else, while, etc.)
+							-- provided by the language server from completion results.
+							-- Useful if you prefer to use builtin or custom snippets
+							-- for such constructs.
 							return vim.tbl_filter(function(item)
 								return item.kind ~= require("blink.cmp.types").CompletionItemKind.Keyword
 							end, items)
