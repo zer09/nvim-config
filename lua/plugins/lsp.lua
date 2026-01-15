@@ -63,8 +63,6 @@ local on_attach = function(client, bufnr)
 	end
 
 	if client.config.name == "typescript-tools" then
-		print("typescript tool lunch")
-
 		nnoremap("gld", "<CMD>TSToolsGoToSourceDefinition<CR>", opts)
 		nnoremap("glf", "<CMD>TSToolsFixAll<CR>", opts)
 		nnoremap("gli", "<CMD>TSToolsAddMissingImports<CR>", opts)
@@ -234,19 +232,52 @@ return {
 		dependencies = {
 			"onsails/lspkind.nvim",
 			"xzbdmw/colorful-menu.nvim",
-			{
-				"rafamadriz/friendly-snippets",
-				config = function()
-					require("luasnip.loaders.from_vscode").lazy_load()
-				end,
-			},
+			-- {
+			-- 	"rafamadriz/friendly-snippets",
+			-- 	dependencies = {
+			-- 		"saghen/blink.compat",
+			-- 		-- use v2.* for blink.cmp v1.*
+			-- 		version = "2.*",
+			-- 		-- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+			-- 		lazy = true,
+			-- 		dependencies = {
+			-- 			"ray-x/cmp-sql",
+			-- 		},
+			-- 		-- make sure to set opts so that lazy.nvim calls blink.compat's setup
+			-- 		opts = {},
+			-- 	},
+			-- 	config = function()
+			-- 		require("luasnip.loaders.from_vscode").lazy_load()
+			-- 	end,
+			-- },
 			{
 				"L3MON4D3/LuaSnip",
 				-- follow latest release.
 				version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 				-- install jsregexp (optional!).
 				build = "make install_jsregexp",
-				dependencies = { "rafamadriz/friendly-snippets" },
+				dependencies = {
+					"rafamadriz/friendly-snippets",
+					dependencies = {
+						"saghen/blink.compat",
+						-- use v2.* for blink.cmp v1.*
+						version = "2.*",
+						-- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+						lazy = true,
+						dependencies = {
+							"ray-x/cmp-sql",
+						},
+						-- make sure to set opts so that lazy.nvim calls blink.compat's setup
+						opts = {},
+					},
+					config = function()
+						require("luasnip.loaders.from_vscode").lazy_load()
+					end,
+				},
+				opts = {
+					history = true,
+					delete_check_events = "TextChanged",
+				},
 				config = function()
 					require("plugins.snippets.typescript")
 					require("plugins.snippets.sql")
@@ -255,6 +286,7 @@ return {
 				end,
 			},
 		},
+		event = { "InsertEnter", "CmdlineEnter" },
 		opts = {
 			keymap = {
 				preset = "enter",
@@ -336,6 +368,7 @@ return {
 				per_filetype = {
 					-- only enable lsp and snippets on html
 					html = { "lsp", "snippets" },
+					sql = { "sql", "lsp", "snippets" },
 				},
 				providers = {
 					lazydev = {
@@ -356,6 +389,11 @@ return {
 								return item.kind ~= require("blink.cmp.types").CompletionItemKind.Keyword
 							end, items)
 						end,
+					},
+					sql = {
+						name = "sql",
+						module = "blink.compat.source",
+						score_offset = 100,
 					},
 					-- snippets = {
 					-- 	name = "SNIPPETS",
