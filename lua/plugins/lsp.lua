@@ -213,6 +213,9 @@ return {
 					notify_errors = true, -- if there is an error whilst running then notify the user
 					open_cmd = "tabedit", -- command to use to open the log buffer
 				},
+				widget_guides = {
+					enabled = true,
+				},
 				lsp = {
 					on_attach = on_attach,
 					color = { -- show the derived colours for dart variables
