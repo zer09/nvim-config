@@ -270,19 +270,18 @@ return {
 						-- make sure to set opts so that lazy.nvim calls blink.compat's setup
 						opts = {},
 					},
-					config = function()
-						require("luasnip.loaders.from_vscode").lazy_load()
-					end,
 				},
 				opts = {
 					history = true,
 					delete_check_events = "TextChanged",
 				},
 				config = function()
+					require("luasnip.loaders.from_vscode").lazy_load()
 					require("plugins.snippets.typescript")
 					require("plugins.snippets.sql")
 					require("plugins.snippets.html")
 					require("plugins.snippets.all")
+					require("luasnip").filetype_extend("dart", { "flutter" })
 				end,
 			},
 		},
