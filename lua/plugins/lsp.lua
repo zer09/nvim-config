@@ -232,24 +232,6 @@ return {
 		dependencies = {
 			"onsails/lspkind.nvim",
 			"xzbdmw/colorful-menu.nvim",
-			-- {
-			-- 	"rafamadriz/friendly-snippets",
-			-- 	dependencies = {
-			-- 		"saghen/blink.compat",
-			-- 		-- use v2.* for blink.cmp v1.*
-			-- 		version = "2.*",
-			-- 		-- lazy.nvim will automatically load the plugin when it's required by blink.cmp
-			-- 		lazy = true,
-			-- 		dependencies = {
-			-- 			"ray-x/cmp-sql",
-			-- 		},
-			-- 		-- make sure to set opts so that lazy.nvim calls blink.compat's setup
-			-- 		opts = {},
-			-- 	},
-			-- 	config = function()
-			-- 		require("luasnip.loaders.from_vscode").lazy_load()
-			-- 	end,
-			-- },
 			{
 				"L3MON4D3/LuaSnip",
 				-- follow latest release.
@@ -295,11 +277,6 @@ return {
 				["<C-Down>"] = { "scroll_documentation_down", "fallback" },
 			},
 			completion = {
-				-- trigger = {
-				-- 	-- show_on_keyboard = true,
-				-- 	show_on_trigger_character = true,
-				-- 	show_on_blocked_trigger_characters = { " ", "\n", "\t", "," },
-				-- },
 				documentation = {
 					auto_show = false,
 					window = {
@@ -395,36 +372,9 @@ return {
 						module = "blink.compat.source",
 						score_offset = 100,
 					},
-					-- snippets = {
-					-- 	name = "SNIPPETS",
-					-- 	module = "blink.cmp.sources.snippets",
-					-- 	score_offset = 90,
-					-- },
-					-- lsp = {
-					-- 	name = "LSP",
-					-- 	module = "blink.cmp.sources.lsp",
-					-- 	score_offset = 80,
-					-- },
-					-- snippets = {
-					-- 	opts = {
-					-- 		extended_filetypes = {
-					-- 			markdown = { "jekyll" },
-					-- 			sh = { "shelldoc" },
-					-- 			html = { "angular" },
-					-- 		},
-					-- 	},
-					-- },
 				},
 			},
 			fuzzy = {
-				-- Controls which implementation to use for the fuzzy matcher.
-				--
-				-- 'prefer_rust_with_warning' (Recommended) If available, use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Fallback to the Lua implementation when not available, emitting a warning message.
-				-- 'prefer_rust' If available, use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Fallback to the Lua implementation when not available.
-				-- 'rust' Always use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Error if not available.
-				-- 'lua' Always use the Lua implementation, doesn't download any prebuilt binaries
-				--
-				-- See the prebuilt_binaries section for controlling the download behavior
 				implementation = "rust",
 
 				-- Frecency tracks the most recently/frequently used items and boosts the score of the item
