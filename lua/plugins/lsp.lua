@@ -266,7 +266,7 @@ return {
 					require("plugins.snippets.sql")
 					require("plugins.snippets.html")
 					require("plugins.snippets.all")
-					require("luasnip").filetype_extend("dart", { "flutter" })
+					-- require("luasnip").filetype_extend("dart", { "flutter" })
 				end,
 			},
 		},
