@@ -43,7 +43,7 @@ local on_attach = function(client, bufnr)
 	end, { noremap = true })
 
 	nnoremap("K", "<CMD>lua vim.lsp.buf.hover()<CR>", opts)
-	nnoremap("<C-k>", "<CMD>lua vim.lsp.buf.signature_help()<CR>", opts)
+	-- nnoremap("<C-k>", "<CMD>lua vim.lsp.buf.signature_help()<CR>", opts)
 	nnoremap("<Leader>wl", "<CMD>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 
 	if vim.fn.findfile("angular.json", ".;") ~= "" then
