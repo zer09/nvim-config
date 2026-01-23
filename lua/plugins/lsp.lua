@@ -341,12 +341,11 @@ return {
 				},
 			},
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
+				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 				per_filetype = {
 					-- only enable lsp and snippets on html
 					html = { "lsp", "snippets" },
 					sql = { "sql", "lsp", "snippets" },
-					lua = { "lazydev", "lsp", "path", "snippets", "buffer" },
 				},
 				providers = {
 					lazydev = {
