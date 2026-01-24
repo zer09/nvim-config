@@ -292,7 +292,7 @@ return {
 											icon = dev_icon
 										end
 									else
-										icon = require("lspkind").symbol_map[ctx.kind]
+										icon = require("lspkind").symbol_map[ctx.kind] or ""
 									end
 
 									return icon .. ctx.icon_gap
