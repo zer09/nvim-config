@@ -236,38 +236,19 @@ return {
 			"onsails/lspkind.nvim",
 			"xzbdmw/colorful-menu.nvim",
 			{
-				"L3MON4D3/LuaSnip",
-				-- follow latest release.
-				version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-				-- install jsregexp (optional!).
-				build = "make install_jsregexp",
+				"rafamadriz/friendly-snippets",
 				dependencies = {
-					"rafamadriz/friendly-snippets",
+					"saghen/blink.compat",
+					-- use v2.* for blink.cmp v1.*
+					version = "2.*",
+					-- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+					lazy = true,
 					dependencies = {
-						"saghen/blink.compat",
-						-- use v2.* for blink.cmp v1.*
-						version = "2.*",
-						-- lazy.nvim will automatically load the plugin when it's required by blink.cmp
-						lazy = true,
-						dependencies = {
-							"ray-x/cmp-sql",
-						},
-						-- make sure to set opts so that lazy.nvim calls blink.compat's setup
-						opts = {},
+						"ray-x/cmp-sql",
 					},
+					-- make sure to set opts so that lazy.nvim calls blink.compat's setup
+					opts = {},
 				},
-				opts = {
-					history = true,
-					delete_check_events = "TextChanged",
-				},
-				config = function()
-					require("luasnip.loaders.from_vscode").lazy_load()
-					require("plugins.snippets.typescript")
-					require("plugins.snippets.sql")
-					require("plugins.snippets.html")
-					require("plugins.snippets.all")
-					-- require("luasnip").filetype_extend("dart", { "flutter" })
-				end,
 			},
 		},
 		event = { "InsertEnter", "CmdlineEnter" },
@@ -399,7 +380,7 @@ return {
 					"label",
 				},
 			},
-			snippets = { preset = "luasnip" },
+			snippets = { preset = "default" },
 		},
 	},
 }

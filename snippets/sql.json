@@ -1,0 +1,39 @@
+{
+  "sproc": {
+    "prefix": "sproc",
+    "body": [
+      "DELIMITER \\$\\$\n",
+      "USE `${1:schema}`\\$\\$\n",
+      "DROP PROCEDURE IF EXISTS `${2:procedureName}`\\$\\$\n",
+      "CREATE DEFINER=`root`@`%` PROCEDURE `${2:procedureName}`(",
+      "\t${3:params},",
+      "\tOUT _ERR INT,",
+      "\tOUT _STATE TEXT,",
+      "\tOUT _MSG TEXT\n)",
+      "LBL_BEGIN:",
+      "BEGIN\n",
+      "DECLARE EXIT HANDLER FOR SQLEXCEPTION",
+      "BEGIN",
+      "\tGET DIAGNOSTICS CONDITION 1",
+      "\t_ERR = MYSQL_ERRNO,",
+      "\t_STATE = RETURNED_SQLSTATE,",
+      "\t_MSG = MESSAGE_TEXT;",
+
+      "\tROLLBACK;",
+
+      "\tINSERT INTO t_ev_logs(e_source,e_no,e_state,e_msg)",
+      "\tVALUE('{}',_ERR,_STATE,_MSG);",
+      "END;",
+
+      "SET _ERR = 0;",
+      "START TRANSACTION;",
+
+      "${0:}",
+
+      "COMMIT;",
+      "END\\$\\$",
+      "DELIMITER ;"
+    ],
+    "descrption": ""
+  }
+}
