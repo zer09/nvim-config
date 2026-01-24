@@ -8,8 +8,8 @@ inoremap(",.", "<Esc>")
 
 -- Disabled mappings
 nnoremap("<Space>", "<NOP>")
-nnoremap("q", "<NOP>")
-nnoremap("q:", "<NOP>")
+-- nnoremap("q", "<NOP>")
+-- nnoremap("q:", "<NOP>")
 nnoremap("Q", "q")
 nnoremap("Qa", "<CMD>qa<CR>")
 nnoremap("QA", "<CMD>qa<CR>")
