@@ -1,0 +1,7 @@
+{
+  "If err declaration": {
+    "prefix": "ifr",
+    "body": ["if err := ${1:func}; err != nil {\n\t${0}\n}"],
+    "descrption": "Declare err variable from function call and check right away."
+  }
+}
