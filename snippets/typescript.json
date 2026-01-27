@@ -1,0 +1,19 @@
+{
+  "Express Req, Res": {
+    "prefix": "eaf",
+    "body": [
+      "private async ${1:funcName}(req:Request, res:Response) {\n\t${0}\n}"
+    ],
+    "descrption": "Function that will be used for Express request response function."
+  },
+  "Service function": {
+    "prefix": "sf",
+    "body": [
+      "async ${1:funcName}(${3:paramaters}) {",
+      "\ttry {\n\t${0} catch(error) {\n",
+      "\tlogError(${2:serviceName}:${1:funcName});\n",
+      "\treturn unhandledFailedResult();\n}\n}"
+    ],
+    "descrption": "This will be used for creating service function."
+  }
+}
