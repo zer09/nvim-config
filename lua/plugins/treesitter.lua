@@ -53,7 +53,11 @@ return {
 				"yaml",
 			},
 			sync_install = false,
-			highlight = { enable = true, disable = { "fzf" } },
+			highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = false, -- required by catppuccin/nvim
+				disable = { "fzf" },
+			},
 			indent = { enable = true },
 		})
 
