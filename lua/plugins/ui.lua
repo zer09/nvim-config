@@ -114,6 +114,13 @@ return {
 				long_message_to_split = true,
 				lsp_doc_border = true,
 			},
+			views = {
+				confirm = {
+					position = {
+						row = 6,
+					},
+				},
+			},
 		},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
