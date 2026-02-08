@@ -4,7 +4,7 @@ local inoremap = helper.inoremap
 local vnoremap = helper.vnoremap
 
 -- escape sequence
-inoremap(",.", "<Esc>")
+inoremap("..", "<Esc>")
 
 -- Disabled mappings
 nnoremap("<Space>", "<NOP>")
