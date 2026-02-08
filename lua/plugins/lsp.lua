@@ -231,7 +231,7 @@ return {
 	},
 	{
 		"saghen/blink.cmp",
-		version = "1.*",
+		version = "1.8.0",
 		dependencies = {
 			"onsails/lspkind.nvim",
 			"xzbdmw/colorful-menu.nvim",
