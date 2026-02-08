@@ -380,6 +380,13 @@ return {
 					"label",
 				},
 			},
+			cmdline = {
+				completion = {
+					ghost_text = {
+						enabled = false,
+					},
+				},
+			},
 			snippets = { preset = "default" },
 		},
 	},
