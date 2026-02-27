@@ -28,6 +28,14 @@ return {
 			lua = { "stylua" },
 			markdown = { "prettierd" },
 			proto = { "clang-format" },
+			python = {
+				-- To fix auto-fixable lint errors.
+				"ruff_fix",
+				-- To run the Ruff formatter.
+				"ruff_format",
+				-- To organize the imports.
+				"ruff_organize_imports",
+			},
 			rust = { "rustfmt" },
 			scss = { "prettierd" },
 			sh = { "shfmt" },

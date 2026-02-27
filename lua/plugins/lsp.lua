@@ -1,5 +1,5 @@
 local nnoremap = require("helper").nnoremap
-local navbuddyexclude = { tailwindcss = true, eslint = true, angularls = true }
+local navbuddyexclude = { tailwindcss = true, eslint = true, angularls = true, ruff = true, djls = true }
 local icons = require("helper").icons
 
 -- https://github.com/nvim-telescope/telescope.nvim/issues/3328#issuecomment-2472420006
@@ -68,6 +68,11 @@ local on_attach = function(client, bufnr)
 		nnoremap("gli", "<CMD>TSToolsAddMissingImports<CR>", opts)
 		nnoremap("glo", "<CMD>TSToolsOrganizeImports<CR>", opts)
 	end
+
+	-- Disable hover in favor of Pyright
+	if client.config.name == "ruff" then
+		client.server_capabilities.hoverProvider = false
+	end
 end
 
 vim.lsp.config("*", {
@@ -79,6 +84,36 @@ vim.lsp.config.tailwindcss = {
 		tailwindCSS = {
 			lint = {
 				invalidConfigPath = "warning",
+			},
+		},
+	},
+}
+
+vim.lsp.config("ruff", {
+	init_options = {
+		settings = {
+			configurationPreference = "filesystemFirst",
+			lint = {
+				preview = false,
+			},
+		},
+	},
+})
+
+-- insure this to install on venv
+-- https://pypi.org/project/django-types/
+-- to make it stricter aad this or set typeCheckingMode to default recommended
+-- echo '{ "venvPath": ".", "venv": ".venv" }' >> pyrightconfig.json
+vim.lsp.config.basedpyright = {
+	settings = {
+		basedpyright = {
+			analysis = {
+				typeCheckingMode = "basic",
+				autoSearchPaths = true,
+				diagnosticMode = "openFilesOnly",
+				inlayHints = {
+					callArgumentNames = true,
+				},
 			},
 		},
 	},
@@ -127,14 +162,18 @@ return {
 		opts = {
 			ensure_installed = {
 				"angularls",
+				"basedpyright",
 				"bashls",
 				"cssls",
+				"djls",
+				"djlsp",
 				"eslint",
 				"gopls",
 				"html",
 				"jsonls",
 				"lua_ls",
 				"pbls",
+				"ruff",
 				"rust_analyzer",
 				"svelte",
 				"tailwindcss",
@@ -231,7 +270,7 @@ return {
 	},
 	{
 		"saghen/blink.cmp",
-		version = "1.8.0",
+		version = "1.*",
 		dependencies = {
 			"onsails/lspkind.nvim",
 			"xzbdmw/colorful-menu.nvim",
@@ -251,7 +290,6 @@ return {
 				},
 			},
 		},
-		event = { "InsertEnter", "CmdlineEnter" },
 		opts = {
 			keymap = {
 				preset = "enter",
