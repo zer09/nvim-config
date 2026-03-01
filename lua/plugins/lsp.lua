@@ -79,6 +79,16 @@ vim.lsp.config("*", {
 	on_attach = on_attach,
 })
 
+vim.lsp.config.lua_ls = {
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
+			},
+		},
+	},
+}
+
 vim.lsp.config.tailwindcss = {
 	settings = {
 		tailwindCSS = {
