@@ -1,3 +1,4 @@
+-- https://github.com/mezdelex/neovim/blob/main/lua/plugins/treesitter.lua
 ---@diagnostic disable: missing-fields
 return {
 	"nvim-treesitter/nvim-treesitter",
