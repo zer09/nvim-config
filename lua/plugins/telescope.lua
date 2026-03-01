@@ -4,6 +4,7 @@ return {
 		tag = "0.1.8",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
+			"fdschmidt93/telescope-egrepify.nvim",
 			{
 				"nvim-telescope/telescope-file-browser.nvim",
 				dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
@@ -91,12 +92,14 @@ return {
 
 			telescope.load_extension("fzf")
 			telescope.load_extension("file_browser")
+			telescope.load_extension("egrepify")
 
 			local nnoremap = require("helper").nnoremap
 			nnoremap("<Leader>th", "<CMD>Telescope help_tags<CR>")
 			nnoremap("<Leader>tm", "<CMD>Telescope keymaps<CR>")
 			nnoremap("<Leader>tp", "<CMD>Telescope find_files hidden=true<CR>")
 			nnoremap("<Leader>ts", "<CMD>Telescope live_grep<CR>")
+			nnoremap("<Leader>tS", "<CMD>Telescope egrepify<CR>")
 			nnoremap("<Leader>bb", "<CMD>Telescope buffers<CR>")
 			nnoremap("<Leader>tt", "<CMD>Telescope file_browser hidden=true<CR>")
 		end,
