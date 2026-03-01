@@ -129,6 +129,27 @@ vim.lsp.config.basedpyright = {
 	},
 }
 
+-- https://github.com/vuejs/language-tools/wiki/Neovim
+local vue_language_server_path = vim.fn.stdpath("data")
+	.. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+-- local tsserver_filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" }
+local vue_plugin = {
+	name = "@vue/typescript-plugin",
+	location = vue_language_server_path,
+	languages = { "vue" },
+	configNamespace = "typescript",
+}
+
+vim.lsp.config.ts_ls = {
+	init_options = {
+		plugins = {
+			vue_plugin,
+		},
+		hostInfo = "neovim",
+	},
+	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+}
+
 vim.diagnostic.config({
 	signs = {
 		text = {
@@ -187,6 +208,8 @@ return {
 				"rust_analyzer",
 				"svelte",
 				"tailwindcss",
+				"ts_ls",
+				"vue_ls",
 				"yamlls",
 			},
 		},
@@ -238,18 +261,22 @@ return {
 			},
 		},
 	},
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		config = function()
-			require("typescript-tools").setup({
-				settings = {
-					expose_as_code_action = "all",
-					complete_function_calls = true,
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"pmizio/typescript-tools.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+	-- 	config = function()
+	-- 		require("typescript-tools").setup({
+	-- 			settings = {
+	-- 				expose_as_code_action = "all",
+	-- 				complete_function_calls = true,
+	-- 				tsserver_plugins = {
+	-- 					"@styled/typescript-styled-plugin",
+	-- 					"@vue/typescript-plugin",
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"nvim-flutter/flutter-tools.nvim",
 		lazy = false,
