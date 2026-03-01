@@ -1,5 +1,5 @@
 local nnoremap = require("helper").nnoremap
-local navbuddyexclude = { tailwindcss = true, eslint = true, angularls = true, ruff = true, djls = true }
+local navbuddyexclude = { tailwindcss = true, eslint = true, angularls = true, ruff = true, djls = true, djlsp = true }
 local icons = require("helper").icons
 
 -- https://github.com/nvim-telescope/telescope.nvim/issues/3328#issuecomment-2472420006
@@ -119,6 +119,37 @@ vim.lsp.config.basedpyright = {
 	},
 }
 
+--vue
+local vue_language_server_path = vim.fn.expand("$MASON/packages")
+	.. "/vue-language-server"
+	.. "/node_modules/@vue/language-server"
+local tsserver_filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" }
+local vue_plugin = {
+	name = "@vue/typescript-plugin",
+	location = vue_language_server_path,
+	languages = { "vue" },
+	configNamespace = "typescript",
+}
+
+local vtsls_config = {
+	settings = {
+		vtsls = {
+			tsserver = {
+				globalPlugins = {
+					vue_plugin,
+				},
+			},
+		},
+	},
+	filetypes = tsserver_filetypes,
+}
+
+-- If you are on most recent `nvim-lspconfig`
+local vue_ls_config = {}
+-- nvim 0.11 or above
+vim.lsp.config("vtsls", vtsls_config)
+vim.lsp.config("vue_ls", vue_ls_config)
+
 vim.diagnostic.config({
 	signs = {
 		text = {
@@ -177,6 +208,8 @@ return {
 				"rust_analyzer",
 				"svelte",
 				"tailwindcss",
+				"vtsls",
+				"vue_ls",
 				"yamlls",
 			},
 		},
@@ -233,9 +266,24 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		config = function()
 			require("typescript-tools").setup({
+				-- filetypes = {
+				-- 	"javascript",
+				-- 	"javascriptreact",
+				-- 	"typescript",
+				-- 	"typescriptreact",
+				-- 	"vue",
+				-- },
 				settings = {
 					expose_as_code_action = "all",
 					complete_function_calls = true,
+					-- tsserver_plugins = {
+					-- 	{
+					-- 		name = "@vue/typescript-plugin",
+					-- 		location = vue_language_server_path,
+					-- 		languages = { "vue" },
+					-- 		configNamespace = "typescript",
+					-- 	},
+					-- },
 				},
 			})
 		end,

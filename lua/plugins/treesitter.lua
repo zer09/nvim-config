@@ -53,6 +53,7 @@ return {
 				"typescript",
 				"vim",
 				"vimdoc",
+				"vue",
 				"yaml",
 			},
 			sync_install = false,
