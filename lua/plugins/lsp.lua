@@ -132,18 +132,22 @@ vim.lsp.config.basedpyright = {
 -- https://github.com/vuejs/language-tools/wiki/Neovim
 local vue_language_server_path = vim.fn.stdpath("data")
 	.. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
--- local tsserver_filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" }
-local vue_plugin = {
-	name = "@vue/typescript-plugin",
-	location = vue_language_server_path,
-	languages = { "vue" },
-	configNamespace = "typescript",
-}
+local styled_plugin_path = vim.fn.system("npm root -g"):gsub("\n", "") .. "/@styled/typescript-styled-plugin"
 
 vim.lsp.config.ts_ls = {
 	init_options = {
 		plugins = {
-			vue_plugin,
+			{
+				name = "@vue/typescript-plugin",
+				location = vue_language_server_path,
+				languages = { "vue" },
+				configNamespace = "typescript",
+			},
+			{
+				name = "@styled/typescript-styled-plugin",
+				location = styled_plugin_path,
+				languages = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
+			},
 		},
 		hostInfo = "neovim",
 	},
