@@ -41,6 +41,7 @@ return {
 			sh = { "shfmt" },
 			svelte = { "prettierd" },
 			typescript = { "prettierd" },
+			vue = { "prettierd" },
 			yaml = { "prettierd" },
 			["*"] = { "trim_whitespace" },
 			["_"] = { "trim_whitespace" },
