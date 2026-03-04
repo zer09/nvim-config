@@ -20,6 +20,7 @@ return {
 			symbol = "│",
 		},
 	},
+	{ "nvim-mini/mini.nvim", version = "*" },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = {
