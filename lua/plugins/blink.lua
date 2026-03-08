@@ -94,7 +94,7 @@ return {
 			per_filetype = {
 				-- only enable lsp and snippets on html
 				html = { "lsp", "snippets" },
-				sql = { "sql", "lsp", "snippets" },
+				sql = { "sql", "lsp", "snippets", "buffer" },
 			},
 			providers = {
 				lazydev = {
