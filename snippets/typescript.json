@@ -10,9 +10,9 @@
     "prefix": "sf",
     "body": [
       "async ${1:funcName}(${3:paramaters}) {",
-      "\ttry {\n\t${0} catch(error) {\n",
-      "\tlogError(${2:serviceName}:${1:funcName});\n",
-      "\treturn unhandledFailedResult();\n}\n}"
+      "\ttry {\n\t${0}\n\t} catch(error) {\n",
+      "\tlogError('${2:serviceName}:${1:funcName}', error);",
+      "\treturn unhandledFailedResult();\n\t}\n}"
     ],
     "descrption": "This will be used for creating service function."
   }
