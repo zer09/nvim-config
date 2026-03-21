@@ -119,7 +119,6 @@ return {
 				sql = {
 					name = "sql",
 					module = "blink.compat.source",
-					score_offset = 100,
 				},
 			},
 		},
