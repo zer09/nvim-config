@@ -419,7 +419,7 @@ return {
 				},
 			})
 
-			vim.api.nvim_command("colorscheme catppuccin")
+			vim.api.nvim_command("colorscheme catppuccin-nvim")
 		end,
 	},
 }
