@@ -1,159 +1,173 @@
 return {
-	"saghen/blink.cmp",
-	version = "1.*",
-	dependencies = {
-		"onsails/lspkind.nvim",
-		"xzbdmw/colorful-menu.nvim",
-		{
-			"rafamadriz/friendly-snippets",
-			dependencies = {
-				"saghen/blink.compat",
-				-- use v2.* for blink.cmp v1.*
-				version = "2.*",
-				-- lazy.nvim will automatically load the plugin when it's required by blink.cmp
-				lazy = true,
-				dependencies = {
-					"ray-x/cmp-sql",
-				},
-				-- make sure to set opts so that lazy.nvim calls blink.compat's setup
-				opts = {},
+	{
+		"nvim-mini/mini.cmdline",
+		event = "CmdlineEnter",
+		version = "*",
+		opts = {
+			autopeek = {
+				enable = false,
 			},
 		},
 	},
-	opts = {
-		keymap = {
-			preset = "enter",
-			["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
-			["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
-			["<C-Up>"] = { "scroll_documentation_up", "fallback" },
-			["<C-Down>"] = { "scroll_documentation_down", "fallback" },
-		},
-		completion = {
-			documentation = {
-				auto_show = false,
-				window = {
-					border = "rounded",
-					winblend = 10,
+	{
+		"saghen/blink.cmp",
+		event = "InsertEnter",
+		version = "1.*",
+		dependencies = {
+			"onsails/lspkind.nvim",
+			"xzbdmw/colorful-menu.nvim",
+			{
+				"rafamadriz/friendly-snippets",
+				dependencies = {
+					"saghen/blink.compat",
+					-- use v2.* for blink.cmp v1.*
+					version = "2.*",
+					-- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+					lazy = true,
+					dependencies = {
+						"ray-x/cmp-sql",
+					},
+					-- make sure to set opts so that lazy.nvim calls blink.compat's setup
+					opts = {},
 				},
 			},
-			menu = {
-				border = "rounded",
-				winblend = 10,
-				draw = {
-					treesitter = { "lsp" },
-					columns = { { "kind_icon" }, { "label" }, { "kind" }, { "source_name" } },
-					components = {
-						label = {
-							text = function(ctx)
-								return require("colorful-menu").blink_components_text(ctx)
-							end,
-							highlight = function(ctx)
-								return require("colorful-menu").blink_components_highlight(ctx)
-							end,
-						},
-						kind_icon = {
-							text = function(ctx)
-								local icon = ctx.kind_icon
-								if vim.tbl_contains({ "Path" }, ctx.source_name) then
-									local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-									if dev_icon then
-										icon = dev_icon
+		},
+		opts = {
+			keymap = {
+				preset = "enter",
+				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+				["<C-Up>"] = { "scroll_documentation_up", "fallback" },
+				["<C-Down>"] = { "scroll_documentation_down", "fallback" },
+			},
+			completion = {
+				documentation = {
+					auto_show = false,
+					window = {
+						border = "rounded",
+						winblend = 10,
+					},
+				},
+				menu = {
+					border = "rounded",
+					winblend = 10,
+					draw = {
+						treesitter = { "lsp" },
+						columns = { { "kind_icon" }, { "label" }, { "kind" }, { "source_name" } },
+						components = {
+							label = {
+								text = function(ctx)
+									return require("colorful-menu").blink_components_text(ctx)
+								end,
+								highlight = function(ctx)
+									return require("colorful-menu").blink_components_highlight(ctx)
+								end,
+							},
+							kind_icon = {
+								text = function(ctx)
+									local icon = ctx.kind_icon
+									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+										local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+										if dev_icon then
+											icon = dev_icon
+										end
+									else
+										icon = require("lspkind").symbol_map[ctx.kind] or ""
 									end
-								else
-									icon = require("lspkind").symbol_map[ctx.kind] or ""
-								end
 
-								return icon .. ctx.icon_gap
-							end,
+									return icon .. ctx.icon_gap
+								end,
 
-							-- Optionally, use the highlight groups from nvim-web-devicons
-							-- You can also add the same function for `kind.highlight` if you want to
-							-- keep the highlight groups in sync with the icons.
-							highlight = function(ctx)
-								local hl = ctx.kind_hl
-								if vim.tbl_contains({ "Path" }, ctx.source_name) then
-									local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-									if dev_icon then
-										hl = dev_hl
+								-- Optionally, use the highlight groups from nvim-web-devicons
+								-- You can also add the same function for `kind.highlight` if you want to
+								-- keep the highlight groups in sync with the icons.
+								highlight = function(ctx)
+									local hl = ctx.kind_hl
+									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+										local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+										if dev_icon then
+											hl = dev_hl
+										end
 									end
-								end
-								return hl
-							end,
-						},
-						source_name = {
-							text = function(ctx)
-								return "[" .. ctx.source_name .. "]"
-							end,
+									return hl
+								end,
+							},
+							source_name = {
+								text = function(ctx)
+									return "[" .. ctx.source_name .. "]"
+								end,
+							},
 						},
 					},
 				},
 			},
-		},
-		sources = {
-			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-			per_filetype = {
-				-- only enable lsp and snippets on html
-				html = { "lsp", "snippets" },
-				sql = { "sql", "lsp", "snippets", "buffer" },
+			sources = {
+				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				per_filetype = {
+					-- only enable lsp and snippets on html
+					html = { "lsp", "snippets" },
+					sql = { "sql", "lsp", "snippets", "buffer" },
+				},
+				providers = {
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						-- make lazydev completions top priority (see `:h blink.cmp`)
+						score_offset = 100,
+					},
+					lsp = {
+						name = "LSP",
+						module = "blink.cmp.sources.lsp",
+						transform_items = function(_, items)
+							-- Removes language keywords/constants (if, else, while, etc.)
+							-- provided by the language server from completion results.
+							-- Useful if you prefer to use builtin or custom snippets
+							-- for such constructs.
+							return vim.tbl_filter(function(item)
+								return item.kind ~= require("blink.cmp.types").CompletionItemKind.Keyword
+							end, items)
+						end,
+					},
+					sql = {
+						name = "sql",
+						module = "blink.compat.source",
+					},
+				},
 			},
-			providers = {
-				lazydev = {
-					name = "LazyDev",
-					module = "lazydev.integrations.blink",
-					-- make lazydev completions top priority (see `:h blink.cmp`)
-					score_offset = 100,
-				},
-				lsp = {
-					name = "LSP",
-					module = "blink.cmp.sources.lsp",
-					transform_items = function(_, items)
-						-- Removes language keywords/constants (if, else, while, etc.)
-						-- provided by the language server from completion results.
-						-- Useful if you prefer to use builtin or custom snippets
-						-- for such constructs.
-						return vim.tbl_filter(function(item)
-							return item.kind ~= require("blink.cmp.types").CompletionItemKind.Keyword
-						end, items)
-					end,
-				},
-				sql = {
-					name = "sql",
-					module = "blink.compat.source",
-				},
-			},
-		},
-		fuzzy = {
-			implementation = "rust",
+			fuzzy = {
+				implementation = "rust",
 
-			-- Frecency tracks the most recently/frequently used items and boosts the score of the item
-			-- Note, this does not apply when using the Lua implementation.
-			frecency = {
-				-- Whether to enable the frecency feature
-				enabled = true,
-				-- Location of the frecency database
-				path = vim.fn.stdpath("state") .. "/blink/cmp/frecency.dat",
-			},
+				-- Frecency tracks the most recently/frequently used items and boosts the score of the item
+				-- Note, this does not apply when using the Lua implementation.
+				frecency = {
+					-- Whether to enable the frecency feature
+					enabled = true,
+					-- Location of the frecency database
+					path = vim.fn.stdpath("state") .. "/blink/cmp/frecency.dat",
+				},
 
-			-- Proximity bonus boosts the score of items matching nearby words
-			-- Note, this does not apply when using the Lua implementation.
-			use_proximity = true,
+				-- Proximity bonus boosts the score of items matching nearby words
+				-- Note, this does not apply when using the Lua implementation.
+				use_proximity = true,
 
-			-- Controls which sorts to use and in which order, falling back to the next sort if the first one returns nil
-			-- You may pass a function instead of a string to customize the sorting
-			sorts = {
-				"exact",
-				"score",
-				"sort_text",
-				"label",
-			},
-		},
-		cmdline = {
-			completion = {
-				ghost_text = {
-					enabled = false,
+				-- Controls which sorts to use and in which order, falling back to the next sort if the first one returns nil
+				-- You may pass a function instead of a string to customize the sorting
+				sorts = {
+					"exact",
+					"score",
+					"sort_text",
+					"label",
 				},
 			},
+			cmdline = {
+				enable = false,
+				completion = {
+					ghost_text = {
+						enabled = false,
+					},
+				},
+			},
+			snippets = { preset = "default" },
 		},
-		snippets = { preset = "default" },
 	},
 }
