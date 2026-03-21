@@ -31,15 +31,15 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
 })
 
 -- TurnOffCaps on InsertLeave
-vim.api.nvim_create_autocmd("InsertLeave", {
-	group = comaug,
-	callback = function()
-		local _, _, caps_state = vim.fn.system("xset -q"):find("00: Caps Lock:%s+(%a+)")
-		if caps_state == "on" then
-			vim.fn.system("xdotool key Caps_Lock")
-		end
-	end,
-})
+-- vim.api.nvim_create_autocmd("InsertLeave", {
+-- 	group = comaug,
+-- 	callback = function()
+-- 		local _, _, caps_state = vim.fn.system("xset -q"):find("00: Caps Lock:%s+(%a+)")
+-- 		if caps_state == "on" then
+-- 			vim.fn.system("xdotool key Caps_Lock")
+-- 		end
+-- 	end,
+-- })
 
 -- remove trailing whitespace
 vim.api.nvim_create_autocmd("BufWritePre", {
