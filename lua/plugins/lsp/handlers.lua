@@ -1,5 +1,6 @@
 local UserLspConfig = vim.api.nvim_create_augroup("UserLspConfig", { clear = true })
 local keymap = vim.keymap.set
+local lsp = vim.lsp.buf
 
 keymap("n", "<leader>ls", vim.diagnostic.setloclist)
 keymap("n", "<leader>lS", vim.diagnostic.setqflist)
@@ -18,11 +19,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		caps.documentRangeFormattingProvider = false
 		caps.semanticTokensProvider = nil
 
-		if client.config.name == "ruff" then
+		if client.name == "ruff" then
 			caps.hoverProvider = false
 		end
 
-		local lsp = vim.lsp.buf
 		local opts = { buffer = ev.buf, noremap = true }
 
 		-- this are the defaults
