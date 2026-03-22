@@ -18,6 +18,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		caps.documentRangeFormattingProvider = false
 		caps.semanticTokensProvider = nil
 
+		if client.config.name == "ruff" then
+			caps.hoverProvider = false
+		end
+
 		local lsp = vim.lsp.buf
 		local opts = { buffer = ev.buf, noremap = true }
 
@@ -36,6 +40,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- nnoremap("K", "<CMD>lua vim.lsp.buf.hover()<CR>", opts)
 		-- nnoremap("<C-k>", "<CMD>lua vim.lsp.buf.signature_help()<CR>", opts)
 		-- keymap("n", "K", lsp.hover, opts)
+
+		-- 	if client.config.name == "typescript-tools" then
+		-- 		nnoremap("gld", "<CMD>TSToolsGoToSourceDefinition<CR>", opts)
+		-- 		nnoremap("glf", "<CMD>TSToolsFixAll<CR>", opts)
+		-- 		nnoremap("gli", "<CMD>TSToolsAddMissingImports<CR>", opts)
+		-- 		nnoremap("glo", "<CMD>TSToolsOrganizeImports<CR>", opts)
+		-- 	end
+
 		keymap("n", "ga", lsp.code_action, opts)
 		keymap("n", "gd", lsp.definition, opts)
 		keymap("n", "gt", lsp.type_definition, opts)

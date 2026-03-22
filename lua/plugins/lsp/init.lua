@@ -1,59 +1,6 @@
 -- https://github.com/sergiornelas/nvim
 -- for debugging
 -- https://github.com/StevanFreeborn/nvim-config/blob/63bf20565b67d3a6c31839edf1ad2453ecd3bf84/lua/plugins/debugging.lua
-local nnoremap = require("helper").nnoremap
--- local navbuddyexclude = { tailwindcss = true, eslint = true, angularls = true, ruff = true, djls = true }
-
--- local on_attach = function(client, bufnr)
--- 	client.server_capabilities.document_formatting = false
--- 	client.server_capabilities.document_range_formatting = false
---
--- 	local opts = { buffer = bufnr }
---
--- 	nnoremap("gp", "<CMD>lua vim.diagnostic.goto_prev()<CR>")
--- 	nnoremap("gn", "<CMD>lua vim.diagnostic.goto_next()<CR>")
--- 	nnoremap("gd", "<CMD>lua vim.lsp.buf.definition()<CR>", opts)
--- 	nnoremap("gi", "<CMD>lua vim.lsp.buf.implementation()<CR>", opts)
---
--- 	-- this will override the onlist for find references
--- 	-- vim.keymap.set("n", "gr", function()
--- 	-- 	vim.lsp.buf.references(nil, { on_list = on_list })
--- 	-- end, { noremap = true })
---
--- 	nnoremap("<Leader>wl", "<CMD>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
---
--- 	if vim.fn.findfile("angular.json", ".;") ~= "" then
--- 		nnoremap("<Leader>rn", "<CMD>lua vim.lsp.buf.rename(nil, { name = 'angularls' })<CR>", opts)
--- 	else
--- 		nnoremap("<Leader>rn", "<CMD>lua vim.lsp.buf.rename()<CR>", opts)
--- 	end
---
--- 	nnoremap("<Leader>ca", "<CMD>lua vim.lsp.buf.code_action()<CR>", opts)
---
--- 	-- disable diagnostic on current buffer
--- 	nnoremap("gq", "<CMD>lua vim.diagnostic.disable(0)<CR>", opts)
---
--- 	if navbuddyexclude[client.config.name] == nil then
--- 		local navBuddy = require("nvim-navbuddy")
--- 		navBuddy.attach(client, bufnr)
--- 	end
---
--- 	if client.config.name == "typescript-tools" then
--- 		nnoremap("gld", "<CMD>TSToolsGoToSourceDefinition<CR>", opts)
--- 		nnoremap("glf", "<CMD>TSToolsFixAll<CR>", opts)
--- 		nnoremap("gli", "<CMD>TSToolsAddMissingImports<CR>", opts)
--- 		nnoremap("glo", "<CMD>TSToolsOrganizeImports<CR>", opts)
--- 	end
---
--- 	-- Disable hover in favor of Pyright
--- 	if client.config.name == "ruff" then
--- 		client.server_capabilities.hoverProvider = false
--- 	end
--- end
-
--- vim.lsp.config("*", {
--- 	on_attach = on_attach,
--- })
 
 -- https://github.com/vuejs/language-tools/wiki/Neovim
 -- https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin
@@ -84,7 +31,6 @@ vim.lsp.config.ts_ls = {
 }
 
 require("plugins.lsp.handlers")
--- require("plugins.lsp.find_reference")
 
 return {
 	{
@@ -151,28 +97,11 @@ return {
 			{
 				"neovim/nvim-lspconfig",
 				pin = true,
-				dependencies = {
-					-- {
-					-- 	"SmiteshP/nvim-navbuddy",
-					-- 	dependencies = {
-					-- 		"SmiteshP/nvim-navic",
-					-- 		"MunifTanjim/nui.nvim",
-					-- 		"numToStr/Comment.nvim",
-					-- 		"nvim-telescope/telescope.nvim",
-					-- 	},
-					-- 	config = function()
-					-- 		-- require("helper").nnoremap("<Leader>oo", "<CMD>Navbuddy<CR>")
-					-- 	end,
-					-- },
-					{
-						"b0o/SchemaStore.nvim",
-						version = false,
-						lazy = true,
-						config = function()
-							vim.lsp.jsonls = {}
-						end,
-					},
-				},
+			},
+			{
+				"b0o/SchemaStore.nvim",
+				version = false,
+				lazy = true,
 			},
 		},
 	},
@@ -200,7 +129,7 @@ return {
 			})
 
 			require("telescope").load_extension("flutter")
-			nnoremap("<Leader>tf", "<CMD>Telescope flutter commands<CR>")
+			require("helper").nnoremap("<Leader>tf", "<CMD>Telescope flutter commands<CR>")
 		end,
 	},
 }

@@ -22,6 +22,8 @@ local on_list = function(options)
 	vim.cmd("botright copen")
 end
 
+-- disable for now observe the default find reference
+-- this will override the onlist for find references
 -- vim.keymap.set("n", "gr", function()
 -- 	vim.lsp.buf.references(nil, { on_list = on_list })
 -- end, { noremap = true })
