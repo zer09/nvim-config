@@ -6,7 +6,11 @@ local vue_language_server_path = vim.fn.stdpath("data")
 	.. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
 local styled_plugin_path = vim.fn.system("npm root -g"):gsub("\n", "") .. "/@styled/typescript-styled-plugin"
 
+-- local vue_typescript_plugin_path = vim.fn.stdpath("data")
+-- 	.. "/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin"
+
 vim.lsp.config("ts_ls", {
+	root_markers = { "tsconfig.json", "package.json" },
 	init_options = {
 		plugins = {
 			{
@@ -15,6 +19,11 @@ vim.lsp.config("ts_ls", {
 				languages = { "vue" },
 				configNamespace = "typescript",
 			},
+			-- {
+			-- 	name = "@vue/typescript-plugin",
+			-- 	location = vue_typescript_plugin_path,
+			-- 	languages = { "vue" },
+			-- },
 			{
 				name = "@styled/typescript-styled-plugin",
 				location = styled_plugin_path,
