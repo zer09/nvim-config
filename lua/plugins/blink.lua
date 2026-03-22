@@ -1,14 +1,14 @@
 return {
-	{
-		"nvim-mini/mini.cmdline",
-		event = "CmdlineEnter",
-		version = "*",
-		opts = {
-			autopeek = {
-				enable = false,
-			},
-		},
-	},
+	-- {
+	-- 	"nvim-mini/mini.cmdline",
+	-- 	event = "CmdlineEnter",
+	-- 	version = "*",
+	-- 	opts = {
+	-- 		autopeek = {
+	-- 			enable = false,
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"saghen/blink.cmp",
 		event = "InsertEnter",
@@ -160,7 +160,6 @@ return {
 				},
 			},
 			cmdline = {
-				enable = false,
 				completion = {
 					ghost_text = {
 						enabled = false,

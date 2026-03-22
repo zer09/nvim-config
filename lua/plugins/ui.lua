@@ -44,13 +44,13 @@ return {
 			leap.opts.equivalence_classes = { " \t\r\n", "([{", ")]}", "'\"`" }
 		end,
 	},
-	{
-		"nvim-mini/mini.jump",
-		version = false,
-		config = function()
-			require("mini.jump").setup()
-		end,
-	},
+	-- {
+	-- 	"nvim-mini/mini.jump",
+	-- 	version = false,
+	-- 	config = function()
+	-- 		require("mini.jump").setup()
+	-- 	end,
+	-- },
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
