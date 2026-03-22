@@ -391,11 +391,11 @@ return {
 				"neovim/nvim-lspconfig",
 				pin = true,
 			},
-			{
-				"b0o/SchemaStore.nvim",
-				version = false,
-				lazy = true,
-			},
+			-- {
+			-- 	"b0o/SchemaStore.nvim",
+			-- 	version = false,
+			-- 	lazy = true,
+			-- },
 		},
 	},
 	{
