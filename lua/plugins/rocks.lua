@@ -7,5 +7,10 @@ return {
 	},
 	---@module 'render-markdown'
 	---@type render.md.UserConfig
-	opts = {},
+	-- opts = {},
+	opts = {
+		anti_conceal = {
+			enabled = false,
+		},
+	},
 }
