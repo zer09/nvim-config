@@ -24,6 +24,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			caps.hoverProvider = false
 		end
 
+		-- basedpyright: diagnostics off (ty/ruff handle those),
+		-- navigation off where ty already provides it — basedpyright is fallback only
+		if client.name == "basedpyright" then
+			vim.diagnostic.enable(false, { bufnr = ev.buf, ns_id = vim.lsp.diagnostic.get_namespace(client.id) })
+			caps.referencesProvider = false
+		end
+
+		-- ty: hover off — basedpyright provides richer hover (docstrings, type signatures)
+		if client.name == "ty" then
+			caps.hoverProvider = false
+		end
+
 		local opts = { buffer = ev.buf, noremap = true }
 
 		-- this are the defaults
@@ -354,7 +366,7 @@ return {
 		opts = {
 			ensure_installed = {
 				"angularls",
-				-- "basedpyright",
+				"basedpyright",
 				"bashls",
 				"cssls",
 				-- "djls",
