@@ -3,7 +3,7 @@ vim.lsp.config("ruff", {
 		settings = {
 			configurationPreference = "filesystemFirst",
 			lint = {
-				preview = false,
+				preview = true,
 			},
 		},
 	},

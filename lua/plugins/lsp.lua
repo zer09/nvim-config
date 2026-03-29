@@ -354,22 +354,23 @@ return {
 		opts = {
 			ensure_installed = {
 				"angularls",
-				"basedpyright",
+				-- "basedpyright",
 				"bashls",
 				"cssls",
-				"djls",
-				"djlsp",
+				-- "djls",
+				-- "djlsp",
 				"eslint",
 				"gopls",
 				"html",
 				"jsonls",
 				"lua_ls",
 				"pbls",
-				"ruff",
+				-- "ruff", --installed globally
 				"rust_analyzer",
 				"svelte",
 				"tailwindcss",
 				"ts_ls",
+				-- "ty", --installed globally
 				"vue_ls",
 				"yamlls",
 			},
