@@ -39,6 +39,13 @@ return {
 						"init.sql",
 						"target/.*",
 						".git/.*",
+						".venv/.*",
+						"__pycache__/.*",
+						"%.pyc",
+						"dist/.*",
+						"build/.*",
+						"%.min%.js",
+						"%.min%.css",
 					},
 					mappings = {
 						n = {
@@ -48,7 +55,7 @@ return {
 							["<esc>"] = act.close,
 							["<M-p>"] = act_layout.toggle_preview,
 							["<C-h>"] = "which_key",
-							["<C-u"] = false,
+							["<C-u>"] = false,
 						},
 					},
 					preview = {

@@ -41,16 +41,6 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
 -- 	end,
 -- })
 
--- remove trailing whitespace
-vim.api.nvim_create_autocmd("BufWritePre", {
-	group = comaug,
-	callback = function()
-		local save = vim.fn.winsaveview()
-		vim.api.nvim_exec2([[keepjumps keeppatterns silent! %s/\s\+$//e]], { output = false })
-		vim.fn.winrestview(save)
-	end,
-})
-
 vim.api.nvim_create_autocmd("VimEnter", {
 	group = comaug,
 	command = ":clearjumps",

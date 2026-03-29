@@ -43,7 +43,6 @@ return {
 			typescript = { "prettierd" },
 			vue = { "prettierd" },
 			yaml = { "prettierd" },
-			["*"] = { "trim_whitespace" },
 			["_"] = { "trim_whitespace" },
 		},
 		-- Set default options
