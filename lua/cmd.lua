@@ -51,6 +51,16 @@ vim.api.nvim_create_autocmd("TabEnter", {
 	command = "checktime",
 })
 
+-- enable spell check for prose filetypes
+vim.api.nvim_create_autocmd("FileType", {
+	group = comaug,
+	pattern = { "markdown", "text", "gitcommit" },
+	callback = function()
+		vim.opt_local.spell = true
+		vim.opt_local.spelllang = "en_us"
+	end,
+})
+
 --terminal
 -- reference: https://stackoverflow.com/a/63909865/3387602
 local termaug = vim.api.nvim_create_augroup("termaug", { clear = true })

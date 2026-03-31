@@ -17,6 +17,10 @@ return {
 			"onsails/lspkind.nvim",
 			"xzbdmw/colorful-menu.nvim",
 			{
+				"Kaiser-Yang/blink-cmp-dictionary",
+				dependencies = { "nvim-lua/plenary.nvim" },
+			},
+			{
 				"rafamadriz/friendly-snippets",
 				dependencies = {
 					"saghen/blink.compat",
@@ -102,11 +106,28 @@ return {
 				},
 			},
 			sources = {
-				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				-- evaluated on every completion trigger — adds dictionary only in comments/strings
+				default = function()
+					local base = { "lazydev", "lsp", "path", "snippets", "buffer" }
+					local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+					local ok, captures = pcall(vim.treesitter.get_captures_at_pos, 0, row - 1, math.max(col - 1, 0))
+					if ok and captures then
+						for _, cap in ipairs(captures) do
+							if cap.capture:match("comment") or cap.capture:match("string") then
+								table.insert(base, "dictionary")
+								break
+							end
+						end
+					end
+					return base
+				end,
 				per_filetype = {
 					-- only enable lsp and snippets on html
 					html = { "lsp", "snippets" },
 					sql = { "sql", "lsp", "snippets", "buffer" },
+					markdown = { "dictionary", "buffer", "snippets" },
+					text = { "dictionary", "buffer" },
+					gitcommit = { "dictionary", "buffer" },
 				},
 				providers = {
 					lazydev = {
@@ -131,6 +152,14 @@ return {
 					sql = {
 						name = "sql",
 						module = "blink.compat.source",
+					},
+					dictionary = {
+						name = "dictionary",
+						module = "blink-cmp-dictionary",
+						min_keyword_length = 3,
+						opts = {
+							dictionary_files = { "/usr/share/dict/words" },
+						},
 					},
 				},
 			},

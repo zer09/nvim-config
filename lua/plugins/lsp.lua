@@ -336,6 +336,13 @@ return {
 					},
 				},
 			})
+
+			-- debug: print treesitter captures at cursor (useful for colorscheme overrides and treesitter queries)
+			vim.keymap.set("n", "<Leader>dc", function()
+				local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+				local caps = vim.treesitter.get_captures_at_pos(0, row - 1, math.max(col - 1, 0))
+				print(vim.inspect(caps))
+			end, { desc = "Debug: treesitter captures at cursor" })
 		end,
 	},
 	{
