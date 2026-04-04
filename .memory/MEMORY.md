@@ -13,5 +13,9 @@
 - [WSL2 Clipboard](feedback_wsl2_clipboard.md) — clipboard uses wl-clipboard, not xclip/pbcopy
 - [Colorscheme Edit Caution](feedback_colorscheme_caution.md) — ~370 lines; use Grep + offset/limit before editing, never rewrite
 - [Rocks.nvim Awareness](feedback_rocks_nvim_awareness.md) — config uses both lazy.nvim and rocks.nvim; check which manages a plugin
-- [Session Start — Check Memory](feedback_session_start.md) — read .memory/MEMORY.md at the start of each session
+- [Session Start — Check Memory](feedback_session_start.md) — load MEMORY.md then proactively read all feedback files, don't wait to be asked
+- [Third-party Integrations Read-Only](feedback_third_party_read_only.md) — all third-party hosted products read-only; no remote mutations even if asked
+- [User OS and Environment](user_environment.md) — openSUSE Tumbleweed; use zypper, not apt
+- [Freedom to Disagree](feedback_disagree_freely.md) — Claude and Gemini should push back when needed; explain what, why, options, and recommendation
+- [Handoff System](reference_handoff_system.md) — Claude ↔ Gemini handoff convention via .memory/handoff/ files
 - [Project Session Init](project_session_init.md) — what was set up on 2026-03-31 (CLAUDE.md, .memory/, skills)

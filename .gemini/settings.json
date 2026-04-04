@@ -1,0 +1,37 @@
+{
+  "hooks": {
+    "AfterTool": [
+      {
+        "matcher": "write_file",
+        "hooks": [
+          {
+            "name": "memory-dual-write-check",
+            "command": "bash /home/gc/.config/nvim/.gemini/hooks/memory-dual-write-check.sh",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "matcher": "replace",
+        "hooks": [
+          {
+            "name": "memory-dual-write-check-replace",
+            "command": "bash /home/gc/.config/nvim/.gemini/hooks/memory-dual-write-check.sh",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "name": "load-repo-memory",
+            "command": "bash /home/gc/.config/nvim/.gemini/hooks/load-repo-memory.sh",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  }
+}

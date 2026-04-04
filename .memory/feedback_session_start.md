@@ -1,11 +1,11 @@
 ---
 name: Session Start — Check Memory
-description: Always read .memory/MEMORY.md at the start of a session in this repo
+description: At session start, load MEMORY.md index then proactively read relevant memory files — don't wait for the user to ask
 type: feedback
 ---
 
-At the start of each session working in this nvim config repo, read `/home/gc/.config/nvim/.memory/MEMORY.md` to reload context before diving into work.
+When a session starts and the MEMORY.md index is injected by the load-repo-memory hook, proactively read the individual memory files — especially feedback entries — without waiting for the user to ask.
 
-**Why:** Ensures accumulated project knowledge and user preferences are applied from the first response, not rediscovered mid-session.
+**Why:** The MEMORY.md index alone doesn't provide file content. The user expects Claude to arrive already briefed, not needing to be explicitly prompted to "load memory."
 
-**How to apply:** Before making any edits or suggestions, check if MEMORY.md has been read. If not, read it first.
+**How to apply:** At session start, after receiving the MEMORY.md index, read all feedback files. Project and reference memories are lower priority unless the task clearly touches them (they can be derived from code/git history).
