@@ -54,7 +54,10 @@ Status: <in-progress | needs-review | blocked | done>
 
 ## Operating habit (The Gilbert Relay)
 
-- **The Human Trigger (Primary):** Gilbert will proactively tell the assistant when he's switching ("I'm switching to Gemini/Claude"). The outgoing assistant **must** then update the relevant handoff file(s) and the index.
-- **The Takeover Command:** When starting with a new assistant, Gilbert will say "Take over from [Assistant]" or "Read the handoff for [Topic]".
-- **Smart Auto-Detection (Backup):** If the git tree is dirty, check `index.md` first. Only open handoff files that are marked `in-progress` there. Don't scan the directory blindly — archived or done files are noise.
+- **The Human Trigger (Primary):** Gilbert will say when he's switching assistants. The outgoing assistant must update the relevant handoff file(s) and the index.
+- **Trigger phrases:**
+  - `"update the handoff"` — outgoing assistant writes their update
+  - `"read the handoff for [topic]"` — incoming assistant reads and continues
+  - `"take over from [assistant]"` — incoming assistant checks index and picks up in-progress topics
+- **Smart Auto-Detection (Backup):** If the git tree is dirty, check `index.md` first. Only open handoff files marked `in-progress`. Don't scan the directory blindly — archived or done files are noise.
 - Keep updates short and factual — the next assistant needs enough to continue, not a full retelling.
