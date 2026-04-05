@@ -61,10 +61,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- 		nnoremap("glo", "<CMD>TSToolsOrganizeImports<CR>", opts)
 		-- 	end
 
-		keymap(mode, "ga", lsp.code_action, opts)
-		keymap(mode, "gd", lsp.definition, opts)
-		keymap(mode, "gt", lsp.type_definition, opts)
-		keymap(mode, "gi", lsp.implementation, opts)
+		-- keymap(mode, "ga", lsp.code_action, opts)
+		keymap(mode, "grd", lsp.definition, opts)
+		-- keymap(mode, "gt", lsp.type_definition, opts)
+		-- keymap(mode, "gi", function()
+		-- 		local params = vim.lsp.util.make_position_params(0, "utf-16")
+		-- 		vim.lsp.buf_request(0, "textDocument/implementation", params, function(_, result)
+		-- 			if result and #result > 0 then
+		-- 				vim.lsp.buf.implementation()
+		-- 			else
+		-- 				vim.lsp.buf.references()
+		-- 			end
+		-- 		end)
+		-- 	end, opts)
 
 		if vim.fn.findfile("angular.json", ".;") ~= "" then
 			keymap(mode, "grn", function()
