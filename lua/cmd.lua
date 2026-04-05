@@ -51,6 +51,18 @@ vim.api.nvim_create_autocmd("TabEnter", {
 	command = "checktime",
 })
 
+local keyaug = vim.api.nvim_create_augroup("keyaug", { clear = true })
+
+-- use q to close quickfix/help window
+vim.api.nvim_create_autocmd("FileType", {
+	group = keyaug,
+	pattern = { "qf", "help" },
+	callback = function(ev)
+		local cmd = ev.match == "qf" and "<CMD>cclose<CR>" or "<CMD>close<CR>"
+		vim.keymap.set("n", "q", cmd, { buffer = true, noremap = true })
+	end,
+})
+
 -- enable spell check for prose filetypes
 vim.api.nvim_create_autocmd("FileType", {
 	group = comaug,
