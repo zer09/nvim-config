@@ -220,6 +220,7 @@ return {
 					"hjson",
 					"html",
 					"htmldjango",
+					"hurl",
 					"javascript",
 					"jsonc",
 					"jsdoc",
