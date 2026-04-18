@@ -5,6 +5,12 @@ local vnoremap = helper.vnoremap
 
 -- escape sequence
 inoremap("..", "<Esc>")
+vim.keymap.set({ "i", "s" }, "<Esc>", function()
+	if vim.snippet.active() then
+		vim.snippet.stop()
+	end
+	return "<Esc>"
+end, { expr = true })
 
 -- Disabled mappings
 nnoremap("<Space>", "<NOP>")

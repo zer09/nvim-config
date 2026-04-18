@@ -45,6 +45,9 @@ return {
 				["<C-Down>"] = { "scroll_documentation_down", "fallback" },
 			},
 			completion = {
+				ghost_text = {
+					enabled = false,
+				},
 				documentation = {
 					auto_show = false,
 					window = {
