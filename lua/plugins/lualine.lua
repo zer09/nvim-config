@@ -1,3 +1,4 @@
+local maxBranchNameLength = 18
 return {
 	"nvim-lualine/lualine.nvim",
 	opts = {
@@ -6,6 +7,18 @@ return {
 			section_separators = { left = "", right = "" },
 		},
 		sections = {
+			lualine_b = {
+				{
+					"branch",
+					fmt = function(str)
+						local short = str:match("[^/]+$") or str
+						if #short > maxBranchNameLength then
+							return short:sub(1, maxBranchNameLength) .. "…"
+						end
+						return short
+					end,
+				},
+			},
 			lualine_a = {
 				{
 					"mode",
