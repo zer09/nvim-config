@@ -1,4 +1,4 @@
-vim.lsp.config("ty", {
+return {
 	settings = {
 		ty = {
 			-- Let Ruff handle syntax errors
@@ -8,4 +8,4 @@ vim.lsp.config("ty", {
 			},
 		},
 	},
-})
+}

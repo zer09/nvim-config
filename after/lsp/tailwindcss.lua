@@ -1,4 +1,4 @@
-vim.lsp.config("tailwindcss", {
+return {
 	settings = {
 		tailwindCSS = {
 			lint = {
@@ -6,4 +6,4 @@ vim.lsp.config("tailwindcss", {
 			},
 		},
 	},
-})
+}

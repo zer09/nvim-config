@@ -9,7 +9,7 @@ local styled_plugin_path = vim.fn.system("npm root -g"):gsub("\n", "") .. "/@sty
 -- local vue_typescript_plugin_path = vim.fn.stdpath("data")
 -- 	.. "/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin"
 
-vim.lsp.config("ts_ls", {
+return {
 	root_markers = { "tsconfig.json", "package.json" },
 	init_options = {
 		plugins = {
@@ -33,4 +33,4 @@ vim.lsp.config("ts_ls", {
 		hostInfo = "neovim",
 	},
 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-})
+}

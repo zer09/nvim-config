@@ -1,4 +1,4 @@
-vim.lsp.config("yamlls", {
+return {
 	settings = {
 		yaml = {
 			schemaStore = {
@@ -14,4 +14,4 @@ vim.lsp.config("yamlls", {
 			}),
 		},
 	},
-})
+}

@@ -1,4 +1,4 @@
-vim.lsp.config("vue_ls", {
+return {
 	-- init_options = {
 	-- 	typescript = {
 	-- 		-- tsdk = vim.fn.stdpath("data") .. "/mason/packages/typescript-language-server/node_modules/typescript/lib",
@@ -42,4 +42,4 @@ vim.lsp.config("vue_ls", {
 			end)
 		end
 	end,
-})
+}

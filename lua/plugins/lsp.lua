@@ -24,6 +24,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			caps.hoverProvider = false
 		end
 
+		if client.name == "dartls" then
+			vim.lsp.document_color.enable(true, { bufnr = ev.buf, client_id = client.id }, { style = "background" })
+		end
+
 		-- basedpyright: diagnostics off (ty/ruff handle those),
 		-- navigation off where ty already provides it — basedpyright is fallback only
 		if client.name == "basedpyright" then
@@ -224,6 +228,7 @@ return {
 					"javascript",
 					"jsonc",
 					"jsdoc",
+					"latex",
 					"lua",
 					"markdown",
 					"markdown_inline",
@@ -442,12 +447,6 @@ return {
 				},
 				widget_guides = {
 					enabled = true,
-				},
-				lsp = {
-					color = { -- show the derived colours for dart variables
-						enabled = true, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
-						background = true, -- highlight the background
-					},
 				},
 			})
 

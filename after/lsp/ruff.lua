@@ -1,4 +1,4 @@
-vim.lsp.config("ruff", {
+return {
 	init_options = {
 		settings = {
 			lineLength = 88,
@@ -10,4 +10,4 @@ vim.lsp.config("ruff", {
 			},
 		},
 	},
-})
+}

@@ -1,6 +1,6 @@
 -- Navigation only (definition, implementation, references, rename, hover)
 -- Diagnostics disabled at Neovim level — ty handles type checking, ruff handles linting
-vim.lsp.config("basedpyright", {
+return {
 	settings = {
 		basedpyright = {
 			analysis = {
@@ -17,4 +17,4 @@ vim.lsp.config("basedpyright", {
 			venv = ".venv",
 		},
 	},
-})
+}

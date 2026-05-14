@@ -85,7 +85,7 @@ return {
 				},
 				show_end_of_buffer = false,
 				-- integration_default = false,
-				auto_integrations = true,
+				auto_integrations = false,
 				integrations = {
 					blink_cmp = {
 						style = "bordered",

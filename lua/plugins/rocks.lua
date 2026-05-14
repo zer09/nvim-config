@@ -12,5 +12,8 @@ return {
 		anti_conceal = {
 			enabled = false,
 		},
+		latex = {
+			converter = { "latex2text" },
+		},
 	},
 }
