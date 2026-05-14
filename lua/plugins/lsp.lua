@@ -186,6 +186,56 @@ return {
 			local config = require("nvim-treesitter.configs")
 			local ts_repeat = require("nvim-treesitter.textobjects.repeatable_move")
 
+			local function first_node(match, id)
+				local node = match[id]
+				if type(node) == "table" then
+					return node[1]
+				end
+				return node
+			end
+
+			local function parser_from_markdown_info_string(info_string)
+				local aliases = {
+					ex = "elixir",
+					pl = "perl",
+					sh = "bash",
+					ts = "typescript",
+					tsx = "tsx",
+					uxn = "uxntal",
+				}
+				return vim.filetype.match({ filename = "a." .. info_string }) or aliases[info_string] or info_string
+			end
+
+			pcall(require, "nvim-treesitter.query_predicates")
+			vim.treesitter.query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
+				local node = first_node(match, pred[2])
+				if not node then
+					return
+				end
+				local text = vim.treesitter.get_node_text(node, bufnr)
+				metadata["injection.language"] = parser_from_markdown_info_string(text:lower())
+			end, { force = true })
+
+			vim.treesitter.query.add_directive("set-lang-from-mimetype!", function(match, _, bufnr, pred, metadata)
+				local node = first_node(match, pred[2])
+				if not node then
+					return
+				end
+				local mimetype = vim.treesitter.get_node_text(node, bufnr)
+				local configured = {
+					["application/ecmascript"] = "javascript",
+					["importmap"] = "json",
+					["module"] = "javascript",
+					["text/ecmascript"] = "javascript",
+				}
+				if configured[mimetype] then
+					metadata["injection.language"] = configured[mimetype]
+				else
+					local parts = vim.split(mimetype, "/", {})
+					metadata["injection.language"] = parts[#parts]
+				end
+			end, { force = true })
+
 			local next_diag, prev_diag = ts_repeat.make_repeatable_move_pair(function()
 				vim.diagnostic.jump({ count = vim.v.count1, float = true })
 			end, function()
