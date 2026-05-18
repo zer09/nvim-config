@@ -43,8 +43,21 @@ return {
 				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
 				["<C-Up>"] = { "scroll_documentation_up", "fallback" },
 				["<C-Down>"] = { "scroll_documentation_down", "fallback" },
+				["<A-y>"] = {
+					function(cmp)
+						cmp.show({ providers = { "minuet" } })
+					end,
+				},
+				["<F2>"] = {
+					function(cmp)
+						cmp.show({ providers = { "minuet" } })
+					end,
+				},
 			},
 			completion = {
+				trigger = {
+					prefetch_on_insert = false,
+				},
 				ghost_text = {
 					enabled = false,
 				},
@@ -138,6 +151,13 @@ return {
 						module = "lazydev.integrations.blink",
 						-- make lazydev completions top priority (see `:h blink.cmp`)
 						score_offset = 100,
+					},
+					minuet = {
+						name = "minuet",
+						module = "minuet.blink",
+						async = true,
+						timeout_ms = 12000,
+						score_offset = 50,
 					},
 					lsp = {
 						name = "LSP",
