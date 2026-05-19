@@ -2,6 +2,8 @@
 
 This runbook records the config changes and host-level checks needed when upgrading this Neovim config from 0.11 to 0.12 on another device.
 
+For general machine setup, local assumptions, tool ownership, and optional host dependencies, see [`docs/setup.md`](./setup.md).
+
 Target host profile:
 
 - Distribution: openSUSE Tumbleweed

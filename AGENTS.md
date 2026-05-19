@@ -2,17 +2,16 @@
 
 ## Project scope
 
-This repository is a personal Neovim configuration targeting Neovim 0.12 on openSUSE Tumbleweed.
+This repository is a personal Neovim configuration targeting Neovim 0.12 on Linux workstations. The current workstation is summarized in `docs/setup.md`.
 
-Primary assumptions:
+Current workstation assumptions live in `docs/setup.md`; keep that file as the source of truth for distro, package manager, and available toolchains.
 
-- OS: openSUSE Tumbleweed
-- Package manager: `zypper`
-- Available toolchains: `cargo`, `uv`, `npm`, `ty`, `go`
-- Plugin manager: `lazy.nvim`
+Plugin manager: `lazy.nvim`
 
 ## Working style
 
+- Read `CONTEXT.md` for glossary and workflow language before changing behavior or documentation.
+- Read `docs/setup.md` for local assumptions, tool ownership, and host setup guidance before changing setup, tooling, or dependency behavior.
 - Preserve the existing file and folder structure.
 - Make small, surgical changes that match the current Lua style.
 - Read existing config before editing.
