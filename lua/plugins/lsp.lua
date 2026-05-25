@@ -194,6 +194,18 @@ return {
 				return node
 			end
 
+			local function node_text(match, id, bufnr, opts)
+				local node = first_node(match, id)
+				if not node then
+					return nil
+				end
+				local ok, text = pcall(vim.treesitter.get_node_text, node, bufnr, opts)
+				if not ok then
+					return nil
+				end
+				return text
+			end
+
 			local function parser_from_markdown_info_string(info_string)
 				local aliases = {
 					ex = "elixir",
@@ -208,20 +220,18 @@ return {
 
 			pcall(require, "nvim-treesitter.query_predicates")
 			vim.treesitter.query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
-				local node = first_node(match, pred[2])
-				if not node then
+				local text = node_text(match, pred[2], bufnr)
+				if not text then
 					return
 				end
-				local text = vim.treesitter.get_node_text(node, bufnr)
 				metadata["injection.language"] = parser_from_markdown_info_string(text:lower())
 			end, { force = true })
 
 			vim.treesitter.query.add_directive("set-lang-from-mimetype!", function(match, _, bufnr, pred, metadata)
-				local node = first_node(match, pred[2])
-				if not node then
+				local mimetype = node_text(match, pred[2], bufnr)
+				if not mimetype then
 					return
 				end
-				local mimetype = vim.treesitter.get_node_text(node, bufnr)
 				local configured = {
 					["application/ecmascript"] = "javascript",
 					["importmap"] = "json",
@@ -234,6 +244,19 @@ return {
 					local parts = vim.split(mimetype, "/", {})
 					metadata["injection.language"] = parts[#parts]
 				end
+			end, { force = true })
+
+			vim.treesitter.query.add_directive("downcase!", function(match, _, bufnr, pred, metadata)
+				local id = pred[2]
+				local node = first_node(match, id)
+				if not node then
+					return
+				end
+				local text = node_text(match, id, bufnr, { metadata = metadata[id] }) or ""
+				if not metadata[id] then
+					metadata[id] = {}
+				end
+				metadata[id].text = string.lower(text)
 			end, { force = true })
 
 			local next_diag, prev_diag = ts_repeat.make_repeatable_move_pair(function()

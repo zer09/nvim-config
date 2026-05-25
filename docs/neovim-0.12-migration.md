@@ -110,7 +110,7 @@ Migration commits in this config:
 - `81c74bd chore: migrate neovim config to 0.12`
 - `fb051ca fix: handle treesitter injection captures on nvim 0.12`
 
-The `nvim-treesitter` markdown `range` nil error is handled by the local directive compatibility patch in `lua/plugins/lsp.lua`; do not remove that patch while this config stays on the frozen `nvim-treesitter` `master` branch.
+The `nvim-treesitter` markdown `range` nil error is handled by the local directive compatibility patch in `lua/plugins/lsp.lua`, including `set-lang-from-info-string!`, `set-lang-from-mimetype!`, and `downcase!`; do not remove that patch while this config stays on the frozen `nvim-treesitter` `master` branch.
 
 ## Migration scope
 
