@@ -1,6 +1,7 @@
 return {
 	{
 		"f-person/auto-dark-mode.nvim",
+		branch = "main",
 		opts = {
 			-- your configuration comes here
 			-- or leave it empty to use the default settings
