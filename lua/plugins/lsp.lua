@@ -468,6 +468,7 @@ return {
 				-- "djlsp",
 				"eslint",
 				"gopls",
+				"harper_ls",
 				"html",
 				"jsonls",
 				"lua_ls",
