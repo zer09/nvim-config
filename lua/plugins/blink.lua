@@ -161,7 +161,7 @@ return {
 						module = "blink-cmp-dictionary",
 						min_keyword_length = 3,
 						opts = {
-							dictionary_files = { "/usr/share/dict/words" },
+							dictionary_files = { "/var/lib/dict/words" },
 						},
 					},
 				},
