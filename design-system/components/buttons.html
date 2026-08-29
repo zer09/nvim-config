@@ -1,0 +1,601 @@
+<!-- @dsCard group="Components" name="Buttons" subtitle="Primary / secondary / ghost / danger, 3 sizes" -->
+<meta charset="utf-8" />
+<title>Buttons — Gruvbox Material</title>
+<style>
+/* @ds:start */
+/* ==========================================================================
+   Gruvbox Material — design tokens
+   Derived from lua/plugins/colorscheme.lua (catppuccin engine, gruvbox-material
+   color_overrides). Light = latte/gruvbox hard light, Dark = mocha/gruvbox hard
+   dark. Ambient by default; .scheme-light / .scheme-dark force a mode so both
+   can be shown side by side.
+   ========================================================================== */
+
+:root,
+.scheme-light {
+  color-scheme: light;
+
+  /* Surfaces — warm paper, not white */
+  --ds-bg: #f9f5d7;          /* base   */
+  --ds-bg-sunken: #f0ebce;   /* mantle */
+  --ds-bg-deep: #e8e3c8;     /* crust  */
+  --ds-surface: #e3dec3;     /* surface0 */
+  --ds-surface-raised: #d1c7a3;
+  --ds-surface-high: #bfb695;
+
+  /* Lines */
+  --ds-line: #d1c7a3;
+  --ds-line-strong: #a69d81;
+
+  /* Text */
+  --ds-text: #654735;
+  --ds-text-muted: #73503c;
+  --ds-text-subtle: #805942;
+  --ds-text-faint: #8c856d;
+  --ds-text-on-accent: #f9f5d7;
+
+  /* Palette */
+  --ds-red: #c14a4a;
+  --ds-orange: #c35e0a;
+  --ds-yellow: #b47109;
+  --ds-green: #6c782e;
+  --ds-aqua: #4c7a5d;
+  --ds-blue: #45707a;
+  --ds-purple: #945e80;
+
+  --ds-shadow-float: 0 8px 24px -12px rgba(101, 71, 53, 0.45);
+  --ds-shadow-card: 0 1px 2px rgba(101, 71, 53, 0.10);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.scheme-light) {
+    color-scheme: dark;
+
+    --ds-bg: #1d2021;
+    --ds-bg-sunken: #191b1c;
+    --ds-bg-deep: #141617;
+    --ds-surface: #292929;
+    --ds-surface-raised: #404040;
+    --ds-surface-high: #4d4d4d;
+
+    --ds-line: #404040;
+    --ds-line-strong: #595959;
+
+    --ds-text: #ebdbb2;
+    --ds-text-muted: #d5c4a1;
+    --ds-text-subtle: #bdae93;
+    --ds-text-faint: #928374;
+    --ds-text-on-accent: #1d2021;
+
+    --ds-red: #ea6962;
+    --ds-orange: #e78a4e;
+    --ds-yellow: #d8a657;
+    --ds-green: #a9b665;
+    --ds-aqua: #89b482;
+    --ds-blue: #7daea3;
+    --ds-purple: #d3869b;
+
+    --ds-shadow-float: 0 10px 28px -14px rgba(0, 0, 0, 0.75);
+    --ds-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35);
+  }
+}
+
+.scheme-dark {
+  color-scheme: dark;
+
+  --ds-bg: #1d2021;
+  --ds-bg-sunken: #191b1c;
+  --ds-bg-deep: #141617;
+  --ds-surface: #292929;
+  --ds-surface-raised: #404040;
+  --ds-surface-high: #4d4d4d;
+
+  --ds-line: #404040;
+  --ds-line-strong: #595959;
+
+  --ds-text: #ebdbb2;
+  --ds-text-muted: #d5c4a1;
+  --ds-text-subtle: #bdae93;
+  --ds-text-faint: #928374;
+  --ds-text-on-accent: #1d2021;
+
+  --ds-red: #ea6962;
+  --ds-orange: #e78a4e;
+  --ds-yellow: #d8a657;
+  --ds-green: #a9b665;
+  --ds-aqua: #89b482;
+  --ds-blue: #7daea3;
+  --ds-purple: #d3869b;
+
+  --ds-shadow-float: 0 10px 28px -14px rgba(0, 0, 0, 0.75);
+  --ds-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* --- Semantic roles (mode-independent aliases) --------------------------- */
+:root,
+.scheme-light,
+.scheme-dark {
+  --ds-accent: var(--ds-blue);          /* borders, focus, links — "lavender" */
+  --ds-success: var(--ds-green);        /* GitSignsAdd, staged, untracked     */
+  --ds-attention: var(--ds-orange);     /* GitSignsChange, modified           */
+  --ds-warning: var(--ds-yellow);
+  --ds-danger: var(--ds-red);           /* Error, conflict, deleted           */
+  --ds-info: var(--ds-blue);
+  --ds-hint: var(--ds-aqua);
+
+  /* Syntax roles — the config's highlight_overrides, verbatim */
+  --ds-syn-keyword: var(--ds-red);      /* Keyword, Conditional, Repeat       */
+  --ds-syn-func: var(--ds-green);       /* Function (bold)                    */
+  --ds-syn-type: var(--ds-yellow);      /* Type, Namespace (bold)             */
+  --ds-syn-string: var(--ds-aqua);      /* String, Character                  */
+  --ds-syn-number: var(--ds-purple);    /* Number, Boolean, Float, builtins   */
+  --ds-syn-prop: var(--ds-blue);        /* Field, Property, URI               */
+  --ds-syn-op: var(--ds-orange);        /* Operator, Tag, Label, Title        */
+  --ds-syn-comment: var(--ds-text-faint);
+  --ds-syn-var: var(--ds-text);
+  --ds-syn-punct: var(--ds-text-subtle);
+
+  /* Type — mono-forward, because the source is a terminal editor */
+  --ds-font-mono: ui-monospace, "JetBrainsMono Nerd Font", "JetBrains Mono",
+    "IBM Plex Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --ds-font-ui: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+
+  --ds-fs-xs: 11px;
+  --ds-fs-sm: 12px;
+  --ds-fs-md: 13px;
+  --ds-fs-lg: 15px;
+  --ds-fs-xl: 19px;
+  --ds-fs-2xl: 25px;
+  --ds-fs-3xl: 33px;
+
+  --ds-lh-tight: 1.25;
+  --ds-lh-code: 1.6;
+  --ds-lh-prose: 1.65;
+
+  --ds-tracking-label: 0.08em;
+
+  /* Space — 4px base, matching nvim's 1-cell padding rhythm */
+  --ds-1: 4px;
+  --ds-2: 8px;
+  --ds-3: 12px;
+  --ds-4: 16px;
+  --ds-5: 24px;
+  --ds-6: 32px;
+  --ds-7: 48px;
+
+  /* Radius — `border = "rounded"` everywhere */
+  --ds-r-sm: 4px;
+  --ds-r-md: 6px;
+  --ds-r-lg: 10px;
+  --ds-r-full: 999px;
+
+  --ds-border: 1px;
+  --ds-focus-ring: 0 0 0 2px var(--ds-bg), 0 0 0 4px var(--ds-accent);
+
+  /* Floats use winblend 10 → ~92% opaque, never fully solid */
+  --ds-float-opacity: 0.92;
+  --ds-motion-fast: 90ms ease-out;
+  --ds-motion: 160ms cubic-bezier(0.2, 0, 0, 1);
+}
+/* ==========================================================================
+   Gruvbox Material — component layer
+   Depends on tokens/theme.css. Every rule reads from tokens only, so the
+   whole system re-skins by swapping the token block.
+   ========================================================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body.ds-page {
+  margin: 0;
+  padding: var(--ds-6);
+  background: var(--ds-bg);
+  color: var(--ds-text);
+  font-family: var(--ds-font-ui);
+  font-size: var(--ds-fs-md);
+  line-height: var(--ds-lh-prose);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Page scaffolding used by the preview cards -------------------------- */
+.ds-head { margin: 0 0 var(--ds-5); }
+.ds-title {
+  margin: 0 0 var(--ds-1);
+  font-family: var(--ds-font-mono);
+  font-size: var(--ds-fs-xl);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ds-text);
+}
+.ds-sub {
+  margin: 0;
+  color: var(--ds-text-faint);
+  font-size: var(--ds-fs-sm);
+  max-width: 68ch;
+}
+.ds-section { margin-top: var(--ds-6); }
+.ds-label {
+  margin: 0 0 var(--ds-3);
+  font-family: var(--ds-font-mono);
+  font-size: var(--ds-fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--ds-tracking-label);
+  text-transform: uppercase;
+  color: var(--ds-text-faint);
+}
+.ds-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-3);
+  align-items: center;
+}
+.ds-stack { display: flex; flex-direction: column; gap: var(--ds-3); }
+.ds-grid {
+  display: grid;
+  gap: var(--ds-3);
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.ds-split {
+  display: grid;
+  gap: var(--ds-4);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.ds-pane {
+  background: var(--ds-bg);
+  border: var(--ds-border) solid var(--ds-line);
+  border-radius: var(--ds-r-lg);
+  padding: var(--ds-4);
+  overflow-x: auto;
+}
+.ds-note {
+  color: var(--ds-text-faint);
+  font-size: var(--ds-fs-xs);
+  font-family: var(--ds-font-mono);
+}
+
+/* --- Buttons ------------------------------------------------------------- */
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-2);
+  padding: 0 var(--ds-3);
+  height: 30px;
+  border: var(--ds-border) solid transparent;
+  border-radius: var(--ds-r-md);
+  background: var(--ds-surface);
+  color: var(--ds-text);
+  font: 600 var(--ds-fs-md) / 1 var(--ds-font-mono);
+  cursor: pointer;
+  transition: background var(--ds-motion-fast), border-color var(--ds-motion-fast),
+    color var(--ds-motion-fast);
+}
+.ds-btn:hover { background: var(--ds-surface-raised); }
+.ds-btn:focus-visible { outline: none; box-shadow: var(--ds-focus-ring); }
+.ds-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+.ds-btn--primary {
+  background: var(--ds-green);
+  color: var(--ds-text-on-accent);
+}
+.ds-btn--primary:hover { filter: brightness(1.08); background: var(--ds-green); }
+
+.ds-btn--secondary {
+  background: transparent;
+  border-color: var(--ds-line-strong);
+  color: var(--ds-text-muted);
+}
+.ds-btn--secondary:hover { border-color: var(--ds-accent); color: var(--ds-text); }
+
+.ds-btn--ghost { background: transparent; color: var(--ds-text-muted); }
+.ds-btn--ghost:hover { background: var(--ds-surface); color: var(--ds-text); }
+
+.ds-btn--danger { background: var(--ds-red); color: var(--ds-text-on-accent); }
+.ds-btn--danger:hover { filter: brightness(1.08); background: var(--ds-red); }
+
+.ds-btn--sm { height: 24px; font-size: var(--ds-fs-sm); padding: 0 var(--ds-2); }
+.ds-btn--lg { height: 38px; font-size: var(--ds-fs-lg); padding: 0 var(--ds-4); }
+
+.ds-kbd {
+  font: 600 var(--ds-fs-xs) / 1 var(--ds-font-mono);
+  padding: 3px 6px;
+  border: var(--ds-border) solid var(--ds-line);
+  border-bottom-width: 2px;
+  border-radius: var(--ds-r-sm);
+  background: var(--ds-bg-sunken);
+  color: var(--ds-text-subtle);
+}
+
+/* --- Form controls ------------------------------------------------------- */
+.ds-field { display: flex; flex-direction: column; gap: var(--ds-1); }
+.ds-field > label {
+  font: 600 var(--ds-fs-sm) / 1.4 var(--ds-font-mono);
+  color: var(--ds-text-muted);
+}
+.ds-input,
+.ds-select,
+.ds-textarea {
+  width: 100%;
+  padding: var(--ds-2) var(--ds-3);
+  background: var(--ds-bg-sunken);
+  color: var(--ds-text);
+  border: var(--ds-border) solid var(--ds-line);
+  border-radius: var(--ds-r-md);
+  font: 400 var(--ds-fs-md) / 1.4 var(--ds-font-mono);
+  transition: border-color var(--ds-motion-fast);
+}
+.ds-input::placeholder,
+.ds-textarea::placeholder { color: var(--ds-text-faint); }
+.ds-input:focus,
+.ds-select:focus,
+.ds-textarea:focus {
+  outline: none;
+  border-color: var(--ds-accent);
+  box-shadow: var(--ds-focus-ring);
+}
+.ds-input--error { border-color: var(--ds-red); }
+.ds-help { font-size: var(--ds-fs-xs); color: var(--ds-text-faint); }
+.ds-help--error { color: var(--ds-red); }
+
+.ds-check { display: inline-flex; align-items: center; gap: var(--ds-2); cursor: pointer; }
+.ds-check input { accent-color: var(--ds-green); width: 15px; height: 15px; }
+
+.ds-switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: var(--ds-r-full);
+  background: var(--ds-surface-high);
+  border: none;
+  cursor: pointer;
+  transition: background var(--ds-motion);
+}
+.ds-switch::after {
+  content: "";
+  position: absolute;
+  inset: 3px auto 3px 3px;
+  width: 14px;
+  border-radius: var(--ds-r-full);
+  background: var(--ds-bg);
+  transition: transform var(--ds-motion);
+}
+.ds-switch[aria-checked="true"] { background: var(--ds-green); }
+.ds-switch[aria-checked="true"]::after { transform: translateX(16px); }
+
+/* --- Surfaces ------------------------------------------------------------ */
+.ds-card {
+  background: var(--ds-bg-sunken);
+  border: var(--ds-border) solid var(--ds-line);
+  border-radius: var(--ds-r-lg);
+  padding: var(--ds-4);
+  box-shadow: var(--ds-shadow-card);
+}
+.ds-card__title {
+  margin: 0 0 var(--ds-1);
+  font: 700 var(--ds-fs-lg) / 1.3 var(--ds-font-mono);
+}
+.ds-card__body { margin: 0; color: var(--ds-text-muted); font-size: var(--ds-fs-md); }
+
+/* Floating window — the nvim `border = "rounded"` + winblend = 10 idiom */
+.ds-float {
+  background: color-mix(in srgb, var(--ds-bg) calc(var(--ds-float-opacity) * 100%), transparent);
+  border: var(--ds-border) solid var(--ds-accent);
+  border-radius: var(--ds-r-lg);
+  box-shadow: var(--ds-shadow-float);
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+.ds-float__title {
+  padding: var(--ds-1) var(--ds-3);
+  font: 600 var(--ds-fs-xs) / 1.6 var(--ds-font-mono);
+  letter-spacing: var(--ds-tracking-label);
+  text-transform: uppercase;
+  color: var(--ds-accent);
+  border-bottom: var(--ds-border) solid var(--ds-line);
+}
+.ds-float__body { padding: var(--ds-2) 0; }
+.ds-float__item {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-2);
+  padding: var(--ds-1) var(--ds-3);
+  font: 400 var(--ds-fs-md) / 1.5 var(--ds-font-mono);
+  color: var(--ds-text-muted);
+}
+.ds-float__item[aria-selected="true"] {
+  background: var(--ds-surface);
+  color: var(--ds-text);
+}
+
+/* --- Status & feedback --------------------------------------------------- */
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-1);
+  padding: 2px var(--ds-2);
+  border-radius: var(--ds-r-full);
+  font: 600 var(--ds-fs-xs) / 1.5 var(--ds-font-mono);
+  border: var(--ds-border) solid currentColor;
+  background: transparent;
+}
+.ds-badge--success { color: var(--ds-green); }
+.ds-badge--attention { color: var(--ds-orange); }
+.ds-badge--warning { color: var(--ds-yellow); }
+.ds-badge--danger { color: var(--ds-red); }
+.ds-badge--info { color: var(--ds-blue); }
+.ds-badge--hint { color: var(--ds-aqua); }
+.ds-badge--neutral { color: var(--ds-text-faint); }
+
+.ds-alert {
+  display: flex;
+  gap: var(--ds-3);
+  padding: var(--ds-3);
+  border-radius: var(--ds-r-md);
+  border-left: 3px solid var(--ds-line-strong);
+  background: var(--ds-bg-sunken);
+  font-size: var(--ds-fs-md);
+}
+.ds-alert__icon { font-family: var(--ds-font-mono); font-weight: 700; }
+.ds-alert--danger { border-left-color: var(--ds-red); }
+.ds-alert--danger .ds-alert__icon { color: var(--ds-red); }
+.ds-alert--warning { border-left-color: var(--ds-yellow); }
+.ds-alert--warning .ds-alert__icon { color: var(--ds-yellow); }
+.ds-alert--info { border-left-color: var(--ds-blue); }
+.ds-alert--info .ds-alert__icon { color: var(--ds-blue); }
+.ds-alert--success { border-left-color: var(--ds-green); }
+.ds-alert--success .ds-alert__icon { color: var(--ds-green); }
+
+.ds-progress {
+  height: 6px;
+  border-radius: var(--ds-r-full);
+  background: var(--ds-surface);
+  overflow: hidden;
+}
+.ds-progress > i { display: block; height: 100%; background: var(--ds-green); }
+
+/* --- Statusline (lualine: no separators, flat blocks) -------------------- */
+.ds-statusline {
+  display: flex;
+  align-items: stretch;
+  border-radius: var(--ds-r-md);
+  overflow: hidden;
+  font: 600 var(--ds-fs-sm) / 1 var(--ds-font-mono);
+  background: var(--ds-bg-sunken);
+}
+.ds-statusline > span {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--ds-3);
+  height: 26px;
+  color: var(--ds-text-subtle);
+}
+.ds-statusline .ds-sl-mode { background: var(--ds-green); color: var(--ds-text-on-accent); }
+.ds-statusline .ds-sl-mode--i { background: var(--ds-blue); }
+.ds-statusline .ds-sl-mode--v { background: var(--ds-purple); }
+.ds-statusline .ds-sl-branch { background: var(--ds-surface); color: var(--ds-text-muted); }
+.ds-statusline .ds-sl-spacer { flex: 1; }
+.ds-statusline .ds-sl-noice { color: var(--ds-orange); }
+
+/* --- Tabs (NeoTree tab active/inactive) ---------------------------------- */
+.ds-tabs { display: flex; gap: 2px; font: 600 var(--ds-fs-sm) / 1 var(--ds-font-mono); }
+.ds-tab {
+  padding: var(--ds-2) var(--ds-3);
+  border-radius: var(--ds-r-md) var(--ds-r-md) 0 0;
+  background: var(--ds-bg-deep);
+  color: var(--ds-surface-high);
+  cursor: pointer;
+}
+.ds-tab[aria-selected="true"] { background: var(--ds-bg-sunken); color: var(--ds-text); }
+
+/* --- Code ---------------------------------------------------------------- */
+.ds-code {
+  margin: 0;
+  padding: var(--ds-4);
+  background: var(--ds-bg-sunken);
+  border: var(--ds-border) solid var(--ds-line);
+  border-radius: var(--ds-r-lg);
+  font: 400 var(--ds-fs-md) / var(--ds-lh-code) var(--ds-font-mono);
+  color: var(--ds-text);
+  overflow-x: auto;
+  tab-size: 2;
+}
+.ds-code .ln { color: var(--ds-text-faint); user-select: none; }
+.tok-kw { color: var(--ds-syn-keyword); }
+.tok-fn { color: var(--ds-syn-func); font-weight: 700; }
+.tok-ty { color: var(--ds-syn-type); font-weight: 700; }
+.tok-str { color: var(--ds-syn-string); }
+.tok-num { color: var(--ds-syn-number); }
+.tok-prop { color: var(--ds-syn-prop); }
+.tok-op { color: var(--ds-syn-op); }
+.tok-com { color: var(--ds-syn-comment); font-style: italic; }
+.tok-var { color: var(--ds-syn-var); }
+.tok-punct { color: var(--ds-syn-punct); }
+
+/* --- Swatches ------------------------------------------------------------ */
+.ds-swatch {
+  border: var(--ds-border) solid var(--ds-line);
+  border-radius: var(--ds-r-md);
+  overflow: hidden;
+  background: var(--ds-bg-sunken);
+}
+.ds-swatch__chip { height: 56px; }
+.ds-swatch__meta {
+  padding: var(--ds-2) var(--ds-3);
+  font: 400 var(--ds-fs-xs) / 1.5 var(--ds-font-mono);
+}
+.ds-swatch__name { display: block; font-weight: 700; color: var(--ds-text); }
+.ds-swatch__hex { display: block; color: var(--ds-text-faint); text-transform: uppercase; }
+/* @ds:end */
+.matrix { display: grid; gap: var(--ds-3); grid-template-columns: 96px repeat(4, minmax(0, 1fr)); align-items: center; }
+.matrix > .h { font: 600 var(--ds-fs-xs)/1 var(--ds-font-mono); letter-spacing: var(--ds-tracking-label); text-transform: uppercase; color: var(--ds-text-faint); }
+</style>
+
+<body class="ds-page">
+  <header class="ds-head">
+    <h1 class="ds-title">Buttons</h1>
+    <p class="ds-sub">
+      Labels set in the mono face at 600 — buttons read as commands, not prose. Green is the primary
+      fill because green is what the editor uses for callable things. Only one primary per view.
+    </p>
+  </header>
+
+  <section class="ds-section">
+    <p class="ds-label">Variants × state</p>
+    <div class="matrix">
+      <span class="h"></span><span class="h">primary</span><span class="h">secondary</span><span class="h">ghost</span><span class="h">danger</span>
+
+      <span class="h">rest</span>
+      <span><button class="ds-btn ds-btn--primary">Format buffer</button></span>
+      <span><button class="ds-btn ds-btn--secondary">Preview</button></span>
+      <span><button class="ds-btn ds-btn--ghost">Dismiss</button></span>
+      <span><button class="ds-btn ds-btn--danger">Delete</button></span>
+
+      <span class="h">hover</span>
+      <span><button class="ds-btn ds-btn--primary" style="filter:brightness(1.08)">Format buffer</button></span>
+      <span><button class="ds-btn ds-btn--secondary" style="border-color:var(--ds-accent);color:var(--ds-text)">Preview</button></span>
+      <span><button class="ds-btn ds-btn--ghost" style="background:var(--ds-surface);color:var(--ds-text)">Dismiss</button></span>
+      <span><button class="ds-btn ds-btn--danger" style="filter:brightness(1.08)">Delete</button></span>
+
+      <span class="h">focus</span>
+      <span><button class="ds-btn ds-btn--primary" style="box-shadow:var(--ds-focus-ring)">Format buffer</button></span>
+      <span><button class="ds-btn ds-btn--secondary" style="box-shadow:var(--ds-focus-ring)">Preview</button></span>
+      <span><button class="ds-btn ds-btn--ghost" style="box-shadow:var(--ds-focus-ring)">Dismiss</button></span>
+      <span><button class="ds-btn ds-btn--danger" style="box-shadow:var(--ds-focus-ring)">Delete</button></span>
+
+      <span class="h">disabled</span>
+      <span><button class="ds-btn ds-btn--primary" disabled>Format buffer</button></span>
+      <span><button class="ds-btn ds-btn--secondary" disabled>Preview</button></span>
+      <span><button class="ds-btn ds-btn--ghost" disabled>Dismiss</button></span>
+      <span><button class="ds-btn ds-btn--danger" disabled>Delete</button></span>
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <p class="ds-label">Sizes — 24 / 30 / 38px</p>
+    <div class="ds-row">
+      <button class="ds-btn ds-btn--primary ds-btn--sm">Small</button>
+      <button class="ds-btn ds-btn--primary">Default</button>
+      <button class="ds-btn ds-btn--primary ds-btn--lg">Large</button>
+    </div>
+  </section>
+
+  <section class="ds-section ds-split">
+    <div>
+      <p class="ds-label">With icon &amp; keycap</p>
+      <div class="ds-row">
+        <button class="ds-btn ds-btn--secondary"><span style="color:var(--ds-green)">✓</span> Stage hunk <span class="ds-kbd">&lt;leader&gt;hs</span></button>
+        <button class="ds-btn ds-btn--ghost"><span style="color:var(--ds-orange)">↺</span> Reset</button>
+      </div>
+    </div>
+    <div>
+      <p class="ds-label">Dark</p>
+      <div class="scheme-dark ds-row" style="padding:var(--ds-3);border-radius:var(--ds-r-lg);background:var(--ds-bg)">
+        <button class="ds-btn ds-btn--primary">Format buffer</button>
+        <button class="ds-btn ds-btn--secondary">Preview</button>
+        <button class="ds-btn ds-btn--ghost">Dismiss</button>
+        <button class="ds-btn ds-btn--danger">Delete</button>
+      </div>
+    </div>
+  </section>
+</body>

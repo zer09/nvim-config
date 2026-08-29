@@ -1,0 +1,16 @@
+{
+  "projectId": "163844d2-c715-4022-afd9-659a162a3d90",
+  "projectName": "Catppuccin (nvim)",
+  "shape": "package",
+  "offScript": true,
+  "scope": "style-guide-only",
+  "bundleDir": "ds-bundle",
+  "readmeHeader": ".design-sync/conventions.md",
+  "source": {
+    "designSystemDir": "design-system",
+    "tokens": "design-system/tokens/theme.css",
+    "components": "design-system/styles/ds.css",
+    "previews": "design-system/{foundations,components}/*.html",
+    "syncScript": "design-system/scripts/build-ds-bundle.py"
+  }
+}
